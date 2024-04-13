@@ -14,8 +14,9 @@ def open_edit_budget_window():
     def save_budget():
         new_category = add_categories_entry.get()
         if new_category not in categories and new_category != "":
-            categories.append(new_category)
-            category_menu['menu'].add_command(label=add_categories_entry.get(), command=tk._setit(selected_category_var, add_categories_entry.get()))
+            categories.append(new_category) #set the entry text as Var, so it can be added as a menu 
+            category_menu['menu'].add_command(command=tk._setit(selected_category_var, add_categories_entry.get()), label=add_categories_entry.get())
+            add_categories_entry.delete(0, 'end') #deletes from the first index to the end of the widget entry 
         else:
             pass
 
