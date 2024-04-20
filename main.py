@@ -2,8 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 from customtkinter import *
 import edit_budget
-import set_income
-import set_categories
+
 
 root = tk.Tk()
 root.title("Tkinter Sample")
