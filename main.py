@@ -23,7 +23,7 @@ insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
 edit_budget_button = tk.Button(root, text="Edit Budget",height= 10,width=20, command=open_edit_budget_window)
 edit_budget_button.grid(row=1, column=1, padx=10, pady=5,sticky="w")
 
-update_expenses_button = tk.Button(root, text="Update Expenses",height= 10,width=20, command=open_update_expenses_window)
+update_expenses_button = tk.Button(root, text="Update Expenses",height= 10,width=20, command=toggle_fullscreen)
 update_expenses_button.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
 
