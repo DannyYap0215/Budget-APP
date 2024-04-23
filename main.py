@@ -1,7 +1,7 @@
 from customtkinter import *
 import edit_budget
 import update_expenses
-import insightimport update_expenses
+import insight
 
 root = CTk()
 root.title("Tkinter Sample")
