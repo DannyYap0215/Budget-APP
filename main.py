@@ -1,7 +1,7 @@
 from customtkinter import *
 import edit_budget
 import update_expenses
-import insight
+import insightimport update_expenses
 
 root = CTk()
 root.title("Tkinter Sample")
@@ -28,7 +28,7 @@ insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
 edit_budget_button = CTkButton(root, text="Edit Budget", height= 10,width=20, command=open_edit_budget_window)
 edit_budget_button.grid(row=1, column=1, padx=10, pady=5,sticky="w")
 
-update_expenses_button = CTkButton(root, text="Update Expenses",height= 10,width=20, command=toggle_fullscreen)
+update_expenses_button = CTkButton(root, text="Update Expenses",height= 10,width=20, command=open_update_expenses_window)
 update_expenses_button.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
 
