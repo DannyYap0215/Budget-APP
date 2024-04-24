@@ -18,7 +18,7 @@ def open_insight_window():
     canvas.place(x=50,y=50)
 
     PieV=[25,45,10,20]
-    colV=["red","Blue","Yellow","Green"]
+    colV=["Red","Yellow","Green","Blue"]
     createPieChart(canvas,PieV,colV)   
 
     insight_window.mainloop()
