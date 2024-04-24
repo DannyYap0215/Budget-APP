@@ -3,7 +3,7 @@ import edit_budget
 import update_expenses
 
 root = CTk()
-root.title("Tkinter Sample")
+root.title("Budget!")
 screen_width = 500
 screen_height = 600
 root.geometry(f"{screen_width}x{screen_height}")
