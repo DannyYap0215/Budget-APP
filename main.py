@@ -6,7 +6,7 @@ import insight
 root = CTk()
 root.title("Budget!")
 screen_width = 500
-screen_height = 600
+screen_height = 300
 root.geometry(f"{screen_width}x{screen_height}")
 
 def toggle_fullscreen(event=None):
