@@ -23,9 +23,10 @@ def open_set_categories_window():
         
     def save_2():
         allocated_budget = allocate_categories_entry.get()
+        category_selected = category_menu.get()
         if allocated_budget not in allocated and allocated_budget != "":
             allocated.append(allocated_budget) 
-            print(allocated)
+            print(category_selected, allocated_budget)
             allocate_categories_entry.delete(0, 'end')
         else:
             pass
