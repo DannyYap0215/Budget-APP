@@ -48,7 +48,7 @@ def open_set_categories_window():
     def save_1():
         new_category = add_categories_entry.get()
         if new_category != "" and month_is_choosen == True and month_choosen == choose_month_menu.get():
-            if new_category.strip() == True:  # Check if new_category contains non-whitespace characters
+            if new_category.strip(): 
                 if new_category not in categories:
                     categories.append(new_category) 
                     category_menu.configure(values=categories)
