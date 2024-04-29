@@ -46,7 +46,7 @@ def open_expenses_history_window(expenses_data):
         for expense in filtered_expenses:
             expenses_treeview.insert("", "end", values=expense)
 
-    # Button to update expenses treeview
+    #Button to update expenses treeview
     update_button = CTkButton(expenses_history_window, text="Update", command=update_expenses_treeview)
     update_button.grid(row=0, column=2, padx=10, pady=5, sticky="w")
 
@@ -57,9 +57,9 @@ def open_expenses_history_window(expenses_data):
     expenses_treeview.heading("Note", text="Note")
     expenses_treeview.grid(row=1, column=0, columnspan=3, padx=10, pady=5)
 
-    # Insert all expenses data initially
+    #Insert all expenses data initially
     for expense in expenses_data:
         expenses_treeview.insert("", "end", values=expense)
 
-    # Update the treeview based on the initially selected month
+    #Update the treeview based on the initially selected month
     update_expenses_treeview()
