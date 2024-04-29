@@ -1,5 +1,6 @@
 from customtkinter import *
 from tkcalendar import DateEntry
+from datetime import datetime
 
 expenses_categories = [
     "Food",
@@ -14,10 +15,12 @@ expenses_categories = [
     "Gift",
 ]
 
+expenses_data = []
+
 def open_update_expenses_window():
     update_expenses_window = CTkToplevel()
     update_expenses_window.title("Update Expenses")
-    update_expenses_window.geometry("400x300")
+    update_expenses_window.geometry("500x400")
     
     #Label for date
     date_picker_label = CTkLabel(update_expenses_window, text="Date :")
@@ -62,6 +65,14 @@ def open_update_expenses_window():
     expenses_note_entry = CTkEntry(update_expenses_window)
     expenses_note_entry.grid(row=7, column=1, padx=10, pady=5, sticky="w")
 
+    def save_expenses():
+        expenses_date = date_entry.get_date()
+        expenses_amount = expenses_amount_entry.get()
+        expenses_categories = expenses_categories_menu.get()
+        expenses_note = expenses_note_entry.get()
+        expenses_data.append((expenses_date, expenses_amount, expenses_categories, expenses_note))
+        update_expenses_window.destroy()
+    
     #Button to save expenses
-    save_expenses_button = CTkButton(update_expenses_window, text="Save Expenses")
+    save_expenses_button = CTkButton(update_expenses_window, text="Save Expenses", command=save_expenses)
     save_expenses_button.grid(row=9, column=0, padx=10, pady=5, sticky="w")

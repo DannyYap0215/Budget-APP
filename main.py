@@ -2,11 +2,13 @@ from customtkinter import *
 import edit_budget
 import update_expenses
 import insight
+import expenses_history
+from update_expenses import expenses_data
 
 root = CTk()
-root.title("Tkinter Sample")
+root.title("Budget!")
 screen_width = 500
-screen_height = 600
+screen_height = 300
 root.geometry(f"{screen_width}x{screen_height}")
 
 def toggle_fullscreen(event=None):
@@ -21,6 +23,9 @@ def open_update_expenses_window():
 
 def open_insight_window():
     insight.open_insight_window()
+
+def open_expenses_history_window():
+    expenses_history.open_expenses_history_window(expenses_data)
     
 insight_button = CTkButton(root, text="Insight", height= 10,width=20, command=open_insight_window)
 insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
@@ -31,6 +36,8 @@ edit_budget_button.grid(row=1, column=1, padx=10, pady=5,sticky="w")
 update_expenses_button = CTkButton(root, text="Update Expenses",height= 10,width=20, command=open_update_expenses_window)
 update_expenses_button.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
+expenses_history_button = CTkButton(root, text="Expenses History",height= 10,width=20, command=open_expenses_history_window)
+expenses_history_button.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 
 root.bind("<F11>", toggle_fullscreen)
 
