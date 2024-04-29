@@ -82,7 +82,7 @@ def open_set_categories_window():
         #configure = updates 
         category_menu.configure(values=categories) 
         delete_category_menu.configure(values=categories)
-        category_to_be_tag_menu(values=categories)
+        category_to_be_tag_menu.configure(values=categories)
         
     def choose_month():
         global month_is_choosen,month_choosen 
