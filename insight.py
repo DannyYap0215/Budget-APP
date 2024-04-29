@@ -1,24 +1,32 @@
 from customtkinter import *
-
-def createPieChart(canvas,PieV,colV):
-    total = sum(PieV)
-    st = 0
-    coord = 100, 100, 300, 300
-    for val,col in zip(PieV,colV):   
-        extent = val / total * 360 
-        canvas.create_arc(coord,start=st,extent = extent,fill=col,outline=col)
-        st += extent
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib import pyplot as plt
+ 
+expenses_categories = ["Food",
+    "Transport",
+    "Household",
+    "Pets",
+    "Apparel",
+    "Beauty",
+    "Health",
+    "Education",
+    "Social Life",
+    "Gift",]
+wieght = [800,500,200,1000,200,500,100,1000,500,500]
+colours = ["#ffcd8e", "#ffb255", "#ff8ca1", "#f45f74", "#ffc9ed", "#b77ea3", "#8fd7d7", "#00b0be", "#bdd373", "#98c127", ]
 
 def open_insight_window():
     insight_window = CTk()
-    insight_window.title("Pie Chart")
+    insight_window.title("Expenses Pie Chart")
     insight_window.geometry("520x520+300+200")
-    
-    canvas = CTkCanvas(insight_window,width=500,height=500)
-    canvas.place(x=50,y=50)
 
-    PieV=[25,45,10,20]
-    colV=["Red","Yellow","Green","Blue"]
-    createPieChart(canvas,PieV,colV)   
+    fig = plt.figure()
+    ax = fig.add_axes([0,0,1,1])
+    ax.pie(wieght, labels = expenses_categories , autopct='%1.2f%%',colors=colours)
 
-    insight_window.mainloop()
+    canvasbar = FigureCanvasTkAgg(fig, master=insight_window)
+    canvasbar.draw()
+    canvasbar.get_tk_widget().place(relx=0.5, rely=0.5, anchor=CENTER)  
+    # show the barchart on the ouput window
+
+    insight_window.mainloop() 
