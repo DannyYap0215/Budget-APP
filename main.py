@@ -3,6 +3,7 @@ import edit_budget
 import update_expenses
 import insight
 import expenses_history
+from update_expenses import expenses_data
 
 root = CTk()
 root.title("Budget!")
@@ -24,7 +25,7 @@ def open_insight_window():
     insight.open_insight_window()
 
 def open_expenses_history_window():
-    expenses_history.open_expenses_history_window()
+    expenses_history.open_expenses_history_window(expenses_data)
     
 insight_button = CTkButton(root, text="Insight", height= 10,width=20, command=open_insight_window)
 insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)

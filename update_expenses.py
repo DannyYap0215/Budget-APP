@@ -72,7 +72,6 @@ def open_update_expenses_window():
         expenses_note = expenses_note_entry.get()
         expenses_data.append((expenses_date, expenses_amount, expenses_categories, expenses_note))
         update_expenses_window.destroy()
-        selected_month = expenses_date.strftime("%B")
     
     #Button to save expenses
     save_expenses_button = CTkButton(update_expenses_window, text="Save Expenses", command=save_expenses)
