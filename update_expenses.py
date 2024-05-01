@@ -26,20 +26,13 @@ def open_update_expenses_window():
     date_picker_label = CTkLabel(update_expenses_window, text="Date :")
     date_picker_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 
+    def update_date_format(event):
+        date_entry.set_date(date_entry.get_date().strftime("%d-%m-%Y"))
+        
     #DateEntry widget for selecting date
-    date_entry = DateEntry(update_expenses_window, selectmode="day")
+    date_entry = DateEntry(update_expenses_window, selectmode="day", date_pattern="dd-mm-yyyy")
     date_entry.grid(row=1, column=1, padx=10, pady=5, sticky="w")
-
-    # Function to update date and save as string
-    def save_date():
-        date = date_entry.get_date()
-        date_string = date.strftime("%d-%m-%y")  #Format date as "dd-mm-yy"
-        date_entry.delete(0, 'end')  #Clear text in the entry
-        date_entry.insert(0, date_string)  #Insert selected date as text
-
-    #Button to save date as text
-    get_date_button = CTkButton(update_expenses_window, text="Get Date", command=save_date)
-    get_date_button.grid(row=1, column=3, padx=10, pady=5, sticky="w")
+    date_entry.bind("<<DateEntrySelected>>", update_date_format)
 
     #Label for expenses amount
     expenses_amount_label = CTkLabel(update_expenses_window, text="Expenses : ")
