@@ -22,7 +22,7 @@ def open_update_expenses_window():
     update_expenses.open_update_expenses_window()
 
 def open_insight_window():
-    insight.open_insight_window()
+    insight.open_insight_window(expenses_data)
 
 def open_expenses_history_window():
     expenses_history.open_expenses_history_window(expenses_data)
