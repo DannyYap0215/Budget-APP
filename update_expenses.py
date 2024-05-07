@@ -20,6 +20,10 @@ expenses_data = []
 
 set_appearance_mode("light")
 save_icon = Image.open("saved_icon.png")
+calendar_icon = Image.open("calendar_icon.png")
+expenses_icon = Image.open("dollar_icon.png")
+category_icon = Image.open("category_icon.png")
+note_icon = Image.open("note_icon.png")
 
 def open_update_expenses_window():
     update_expenses_window = CTkToplevel()
