@@ -18,10 +18,13 @@ month = [
     "December",
 ]
 
+set_appearance_mode("light")
+
 def open_expenses_history_window(expenses_data):
     expenses_history_window = CTkToplevel()
     expenses_history_window.title("Expenses History")
     expenses_history_window.geometry("800x600")
+    expenses_history_window.wm_attributes("-topmost",True)
     
     #Month Label
     month_label = CTkLabel(expenses_history_window, text="Select Month:")
