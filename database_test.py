@@ -32,6 +32,7 @@ def update_categories_list(month_choosen):
     for i in range(len(list_through_categories)) :
         categories.append(list_through_categories[i][0])
     return categories
+        
 
     
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]

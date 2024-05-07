@@ -89,6 +89,9 @@ def open_set_categories_window():
         print(month_choosen)
         month_is_choosen = True
         categories = db.update_categories_list(month_choosen)
+        category_menu.configure(values=categories)  # Use the widgets from set_categories module
+        delete_category_menu.configure(values=categories)
+        category_to_be_tag_menu.configure(values=categories)
         
     
     def category_and_colour_save():
