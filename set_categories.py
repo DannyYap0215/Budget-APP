@@ -1,18 +1,8 @@
 from customtkinter import *
 from set_income import months
 from tkinter import messagebox
-categories = [
-    "Food",
-    "Transport",
-    "Household",
-    "Pets",
-    "Apparel",
-    "Beauty",
-    "Health",
-    "Education",
-    "Social Life",
-    "Gift",
-]
+import database_test as db
+
 
 colors = [
     "red",
@@ -46,6 +36,7 @@ colors = [
 
 
 allocated=[]
+categories = db.update_categories_list("January")
 list_for_coloured_categories = []
 month_is_choosen = False
 #add categories then save ; then select categories and add individual budget 
@@ -62,6 +53,7 @@ def open_set_categories_window():
                     delete_category_menu.configure(values=categories)
                     category_to_be_tag_menu.configure(values=categories)
                     add_categories_entry.delete(0, 'end')
+                    db.add_new_categories(month_choosen,new_category)
                 else:
                     messagebox.showerror("Error", "Category already exists!")
             elif new_category.strip() == False :
@@ -92,16 +84,23 @@ def open_set_categories_window():
         category_to_be_tag_menu.configure(values=categories)
         
     def choose_month():
-        global month_is_choosen,month_choosen 
+        global month_is_choosen,month_choosen,categories,category_for_colour,colour_for_category
         month_choosen = choose_month_menu.get()
         print(month_choosen)
         month_is_choosen = True
+        categories = db.update_categories_list(month_choosen)
+        
     
     def category_and_colour_save():
+        global colour_for_category, category_for_colour,month_choosen
         colour_for_category = colour_to_be_tag_menu.get()
         category_for_colour = category_to_be_tag_menu.get()
+        
         list_for_coloured_categories.append((colour_for_category,category_for_colour))
         print(list_for_coloured_categories)
+        
+        db.add_new_colour(month_choosen,colour_for_category,category_for_colour)
+        
         
         
     set_categories_window = CTkToplevel()
