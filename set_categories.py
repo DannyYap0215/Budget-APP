@@ -2,9 +2,16 @@ from customtkinter import *
 from set_income import months
 from tkinter import messagebox
 categories = [
-    "Rent",
-    "Utility",
-    "Food"
+    "Food",
+    "Transport",
+    "Household",
+    "Pets",
+    "Apparel",
+    "Beauty",
+    "Health",
+    "Education",
+    "Social Life",
+    "Gift",
 ]
 
 colors = [
