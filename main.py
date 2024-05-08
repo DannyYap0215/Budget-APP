@@ -1,9 +1,12 @@
 from customtkinter import *
 import edit_budget
 import update_expenses
-import insight
 import expenses_history
+import expenses_piechart
+import income_piechart
 from update_expenses import expenses_data
+from set_income import income_data
+from set_categories import allocated
 
 root = CTk()
 root.title("Budget!")
@@ -24,7 +27,8 @@ def open_update_expenses_window():
     update_expenses.open_update_expenses_window()
 
 def open_insight_window():
-    insight.open_insight_window(expenses_data)
+    import insight
+    insight.open_insight_window(expenses_piechart, income_piechart, expenses_data, income_data, allocated)
 
 def open_expenses_history_window():
     expenses_history.open_expenses_history_window(expenses_data)
