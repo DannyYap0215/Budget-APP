@@ -36,7 +36,7 @@ colors = [
 
 
 allocated=[]
-categories = db.update_categories_list("January")
+categories = db.update_categories_list()
 list_for_coloured_categories = []
 month_is_choosen = False
 #add categories then save ; then select categories and add individual budget 
@@ -53,7 +53,7 @@ def open_set_categories_window():
                     delete_category_menu.configure(values=categories)
                     category_to_be_tag_menu.configure(values=categories)
                     add_categories_entry.delete(0, 'end')
-                    db.add_new_categories(month_choosen,new_category)
+                    db.add_new_categories(new_category)
                 else:
                     messagebox.showerror("Error", "Category already exists!")
             elif new_category.strip() == False :
@@ -88,7 +88,7 @@ def open_set_categories_window():
         month_choosen = choose_month_menu.get()
         print(month_choosen)
         month_is_choosen = True
-        categories = db.update_categories_list(month_choosen)
+        categories = db.update_categories_list()
         category_menu.configure(values=categories)  # Use the widgets from set_categories module
         delete_category_menu.configure(values=categories)
         category_to_be_tag_menu.configure(values=categories)
@@ -102,7 +102,7 @@ def open_set_categories_window():
         list_for_coloured_categories.append((colour_for_category,category_for_colour))
         print(list_for_coloured_categories)
         
-        db.add_new_colour(month_choosen,colour_for_category,category_for_colour)
+        db.add_new_colour(colour_for_category,category_for_colour)
         
         
         
