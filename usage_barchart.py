@@ -29,7 +29,7 @@ def open_usage_barchart_window(budget_data, expenses_data):
 
     # Plotting
     plt.bar(index, budget_values, bar_width, label='Budget')
-    plt.bar(index + bar_width, expenses_values, bar_width, label='Expenses', bottom=budget_values)
+    plt.bar(index + bar_width, expenses_values, bar_width, label='Expenses')
 
     plt.xlabel('Categories')
     plt.ylabel('Amount (RM)')
