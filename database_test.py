@@ -3,6 +3,7 @@ import sqlite3
 con = sqlite3.connect("database.db")
 c = con.cursor()
 
+#creating tables
 def create_categories_table(month_choosen,year):
     table_name = f"{month_choosen.lower()}_{year}"
     c.execute(f"""CREATE TABLE IF NOT EXISTS {table_name} (
@@ -22,6 +23,21 @@ def create_budget_for_monthly_usage(month) :
                     budget_used REAL
                   )""")
     
+def create_table_containing_allocated_income_for_month():
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    table_name = "allocated_income_for_month_2024"
+    c.execute(f"""CREATE TABLE IF NOT EXISTS {table_name} (
+                    months TEXT,
+                    allocated_income REAL
+                  )""")
+    con.commit()
+    for month in months:
+        c.execute(f"INSERT INTO {table_name} (months, allocated_income) VALUES (?, ?)", (month,0))
+        con.commit()
+        
+        
+        
+        
         
 #main functions
 def add_new_categories(new_category):
@@ -61,10 +77,15 @@ def allocating_budget_to_table(month_choosen,allocated_budget,category_selected)
     c.execute(f"INSERT INTO {table_name} (cat_ID, budget_allocated, budget_used ) VALUES (?, ?, ?) ", (ID_to_be_inserted, allocated_budget, 0))
     con.commit()
 
+def allocated_income_for_month(income_allocated,selected_month_menu):
+    table_name = "allocated_income_for_month_2024"
+    c.execute(f"UPDATE {table_name} SET allocated_income = ? WHERE months= ? ", (income_allocated,selected_month_menu))  
+    con.commit()
+
+
 
 
 #random values
-
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 year = 2024
 
