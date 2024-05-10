@@ -43,7 +43,7 @@ month_is_choosen = False
 def open_set_categories_window():
     global categories
     
-    def save_1():
+    def save_1(): #adding new categories
         new_category = add_categories_entry.get()
         if new_category != "" and month_is_choosen == True and month_choosen == choose_month_menu.get():
             if new_category.strip(): 
@@ -64,21 +64,21 @@ def open_set_categories_window():
             messagebox.showerror("Error", "Please check if you selected a month correctly!")
 
         
-    def save_2():
+    def save_2(): #allocate budget
         allocated_budget = allocate_categories_entry.get()
         category_selected = category_menu.get()
         if allocated_budget not in allocated and allocated_budget != "":
             allocated.append(allocated_budget) 
             print(category_selected, allocated_budget)
             allocate_categories_entry.delete(0, 'end')
+            db.allocating_budget_to_table(month_choosen,allocated_budget,category_selected)
         else:
             pass
         
     def delete_category():
         category_to_delete = delete_category_menu.get()
-        if category_to_delete in categories:
-            categories.remove(category_to_delete)
-        #configure = updates 
+        db.delete_categories(category_to_delete)
+        categories = db.update_categories_list()
         category_menu.configure(values=categories) 
         delete_category_menu.configure(values=categories)
         category_to_be_tag_menu.configure(values=categories)

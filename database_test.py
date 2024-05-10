@@ -14,6 +14,16 @@ def create_categories_table(month_choosen,year):
     # for category, color in zip(categories, colors): #python will ignore the exceeding numbers of values and match to the lower one instead
     #     c.execute(f"INSERT INTO {table_name} (cat_ID, expenses, date, note) VALUES (?, ?, ?)", ("", "", "", ""))
         
+def create_budget_for_monthly_usage(month) :
+    table_name = f"budget_for_{month.lower()}_{year}"
+    c.execute(f"""CREATE TABLE IF NOT EXISTS {table_name} (
+                    cat_ID TEXT,
+                    budget_allocated REAL,
+                    budget_used REAL
+                  )""")
+    
+        
+#main functions
 def add_new_categories(new_category):
     table_name = "cat_ID_with_colour"
     c.execute("SELECT cat_ID FROM cat_ID_with_colour")
@@ -36,9 +46,25 @@ def update_categories_list():
     for i in range(len(list_through_categories)) :
         categories.append(list_through_categories[i][0])
     return categories
-        
 
+def delete_categories(category_to_delete):
+    table_name = "cat_ID_with_colour"
+    c.execute(f"DELETE FROM {table_name} WHERE category = ? ",(category_to_delete,))
+    con.commit()
     
+def allocating_budget_to_table(month_choosen,allocated_budget,category_selected) :
+    c.execute(f"SELECT cat_ID FROM cat_ID_with_colour WHERE category = ? ", (category_selected,))
+    ID_row = c.fetchone()  # Fetch only one row
+    con.commit()
+    ID_to_be_inserted = ID_row[0]  # Extract the ID from the first (and only) row
+    table_name = f"budget_for_{month_choosen.lower()}_{year}"
+    c.execute(f"INSERT INTO {table_name} (cat_ID, budget_allocated, budget_used ) VALUES (?, ?, ?) ", (ID_to_be_inserted, allocated_budget, 0))
+    con.commit()
+
+
+
+#random values
+
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 year = 2024
 
@@ -86,7 +112,7 @@ colors = [
 
 #don't run this ; the tables had already been created
 # for month in months:
-#     create_categories_table(month, year)
+#     create_budget_for_monthly_usage(month)
 
 # create_categories_table()
 con.commit()
