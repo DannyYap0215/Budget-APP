@@ -1,6 +1,7 @@
 from customtkinter import *
 import tkinter as tk
 from tkinter import messagebox
+import database_test as db
 
 
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -35,6 +36,7 @@ def open_set_income_window():
         if month_is_saved == True:
             if income_allocated.strip() != "" and selected_month_menu == month_issued_menu.get() and income_allocated.isdigit() == True:
                 print((income_allocated,selected_month_menu))
+                db.allocated_income_for_month(income_allocated,selected_month_menu)
             elif income_allocated.strip() != "" and selected_month_menu != month_issued_menu.get() :
                 messagebox.showerror("Error", "Please check if you selected a month correctly!")
             elif income_allocated.strip() == "" :
