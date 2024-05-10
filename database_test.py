@@ -40,7 +40,7 @@ def create_table_containing_allocated_income_for_month():
         
         
 #main functions
-def add_new_categories(new_category):
+def add_new_categories(new_category): #used in set_categories.py
     table_name = "cat_ID_with_colour"
     c.execute("SELECT cat_ID FROM cat_ID_with_colour")
     row = c.fetchall()
@@ -48,12 +48,12 @@ def add_new_categories(new_category):
     c.execute(f"INSERT INTO {table_name} (cat_ID, category, colour) VALUES (?, ?, ?)", (new_row, new_category,0))
     con.commit()
     
-def add_new_colour(colour_for_category,category_for_colour):
+def add_new_colour(colour_for_category,category_for_colour): #used in set_categories.py
     table_name = "cat_ID_with_colour"
     c.execute(f"UPDATE {table_name} SET colour = ? WHERE category= ? ", (colour_for_category,category_for_colour))  
     con.commit()
     
-def update_categories_list():
+def update_categories_list(): #used in set_categories.py
     global categories
     table_name = "cat_ID_with_colour"
     c.execute(f"SELECT category FROM {table_name}")
@@ -63,21 +63,32 @@ def update_categories_list():
         categories.append(list_through_categories[i][0])
     return categories
 
-def delete_categories(category_to_delete):
+def delete_categories(category_to_delete): #used in set_categories.py
     table_name = "cat_ID_with_colour"
     c.execute(f"DELETE FROM {table_name} WHERE category = ? ",(category_to_delete,))
     con.commit()
     
-def allocating_budget_to_table(month_choosen,allocated_budget,category_selected) :
-    c.execute(f"SELECT cat_ID FROM cat_ID_with_colour WHERE category = ? ", (category_selected,))
+def allocating_budget_to_table(month_choosen, allocated_budget, category_selected):
+    # Retrieve the cat_ID corresponding to the selected category from the cat_ID_with_colour table
+    c.execute("SELECT cat_ID FROM cat_ID_with_colour WHERE category = ?", (category_selected,))
     ID_row = c.fetchone()  # Fetch only one row
     con.commit()
-    ID_to_be_inserted = ID_row[0]  # Extract the ID from the first (and only) row
-    table_name = f"budget_for_{month_choosen.lower()}_{year}"
-    c.execute(f"INSERT INTO {table_name} (cat_ID, budget_allocated, budget_used ) VALUES (?, ?, ?) ", (ID_to_be_inserted, allocated_budget, 0))
-    con.commit()
+    
+    if ID_row:
+        cat_ID = ID_row[0]
+        table_name = f"budget_for_{month_choosen.lower()}_{year}"
+        c.execute(f"SELECT cat_ID FROM {table_name} WHERE cat_ID = ?", (cat_ID,))
+        existing_row = c.fetchone()
+        con.commit()
+        if existing_row:
+            c.execute(f"UPDATE {table_name} SET budget_allocated = ? WHERE cat_ID = ?", (allocated_budget, cat_ID))
+            con.commit()
+        else:
+            c.execute(f"INSERT INTO {table_name} (cat_ID, budget_allocated, budget_used) VALUES (?, ?, ?)", (cat_ID, allocated_budget, 0))
+            con.commit()
+    
 
-def allocated_income_for_month(income_allocated,selected_month_menu):
+def allocated_income_for_month(income_allocated,selected_month_menu): #used in set_income.py
     table_name = "allocated_income_for_month_2024"
     c.execute(f"UPDATE {table_name} SET allocated_income = ? WHERE months= ? ", (income_allocated,selected_month_menu))  
     con.commit()
