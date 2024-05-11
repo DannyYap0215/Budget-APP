@@ -35,10 +35,14 @@ def create_table_containing_allocated_income_for_month():
         c.execute(f"INSERT INTO {table_name} (months, allocated_income) VALUES (?, ?)", (month,0))
         con.commit()
         
-        
-        
-        
-        
+def create_expensesID_table():
+    table_name = "expenses_ID_with_month"
+    c.execute(f"""CREATE TABLE IF NOT EXISTS {table_name} (
+                    expenses_ID TEXT,
+                    months TEXT
+                  )""")
+    con.commit()
+    
 #main functions
 def add_new_categories(new_category): #used in set_categories.py
     table_name = "cat_ID_with_colour"
@@ -105,6 +109,43 @@ def allocated_income_for_month(income_allocated,selected_month_menu): #used in s
     con.commit()
 
 
+def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,expenses_note):
+    numbers_to_month = {
+        "01":"January", 
+        "02":"February", 
+        "03":"March", 
+        "04":"April", 
+        "05":"May", 
+        "06":"June", 
+        "07":"July", 
+        "08":"August", 
+        "09":"September", 
+        "10":"October", 
+        "11":"November", 
+        "12":"December"
+    }
+    
+    month = str(expenses_date).split("-")[1]
+    month = numbers_to_month[month]
+    
+    c.execute("SELECT expenses_ID FROM expenses_ID_with_month")
+    row = c.fetchall()
+    if len(row) == 0:
+        expenses_ID = 1000
+    else:
+        expenses_ID = len(row) + 1000
+        
+    c.execute(f"INSERT INTO expenses_ID_with_month (expenses_ID, months) VALUES (?, ?)", (expenses_ID, month))
+    con.commit()
+    
+    c.execute("SELECT cat_ID FROM cat_ID_with_colour WHERE category = ?", (expenses_categories,))
+    cat_ID = c.fetchone()  # Fetch ID
+    table_name = f"{month.lower()}_2024"
+    c.execute(f"INSERT INTO {table_name} (expenses_ID, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?)", (expenses_ID, cat_ID[0], expenses_amount,expenses_categories,expenses_note))
+    con.commit()
+    
+        
+
 
 
 #random values
@@ -158,7 +199,6 @@ colors = [
 #     create_budget_for_monthly_usage(month)
 
 # create_categories_table()
-con.commit()
 
 #create relation-database
 #create a table just for categories use cat-id (1 - food; 2- Pet)
