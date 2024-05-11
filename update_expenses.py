@@ -2,19 +2,20 @@ from customtkinter import *
 from tkcalendar import DateEntry
 from datetime import datetime
 from PIL import Image
+import database_test as db
 
-expenses_categories = [
-    "Food",
-    "Transport",
-    "Household",
-    "Pets",
-    "Apparel",
-    "Beauty",
-    "Health",
-    "Education",
-    "Social Life",
-    "Gift",
-]
+# expenses_categories = [
+#     "Food",
+#     "Transport",
+#     "Household",
+#     "Pets",
+#     "Apparel",
+#     "Beauty",
+#     "Health",
+#     "Education",
+#     "Social Life",
+#     "Gift",
+# ]
 
 expenses_data = []
 
@@ -26,6 +27,7 @@ category_icon = Image.open("category_icon.png")
 note_icon = Image.open("note_icon.png")
 
 def open_update_expenses_window():
+    categories = db.update_categories_list()
     update_expenses_window = CTkToplevel()
     update_expenses_window.title("Update Expenses")
     update_expenses_window.geometry("500x400")
@@ -60,7 +62,7 @@ def open_update_expenses_window():
     expenses_categories_label.grid(row=7, column=0, padx=10, pady=5, sticky="w")
 
     #dropdown expenses category menu
-    expenses_categories_menu = CTkOptionMenu(update_expenses_window, values=expenses_categories, fg_color="#6965A3")
+    expenses_categories_menu = CTkOptionMenu(update_expenses_window, values=categories, fg_color="#6965A3")
     expenses_categories_menu.grid(row=7, column=1, padx=10, pady=5, sticky="w")
 
     #Label for note
@@ -77,8 +79,10 @@ def open_update_expenses_window():
         expenses_categories = expenses_categories_menu.get()
         expenses_note = expenses_note_entry.get()
         expenses_data.append((expenses_date, expenses_amount, expenses_categories, expenses_note))
-        update_expenses_window.destroy()
-    
+        db.insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,expenses_note)
+        # update_expenses_window.destroy()
+
+
     #Button to save expenses
     save_expenses_button = CTkButton(update_expenses_window, text="Save Expenses", font=("Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(save_icon), command=save_expenses)
     save_expenses_button.grid(row=12, column=0, padx=10, pady=5, sticky="w")

@@ -105,6 +105,31 @@ def allocated_income_for_month(income_allocated,selected_month_menu): #used in s
     con.commit()
 
 
+def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,expenses_note):
+    numbers_to_month = {
+        "01":"January", 
+        "02":"February", 
+        "03":"March", 
+        "04":"April", 
+        "05":"May", 
+        "06":"June", 
+        "07":"July", 
+        "08":"August", 
+        "09":"September", 
+        "10":"October", 
+        "11":"November", 
+        "12":"December"
+    }
+    
+    month = str(expenses_date).split("-")[1]
+    month = numbers_to_month[month]
+    c.execute("SELECT cat_ID FROM cat_ID_with_colour WHERE category = ?", (expenses_categories,))
+    ID_row = c.fetchone()  # Fetch ID
+    table_name = f"{month.lower()}_2024"
+    c.execute(f"INSERT INTO {table_name} (cat_ID, expenses, date, note) VALUES (?, ?, ?, ?)", (ID_row[0], expenses_amount,expenses_categories,expenses_note))
+    con.commit()
+        
+
 
 
 #random values
