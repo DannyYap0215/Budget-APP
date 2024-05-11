@@ -64,9 +64,20 @@ def update_categories_list(): #used in set_categories.py
     return categories
 
 def delete_categories(category_to_delete): #used in set_categories.py
-    table_name = "cat_ID_with_colour"
-    c.execute(f"DELETE FROM {table_name} WHERE category = ? ",(category_to_delete,))
-    con.commit()
+    c.execute(f"SELECT cat_ID FROM cat_ID_with_colour WHERE category = ? ",(category_to_delete,))
+    cat_ID = c.fetchone()
+    c.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    tables = c.fetchall()
+    for table in tables:
+        if table[0] == "allocated_income_for_month_2024" : #2 hrs wasted here - Danny
+            pass
+        else:
+            print(table)
+            table_name = f"{table[0]}"
+            c.execute(f"DELETE FROM {table_name} WHERE cat_ID = ? ", (cat_ID[0],))
+            con.commit()    
+        
+        
     
 def allocating_budget_to_table(month_choosen, allocated_budget, category_selected):
     # Retrieve the cat_ID corresponding to the selected category from the cat_ID_with_colour table
