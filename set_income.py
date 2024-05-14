@@ -54,7 +54,7 @@ def open_set_income_window():
 
         selected_month_menu = month_issued_menu.get()
         month_is_saved = True
-        month_selected = CTkLabel(set_income_window, text=f"{selected_month_menu}",width=50, height=10)
+        month_selected = CTkLabel(set_income_window, text=f"{selected_month_menu}",width=80, height=10)
         month_selected.grid(row=5, column=1)
         
     set_income_window = CTkToplevel()
