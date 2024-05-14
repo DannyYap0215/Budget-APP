@@ -144,8 +144,15 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     c.execute(f"INSERT INTO {table_name} (expenses_ID, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?)", (expenses_ID, cat_ID[0], expenses_amount,expenses_categories,expenses_note))
     con.commit()
     
-        
-
+# def get_income_piechart() :
+#     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+#     for month in months:
+#     global rows
+#     c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024")
+#     months_and_allocated_income = c.fetchall()
+#     rows = months_and_allocated_income
+    
+    
 
 
 #random values
@@ -203,3 +210,5 @@ colors = [
 #create relation-database
 #create a table just for categories use cat-id (1 - food; 2- Pet)
 #then just refer to cat-id in the month table 
+
+get_income_piechart()

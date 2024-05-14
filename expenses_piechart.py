@@ -3,6 +3,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib import pyplot as plt
 from collections import defaultdict
 import tkinter.messagebox
+import database_test as db
 
 def show_details(expenses_data):
     # Create a string to store the details
