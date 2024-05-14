@@ -1,58 +1,34 @@
 from customtkinter import *
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib import pyplot as plt
-from collections import defaultdict
-import tkinter.messagebox
+import expenses_piechart
+import income_piechart
+import usage_barchart
 
-expenses_categories = ["Food", "Transport", "Household", "Pets","Apparel", "Beauty","Health","Education","Social Life","Gift",]
+def open_insight_window(expenses_piechart, income_piechart, expenses_data, income_data, budget_data):
+    def close_existing_windows():
+        # Destroy any existing windows
+        for widget in insight_window.winfo_children():
+            widget.destroy()
+    def on_button_click():
+        # Reduce the topmost attribute when a button is clicked
+        insight_window.wm_attributes("-topmost", False)
+    
+    insight_window = CTkToplevel()
+    insight_window.title("Insight")
+    insight_window.geometry("400x300")
+    insight_window.wm_attributes("-topmost",True)
 
-def show_details(expenses_data):
-    # Create a string to store the details
-    details_text = "Expense Details:\n\n"
+    expenses_button = CTkButton(insight_window, text="Expenses",command=lambda: expenses_piechart.open_expenses_piechart_window(expenses_data))
+    expenses_button.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+    
+    income_button = CTkButton(insight_window, text="Income",command=lambda: income_piechart.open_income_piechart_window(income_data))
+    income_button.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+    
+    usage_button = CTkButton(insight_window, text="Usage of Budget",command=lambda: usage_barchart.open_usage_barchart_window(budget_data, expenses_data))
+    usage_button.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 
-    # Append each expense detail to the string
-    for expense in expenses_data:
-        date = expense[0]  # Assuming date is at index 0
-        amount = expense[1]  # Assuming amount is at index 1
-        category = expense[2]  # Assuming category is at index 2
-        note = expense[3]  # Assuming note is at index 3
-        details_text += f"Date: {date}\nAmount: {amount}\nCategory: {category}\nNote: {note}\n\n"
-
-    # Display the details in a message box
-    tkinter.messagebox.showinfo("Expense Details", details_text)
-
-def open_insight_window(expenses_data):
-    insight_window = CTk()
-    insight_window.title("Expenses Pie Chart")
-    insight_window.geometry("520x520+300+200")
-
-    # Initialize a dictionary to store total expenses for each category
-    category_expenses = defaultdict(float)
-
-    # Calculate total expenses for each category
-    for expense in expenses_data:
-        category = expense[2]  # Assuming category is at index 2
-        amount = float(expense[1])    # Assuming amount is at index 1
-        category_expenses[category] += amount
-
-    # Extract categories and corresponding expenses
-    expenses_categories = list(category_expenses.keys())
-    weights = list(category_expenses.values())
-
-     # Pie chart colors
-    colours = ["#ffcd8e", "#ffb255", "#ff8ca1", "#f45f74", "#ffc9ed", "#b77ea3", "#8fd7d7", "#00b0be", "#bdd373", "#98c127"]
-
-    fig = plt.figure()
-    ax = fig.add_axes([0,0,1,1])
-    ax.pie(weights, labels = expenses_categories , autopct='%1.2f%%',colors=colours)
-
-    # Create a canvas widget for displaying the pie chart
-    canvasbar = FigureCanvasTkAgg(fig, master=insight_window)
-    canvasbar.draw()
-    canvasbar.get_tk_widget().place(relx=0.5, rely=0.5, anchor=CENTER)  
-
-    # Create a Button widget to show more details
-    details_button = CTkButton(insight_window, text="Show Details", command=lambda: show_details(expenses_data))
-    details_button.place(relx=0.5, rely=0.95, anchor="center")
+    #check for m1 click on the button if so it goes through the function o_b_c()
+    expenses_button.bind("<Button-1>", lambda event: on_button_click())
+    income_button.bind("<Button-1>", lambda event: on_button_click())
+    usage_button.bind("<Button-1>", lambda event: on_button_click())
 
     insight_window.mainloop() 

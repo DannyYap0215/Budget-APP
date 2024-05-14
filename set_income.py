@@ -1,19 +1,42 @@
 from customtkinter import *
 import tkinter as tk
 from tkinter import messagebox
+import database_test as db
 
 
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 month_is_saved = False
 
+income_data = []
+
 def open_set_income_window():
+    global selected_month_menu  # Define selected_month_menu as a global variable
+    selected_month_menu = None  # Initialize selected_month_menu
+    global income_allocated  # Define income_allocated as a global variable
+    income_allocated = None  # Initialize income_allocated
+    
     def save_budget():
         global selected_month_menu
+        global income_allocated  # Access the global variable income_allocated
+        
+        # Update selected_month_menu and income_allocated
+        selected_month_menu = month_issued_menu.get()
         income_allocated = income_entry.get()
+
+        # Check if both month and income are selected
+        if selected_month_menu is not None and income_allocated.strip() != "":
+            # Append data to income_data
+            income_data.append((selected_month_menu, income_allocated))
+            # Print for debugging purposes
+            print((selected_month_menu, income_allocated))
+        else:
+            messagebox.showerror("Error", "Please select a month and enter income!")
+
         if month_is_saved == True:
             if income_allocated.strip() != "" and selected_month_menu == month_issued_menu.get() and income_allocated.isdigit() == True:
                 print((income_allocated,selected_month_menu))
+                db.allocated_income_for_month(income_allocated,selected_month_menu)
             elif income_allocated.strip() != "" and selected_month_menu != month_issued_menu.get() :
                 messagebox.showerror("Error", "Please check if you selected a month correctly!")
             elif income_allocated.strip() == "" :
@@ -56,6 +79,8 @@ def open_set_income_window():
     save_button = CTkButton(set_income_window, text="Save ALL", command=save_budget)
     save_button.grid(row=4, column=1)
     
+    income_data.append((selected_month_menu, income_allocated))
+
     month_selection = CTkLabel(set_income_window, text=f"Month Selected:")
     month_selection.grid(row=5,column=0)
     
