@@ -211,4 +211,3 @@ colors = [
 #create a table just for categories use cat-id (1 - food; 2- Pet)
 #then just refer to cat-id in the month table 
 
-get_income_piechart()
