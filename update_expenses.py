@@ -2,6 +2,7 @@ from customtkinter import *
 from tkcalendar import DateEntry
 from datetime import datetime
 from PIL import Image
+from time import strftime
 
 expenses_categories = [
     "Food",
@@ -19,6 +20,14 @@ expenses_categories = [
 expenses_data = []
 
 def open_update_expenses_window():
+
+    my_font = CTkFont("font/Poppins-Bold.ttf")
+    save_icon = Image.open("icon/saved_icon.png")
+    calendar_icon = Image.open("icon/calendar_icon.png")
+    expenses_icon = Image.open("icon/expenses_icon.png")
+    category_icon = Image.open("icon/category_icon.png")
+    note_icon = Image.open("icon/note_icon.png")
+
     update_expenses_window = CTkToplevel()
     update_expenses_window.title("Update Expenses")
     update_expenses_window.geometry("900x400")
@@ -32,7 +41,7 @@ def open_update_expenses_window():
     update_expenses_title_label.grid(row=1, column=0, padx=20, pady=5, sticky="w")
 
     #Label for date
-    date_picker_label = CTkLabel(update_expenses_window, text="Date :", font=CTkFont("Poppins-Bold.ttf",30))
+    date_picker_label = CTkLabel(update_expenses_window, text="Date :", font=CTkFont("font/Poppins-Bold.ttf",30))
     date_picker_label.grid(row=3, column=0, padx=50, pady=5, sticky="w", in_=expenses_frame)
 
     date_icon_label = CTkLabel(update_expenses_window, text="",image= CTkImage(calendar_icon) )
@@ -63,18 +72,18 @@ def open_update_expenses_window():
     expenses_amount_entry.bind("<KeyRelease>", amount_entry_font_change)
 
     #Label for expenses category
-    expenses_categories_label = CTkLabel(update_expenses_window, text="Category :", font=CTkFont("Poppins-Bold.ttf",30))
+    expenses_categories_label = CTkLabel(update_expenses_window, text="Category :", font=CTkFont("font/Poppins-Bold.ttf",30))
     expenses_categories_label.grid(row=9, column=0, padx=50, pady=5, sticky="w", in_=expenses_frame)
 
     category_icon_label = CTkLabel(update_expenses_window, text="",image= CTkImage(category_icon) )
     category_icon_label.grid(row=9, column=0, padx=20, pady=5, sticky="w", in_=expenses_frame) 
 
     #dropdown expenses category menu
-    expenses_categories_menu = CTkOptionMenu(update_expenses_window, values=expenses_categories, fg_color="#6965A3")
-    expenses_categories_menu.grid(row=7, column=1, padx=10, pady=5, sticky="w")
+    expenses_categories_menu = CTkOptionMenu(update_expenses_window, values=expenses_categories, width=150, height=34, fg_color="#6965A3")
+    expenses_categories_menu.grid(row=9, column=1, padx=10, pady=5, sticky="w", in_=expenses_frame)
 
     #Label for note
-    expenses_note_label = CTkLabel(update_expenses_window, text="Note :", font=CTkFont("Poppins-Bold.ttf",30))
+    expenses_note_label = CTkLabel(update_expenses_window, text="Note :", font=CTkFont("font/Poppins-Bold.ttf",30))
     expenses_note_label.grid(row=12, column=0, padx=50, pady=5, sticky="w", in_=expenses_frame)
 
     note_icon_label = CTkLabel(update_expenses_window, text="",image= CTkImage(note_icon) )
@@ -100,7 +109,7 @@ def open_update_expenses_window():
 
 
     #Button to save expenses
-    save_expenses_button = CTkButton(update_expenses_window, text="Save Expenses", font=CTkFont("Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(save_icon), command=save_expenses)
+    save_expenses_button = CTkButton(update_expenses_window, text="Save Expenses", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(save_icon), command=save_expenses)
     save_expenses_button.grid(row=18, column=0, padx=10, pady=5, sticky="w", in_=expenses_frame)
 
     clock_frame = CTkFrame(master=update_expenses_window, width=700, height=600,border_width=5, border_color="#3F3D65", corner_radius=15)
