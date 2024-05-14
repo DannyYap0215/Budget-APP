@@ -19,8 +19,7 @@ month = [
     "December",
 ]
 
-set_appearance_mode("light")
-update_icon = Image.open("update_icon.png")
+calendar_icon = Image.open("icon/calendar_icon.png")
 
 def open_expenses_history_window(expenses_data):
     expenses_history_window = CTkToplevel()
@@ -29,12 +28,15 @@ def open_expenses_history_window(expenses_data):
     expenses_history_window.wm_attributes("-topmost",True)
     
     #Label for Update Expenses
-    expenses_history_title_label = CTkLabel(expenses_history_window, text="Expenses History", font=("Poppins-ExtraBold",30), text_color="#6965A3")
+    expenses_history_title_label = CTkLabel(expenses_history_window, text="Expenses History", font=CTkFont("font/Poppins-ExtraBold",50, "bold"), text_color="#6965A3")
     expenses_history_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 
     #Month Label
-    month_label = CTkLabel(expenses_history_window, text="Select Month:", font=("Poppins-ExtraBold",20))
-    month_label.grid(row=3, column=0, padx=10, pady=5, sticky="w")
+    month_label = CTkLabel(expenses_history_window, text="Select Month:", font=CTkFont("font/Poppins-ExtraBold",30))
+    month_label.grid(row=3, column=0, padx=50, pady=5, sticky="w")
+
+    date_icon_label = CTkLabel(expenses_history_window, text="",image= CTkImage(calendar_icon) )
+    date_icon_label.grid(row=3, column=0, padx=20, pady=5, sticky="w")
 
     month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
     month_list = sorted (month_set) #Sort the extracted month
@@ -54,8 +56,9 @@ def open_expenses_history_window(expenses_data):
             expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
 
     #Button to update expenses treeview
-    update_button = CTkButton(expenses_history_window, text="Update", font=("Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
+    update_button = CTkButton(expenses_history_window, text="Update", font=CTkFont("font/Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
     update_button.grid(row=3, column=2, padx=10, pady=5, sticky="w")
+    update_icon = Image.open("update_icon.png")
 
     expenses_treeview = ttk.Treeview(expenses_history_window, columns=("Date", "Amount", "Category", "Note"), show="headings")
     expenses_treeview.heading("Date", text="Date")

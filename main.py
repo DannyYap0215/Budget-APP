@@ -5,6 +5,7 @@ import insight
 import expenses_history
 from update_expenses import expenses_data
 
+
 root = CTk()
 root.title("Budget!")
 screen_width = 500
