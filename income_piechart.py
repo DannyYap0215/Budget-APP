@@ -3,14 +3,26 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib import pyplot as plt
 from collections import defaultdict
 import tkinter.messagebox
-from set_income import income_data
+import database_test as db
+import sqlite3
+# from set_income import income_data
 
 def show_details(income_data):
+    
     # Create a string to store the details
     details_text = "Income Details:\n\n"
 
+    #danny's part
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
+    
+    c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024")
+    months_and_allocated_income = c.fetchall()
+    rows = months_and_allocated_income
+    
+    
     # Append each income detail to the string
-    for income in income_data:
+    for income in rows:
         month = income[0]  # Assuming month is at index 0
         amount = income[1]  # Assuming amount is at index 1
         details_text += f"Month: {month}\nAmount: {amount}\n\n"
@@ -19,6 +31,13 @@ def show_details(income_data):
     tkinter.messagebox.showinfo("Income Details", details_text)
 
 def open_income_piechart_window(income_data):
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
+    c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024")
+    months_and_allocated_income = c.fetchall()
+    rows = months_and_allocated_income
+    
+    
     # Filter out None values from income_data
     income_data_filtered = [(month, amount) for month, amount in income_data if amount is not None and amount.strip() != ""]
 
@@ -30,7 +49,7 @@ def open_income_piechart_window(income_data):
     month_income = defaultdict(float)
 
     # Calculate total income for each category
-    for income in income_data_filtered:
+    for income in rows:
         month = income[0]  # Assuming month is at index 0
         amount = float(income[1])    # Assuming amount is at index 1
         month_income[month] += amount
