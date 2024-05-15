@@ -21,7 +21,9 @@ import database_test as db
 expenses_data = []
 
 def open_update_expenses_window():
-
+      
+    categories = db.update_categories_list()  
+      
     my_font = CTkFont("font/Poppins-Bold.ttf")
     save_icon = Image.open("icon/saved_icon.png")
     calendar_icon = Image.open("icon/calendar_icon.png")
@@ -80,7 +82,7 @@ def open_update_expenses_window():
     category_icon_label.grid(row=9, column=0, padx=20, pady=5, sticky="w", in_=expenses_frame) 
 
     #dropdown expenses category menu
-    expenses_categories_menu = CTkOptionMenu(update_expenses_window, values=expenses_categories, width=150, height=34, fg_color="#6965A3")
+    expenses_categories_menu = CTkOptionMenu(update_expenses_window, values=categories, width=150, height=34, fg_color="#6965A3")
     expenses_categories_menu.grid(row=9, column=1, padx=10, pady=5, sticky="w", in_=expenses_frame)
 
     #Label for note
