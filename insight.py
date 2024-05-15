@@ -17,6 +17,15 @@ def open_insight_window(expenses_piechart, income_piechart, expenses_data, incom
     insight_window.geometry("400x300")
     insight_window.wm_attributes("-topmost",True)
 
+    def open_expenses_piechart():
+        expenses_piechart.open_expenses_piechart_window(expenses_data)
+
+    def open_income_piechart():
+        income_piechart.open_income_piechart_window(income_data)
+
+    def open_usage_barchart():
+        usage_barchart.open_usage_barchart_window(budget_data, expenses_data)
+
     expenses_button = CTkButton(insight_window, text="Expenses",command=lambda: expenses_piechart.open_expenses_piechart_window(expenses_data))
     expenses_button.grid(row=0, column=0, padx=10, pady=5, sticky="w")
     
