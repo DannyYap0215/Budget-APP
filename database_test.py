@@ -143,6 +143,15 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     table_name = f"daily_expenses"
     c.execute(f"INSERT INTO {table_name} (expenses_ID, months, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?, ?)", (expenses_ID, month, cat_ID[0], expenses_amount,expenses_date,expenses_note))
     con.commit()
+    c.execute("SELECT budget_used FROM budget_2024 WHERE months = ?",(month,))
+    budget_value = c.fetchone()
+    if budget_value is None:
+        budget_value = 0
+    else:
+        budget_value = budget_value[0]
+    budget_value = budget_value + float(expenses_amount) 
+    c.execute("UPDATE budget_2024 SET budget_used = ? WHERE months = ?",(budget_value,month))
+    con.commit()
     
 # def get_income_piechart() :
 #     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
