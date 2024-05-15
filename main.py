@@ -8,6 +8,7 @@ from update_expenses import expenses_data
 from set_income import income_data
 from set_categories import allocated
 
+
 root = CTk()
 root.title("Budget!")
 screen_width = 500
