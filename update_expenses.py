@@ -3,19 +3,20 @@ from tkcalendar import DateEntry
 from datetime import datetime
 from PIL import Image
 from time import strftime
+import database_test as db
 
-expenses_categories = [
-    "Food",
-    "Transport",
-    "Household",
-    "Pets",
-    "Apparel",
-    "Beauty",
-    "Health",
-    "Education",
-    "Social Life",
-    "Gift",
-]
+# expenses_categories = [
+#     "Food",
+#     "Transport",
+#     "Household",
+#     "Pets",
+#     "Apparel",
+#     "Beauty",
+#     "Health",
+#     "Education",
+#     "Social Life",
+#     "Gift",
+# ]
 
 expenses_data = []
 
