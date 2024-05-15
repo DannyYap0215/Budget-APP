@@ -56,9 +56,10 @@ def open_expenses_history_window(expenses_data):
             expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
 
     #Button to update expenses treeview
+    update_icon = Image.open("icon/update_icon.png")
     update_button = CTkButton(expenses_history_window, text="Update", font=CTkFont("font/Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
     update_button.grid(row=3, column=2, padx=10, pady=5, sticky="w")
-    update_icon = Image.open("update_icon.png")
+    
 
     expenses_treeview = ttk.Treeview(expenses_history_window, columns=("Date", "Amount", "Category", "Note"), show="headings")
     expenses_treeview.heading("Date", text="Date")
