@@ -35,7 +35,7 @@ def create_table_containing_allocated_income_for_month():
         c.execute(f"INSERT INTO {table_name} (months, allocated_income) VALUES (?, ?)", (month,0))
         con.commit()
         
-def create_expensesID_table():
+def create_expensesID_table(): 
     table_name = "expenses_ID_with_month"
     c.execute(f"""CREATE TABLE IF NOT EXISTS {table_name} (
                     expenses_ID TEXT,
@@ -45,21 +45,21 @@ def create_expensesID_table():
     
 #main functions
 def add_new_categories(new_category): #used in set_categories.py
-    table_name = "cat_ID_with_colour"
-    c.execute("SELECT cat_ID FROM cat_ID_with_colour")
+    table_name = "category_data"
+    c.execute("SELECT cat_ID FROM category_data")
     row = c.fetchall()
     new_row = len(row) + 1
     c.execute(f"INSERT INTO {table_name} (cat_ID, category, colour) VALUES (?, ?, ?)", (new_row, new_category,0))
     con.commit()
     
 def add_new_colour(colour_for_category,category_for_colour): #used in set_categories.py
-    table_name = "cat_ID_with_colour"
+    table_name = "category_data"
     c.execute(f"UPDATE {table_name} SET colour = ? WHERE category= ? ", (colour_for_category,category_for_colour))  
     con.commit()
     
 def update_categories_list(): #used in set_categories.py
     global categories
-    table_name = "cat_ID_with_colour"
+    table_name = "category_data"
     c.execute(f"SELECT category FROM {table_name}")
     list_through_categories = c.fetchall()
     categories = []
@@ -68,12 +68,12 @@ def update_categories_list(): #used in set_categories.py
     return categories
 
 def delete_categories(category_to_delete): #used in set_categories.py
-    c.execute(f"SELECT cat_ID FROM cat_ID_with_colour WHERE category = ? ",(category_to_delete,))
+    c.execute(f"SELECT cat_ID FROM category_data WHERE category = ? ",(category_to_delete,))
     cat_ID = c.fetchone()
     c.execute("SELECT name FROM sqlite_master WHERE type='table'")
     tables = c.fetchall()
     for table in tables:
-        if table[0] == "allocated_income_for_month_2024" : #2 hrs wasted here - Danny
+        if table[0] == "allocated_income_for_month_2024" or table[0] == "expenses_ID_with_month": #2 hrs wasted here - Danny
             pass
         else:
             print(table)
@@ -84,14 +84,14 @@ def delete_categories(category_to_delete): #used in set_categories.py
         
     
 def allocating_budget_to_table(month_choosen, allocated_budget, category_selected):
-    # Retrieve the cat_ID corresponding to the selected category from the cat_ID_with_colour table
-    c.execute("SELECT cat_ID FROM cat_ID_with_colour WHERE category = ?", (category_selected,))
+    # Retrieve the cat_ID corresponding to the selected category from the category_data table
+    c.execute("SELECT cat_ID FROM category_data WHERE category = ?", (category_selected,))
     ID_row = c.fetchone()  # Fetch only one row
     con.commit()
     
     if ID_row:
         cat_ID = ID_row[0]
-        table_name = f"budget_for_{month_choosen.lower()}_{year}"
+        table_name = f"budget_2024"
         c.execute(f"SELECT cat_ID FROM {table_name} WHERE cat_ID = ?", (cat_ID,))
         existing_row = c.fetchone()
         con.commit()
@@ -99,7 +99,7 @@ def allocating_budget_to_table(month_choosen, allocated_budget, category_selecte
             c.execute(f"UPDATE {table_name} SET budget_allocated = ? WHERE cat_ID = ?", (allocated_budget, cat_ID))
             con.commit()
         else:
-            c.execute(f"INSERT INTO {table_name} (cat_ID, budget_allocated, budget_used) VALUES (?, ?, ?)", (cat_ID, allocated_budget, 0))
+            c.execute(f"INSERT INTO {table_name} (cat_ID, months, budget_allocated, budget_used) VALUES (?, ?, ?, ?)", (cat_ID, month_choosen, allocated_budget, 0))
             con.commit()
     
 
@@ -128,21 +128,37 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     month = str(expenses_date).split("-")[1]
     month = numbers_to_month[month]
     
-    c.execute("SELECT expenses_ID FROM expenses_ID_with_month")
+    c.execute("SELECT expenses_ID FROM daily_expenses")
     row = c.fetchall()
     if len(row) == 0:
         expenses_ID = 1000
     else:
         expenses_ID = len(row) + 1000
         
-    c.execute(f"INSERT INTO expenses_ID_with_month (expenses_ID, months) VALUES (?, ?)", (expenses_ID, month))
+    # c.execute(f"INSERT INTO expenses_ID_with_month (expenses_ID, months) VALUES (?, ?)", (expenses_ID, month))
+    # con.commit()
+    
+    c.execute("SELECT cat_ID FROM category_data WHERE category = ?", (expenses_categories,))
+    cat_ID = c.fetchone()  # Fetch ID
+    table_name = f"daily_expenses"
+    c.execute(f"INSERT INTO {table_name} (expenses_ID, months, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?, ?)", (expenses_ID, month, cat_ID[0], expenses_amount,expenses_date,expenses_note))
+    con.commit()
+    c.execute("SELECT budget_used FROM budget_2024 WHERE months = ?",(month,))
+    budget_value = c.fetchone()
+    if budget_value is None:
+        budget_value = 0
+    else:
+        budget_value = budget_value[0]
+    budget_value = budget_value + float(expenses_amount) 
+    c.execute("UPDATE budget_2024 SET budget_used = ? WHERE months = ?",(budget_value,month))
     con.commit()
     
-    c.execute("SELECT cat_ID FROM cat_ID_with_colour WHERE category = ?", (expenses_categories,))
-    cat_ID = c.fetchone()  # Fetch ID
-    table_name = f"{month.lower()}_2024"
-    c.execute(f"INSERT INTO {table_name} (expenses_ID, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?)", (expenses_ID, cat_ID[0], expenses_amount,expenses_categories,expenses_note))
-    con.commit()
+    
+def get_value_for_history(selected_month): # date amount category note
+    c.execute("SELECT date, expenses, cat_ID, note FROM daily_expenses WHERE months = ?",(selected_month,))
+    rows = c.fetchall()
+    
+
     
 # def get_income_piechart() :
 #     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -153,7 +169,7 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
 #     rows = months_and_allocated_income
     
     
-
+get_value_for_history("May")
 
 #random values
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
