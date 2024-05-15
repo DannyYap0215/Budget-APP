@@ -3,6 +3,8 @@ from tkcalendar import DateEntry
 from tkinter import ttk
 from update_expenses import expenses_data
 from PIL import Image
+import database_test as db
+import sqlite3
 
 month = [
     "January",
@@ -43,17 +45,42 @@ def open_expenses_history_window(expenses_data):
 
     #Dropdown menu for month
     month_var = StringVar()
-    month_dropdown = CTkOptionMenu(expenses_history_window, values=month_list, variable=month_var, fg_color="#6965A3") 
+    
+    month_dropdown = CTkOptionMenu(expenses_history_window, values=month, variable=month_var, fg_color="#6965A3") 
     month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=N)
+    
+    import sqlite3
+
+    import sqlite3
 
     def update_expenses_treeview():
         selected_month = month_var.get()
-        filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
-        for item in expenses_treeview.get_children(): #Clear existing items in the treeview
-            expenses_treeview.delete(item) 
-        for expense in filtered_expenses: #Insert filtered expenses into the treeview
-            formatted_date = expense[0].strftime("%d-%m-%Y")
-            expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
+        
+        con = sqlite3.connect("database.db")
+        c = con.cursor()
+        
+        #set de. to be daily_expenses and cd. as category_data and on the codintion the cat_ID of de = cat_ID of cd #new stuff :D-danny
+        c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
+        rows = c.fetchall()
+        
+        # Clear existing items in the treeview
+        for item in expenses_treeview.get_children():
+            expenses_treeview.delete(item)
+        
+        # Insert fetched expenses into the treeview
+        for expense in rows:
+            expenses_treeview.insert("", "end", values=(expense[0], expense[1], expense[2], expense[3]))  
+
+
+    # def update_expenses_treeview():
+    #     selected_month = month_var.get()
+        
+    #     filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
+    #     for item in expenses_treeview.get_children(): #Clear existing items in the treeview
+    #         expenses_treeview.delete(item) 
+    #     for expense in filtered_expenses: #Insert filtered expenses into the treeview
+    #         formatted_date = expense[0].strftime("%d-%m-%Y")
+    #         expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
 
     #Button to update expenses treeview
     update_icon = Image.open("icon/update_icon.png")
