@@ -128,15 +128,15 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     month = str(expenses_date).split("-")[1]
     month = numbers_to_month[month]
     
-    c.execute("SELECT expenses_ID FROM expenses_ID_with_month")
+    c.execute("SELECT expenses_ID FROM daily_expenses")
     row = c.fetchall()
     if len(row) == 0:
         expenses_ID = 1000
     else:
         expenses_ID = len(row) + 1000
         
-    c.execute(f"INSERT INTO expenses_ID_with_month (expenses_ID, months) VALUES (?, ?)", (expenses_ID, month))
-    con.commit()
+    # c.execute(f"INSERT INTO expenses_ID_with_month (expenses_ID, months) VALUES (?, ?)", (expenses_ID, month))
+    # con.commit()
     
     c.execute("SELECT cat_ID FROM category_data WHERE category = ?", (expenses_categories,))
     cat_ID = c.fetchone()  # Fetch ID
