@@ -20,15 +20,27 @@ def show_details(income_data):
     months_and_allocated_income = c.fetchall()
     rows = months_and_allocated_income
     
-    
     # Append each income detail to the string
     for income in rows:
         month = income[0]  # Assuming month is at index 0
         amount = income[1]  # Assuming amount is at index 1
         details_text += f"Month: {month}\nAmount: {amount}\n\n"
 
+    # Create a root window (if not already created)
+    root = CTk()
+    root.withdraw()  # Hide the root window
+
+    # Create a new top-level window to ensure the message box is on top
+    top = CTkToplevel(root)
+    top.attributes('-topmost', True)
+    top.withdraw()  # Hide the top-level window
+
     # Display the details in a message box
-    tkinter.messagebox.showinfo("Income Details", details_text)
+    tkinter.messagebox.showinfo("Income Details", details_text, parent=top)
+
+    # Destroy the top-level window after use
+    top.destroy()
+    root.destroy()
 
 def open_income_piechart_window(income_data):
     con = sqlite3.connect("database.db")
@@ -37,13 +49,13 @@ def open_income_piechart_window(income_data):
     months_and_allocated_income = c.fetchall()
     rows = months_and_allocated_income
     
-    
     # Filter out None values from income_data
     income_data_filtered = [(month, amount) for month, amount in income_data if amount is not None and amount.strip() != ""]
 
     income_piechart_window = CTk()
     income_piechart_window.title("Income Pie Chart")
     income_piechart_window.geometry("520x520+300+200")
+    income_piechart_window.wm_attributes("-topmost",True)
 
     # Initialize a dictionary to store total income for each category
     month_income = defaultdict(float)
@@ -64,6 +76,10 @@ def open_income_piechart_window(income_data):
     fig = plt.figure()
     ax = fig.add_axes([0,0,1,1])
     ax.pie(amounts, labels = income_months , autopct='%1.2f%%',colors=colours)
+
+    #Label for Income Pie Chart
+    income_piechart_title_label = CTkLabel(income_piechart_window, text="Income Pie Chart", font=("Poppins-ExtraBold",30), text_color="#6965A3")
+    income_piechart_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 
     # Create a canvas widget for displaying the pie chart
     canvasbar = FigureCanvasTkAgg(fig, master=income_piechart_window)
