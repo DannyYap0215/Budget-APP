@@ -3,9 +3,23 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
-from update_expenses import expenses_data
-from set_categories import categories, allocated
 from datetime import datetime
+import sqlite3
+
+months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
 
 def parse_date(date):
     if isinstance(date, str):
@@ -13,7 +27,7 @@ def parse_date(date):
     return date
 
 # Ensure all dates in expenses_data are datetime objects
-expenses_data = [(parse_date(expense[0]), expense[1], expense[2], expense[3]) for expense in expenses_data]
+# expenses_data = [(parse_date(expense[0]), expense[1], expense[2], expense[3]) for expense in expenses_data]
 
 def open_usage_barchart_window(budget_data, expenses_data):
     usage_barchart_window = CTk()
@@ -34,26 +48,43 @@ def open_usage_barchart_window(budget_data, expenses_data):
 
     #Dropdown menu for month
     month_var = StringVar()
-    month_dropdown = CTkOptionMenu(usage_barchart_window, values=month_list, variable=month_var, fg_color="#6965A3") 
+    month_dropdown = CTkOptionMenu(usage_barchart_window, values=months, variable=month_var, fg_color="#6965A3") 
     month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=N)
 
     def update_usage_barchart():
         selected_month = month_var.get()  # Get the selected month
-
+        con = sqlite3.connect("database.db")
+        c = con.cursor()
+        c.execute("SELECT cd.category, bu.months, bu.budget_allocated, bu.budget_used FROM budget_2024 bu JOIN category_data cd ON bu.cat_ID = cd.cat_ID WHERE bu.months = ?", (selected_month,))
+        rows = c.fetchall()
+        print(rows)
         # Filter expenses data by the selected month
-        filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
+        # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
 
         # Initialize dictionaries to store budget and expenses for each category
         budget_dict = defaultdict(float)
         expenses_dict = defaultdict(float)
 
+        # # Populate budget dictionary
+        # for category, budget_amount in zip(rows[0], rows[2]):
+        #     budget_dict[category] = float(budget_amount)
+
+        # # Populate expenses dictionary
+        # for row in rows:
+        #     category, amount = row[0], row[3]
+        #     expenses_dict[category] += float(amount)
+        
+        
+        # Populate expenses dictionary
         # Populate budget dictionary
-        for category, budget_amount in zip(categories, allocated):
+        for row in rows:
+            category = row[0]
+            budget_amount = row[2]
             budget_dict[category] = float(budget_amount)
 
-        # Populate expenses dictionary
-        for expense in expenses_data:
-            category, amount = expense[2], expense[1]
+        for row in rows:
+            category = row[0]
+            amount = row[3]
             expenses_dict[category] += float(amount)
 
         # Extract categories and corresponding budget and expenses
