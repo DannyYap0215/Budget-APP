@@ -143,20 +143,21 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     table_name = f"daily_expenses"
     c.execute(f"INSERT INTO {table_name} (expenses_ID, months, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?, ?)", (expenses_ID, month, cat_ID[0], expenses_amount,expenses_date,expenses_note))
     con.commit()
-    c.execute("SELECT budget_used FROM budget_2024 WHERE months = ?",(month,))
+    c.execute("SELECT budget_used FROM budget_2024 WHERE cat_ID = ?  AND months = ?",(cat_ID[0][0],month))
     budget_value = c.fetchone()
     if budget_value is None:
         budget_value = 0
     else:
         budget_value = budget_value[0]
     budget_value = budget_value + float(expenses_amount) 
-    c.execute("UPDATE budget_2024 SET budget_used = ? WHERE months = ?",(budget_value,month))
+    cat_ID = c.execute("SELECT cat_ID FROM category_data WHERE category = ?",(expenses_categories,))
+    cat_ID = c.fetchall()
+    c.execute("UPDATE budget_2024 SET budget_used = ? WHERE cat_ID = ?  AND months = ? ",(budget_value,cat_ID[0][0],month))
     con.commit()
     
     
-def get_value_for_history(selected_month): # date amount category note
-    c.execute("SELECT date, expenses, cat_ID, note FROM daily_expenses WHERE months = ?",(selected_month,))
-    rows = c.fetchall()
+# def search_history():
+#     c.execute("SELECT")
     
 
     
@@ -169,7 +170,7 @@ def get_value_for_history(selected_month): # date amount category note
 #     rows = months_and_allocated_income
     
     
-get_value_for_history("May")
+
 
 #random values
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]

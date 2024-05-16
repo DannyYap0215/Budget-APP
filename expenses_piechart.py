@@ -5,19 +5,40 @@ from collections import defaultdict
 import tkinter.messagebox
 import database_test as db
 from datetime import datetime
+import sqlite3
+
+months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
 
 def show_details(expenses_data, selected_month):
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
      # Filter expenses data by the selected month
-    filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
+    # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
     
     # Sort the filtered expenses data by date
-    filtered_expenses.sort(key=lambda x: x[0])  # Assuming date is at index 0
+    # filtered_expenses.sort(key=lambda x: x[0])  # Assuming date is at index 0
     
     # Create a string to store the sorted details
     details_text = f"Expense Details for {selected_month} :\n\n"
 
+    c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
+    rows = c.fetchall()
+
     # Append each expense detail to the string
-    for expense in filtered_expenses:
+    for expense in rows:
         date = expense[0]  # Assuming date is at index 0
         amount = expense[1]  # Assuming amount is at index 1
         category = expense[2]  # Assuming category is at index 2
@@ -54,25 +75,29 @@ def open_expenses_piechart_window(expenses_data):
     month_label = CTkLabel(expenses_piechart_window, text="Select Month:", font=("Poppins-ExtraBold",20))
     month_label.grid(row=3, column=0, padx=10, pady=5, sticky="w")
 
-    month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
-    month_list = sorted (month_set) #Sort the extracted month
+    # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
+    # month_list = sorted (month_set) #Sort the extracted month
 
     #Dropdown menu for month
     month_var = StringVar()
-    month_dropdown = CTkOptionMenu(expenses_piechart_window, values=month_list, variable=month_var, fg_color="#6965A3") 
+    month_dropdown = CTkOptionMenu(expenses_piechart_window, values=months, variable=month_var, fg_color="#6965A3") 
     month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=N)
 
     def update_expenses_piechart():
+        con = sqlite3.connect("database.db")
+        c = con.cursor()
         selected_month = month_var.get()  # Get the selected month
 
         # Filter expenses data by the selected month
-        filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
+        # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
         
-        # Initialize a dictionary to store total expenses for each category
+        # # Initialize a dictionary to store total expenses for each category
         category_expenses = defaultdict(float)
 
         # Calculate total expenses for each category
-        for expense in filtered_expenses:
+        c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
+        rows = c.fetchall()
+        for expense in rows:
             category = expense[2]  # Assuming category is at index 2
             amount = float(expense[1])    # Assuming amount is at index 1
             category_expenses[category] += amount
@@ -94,7 +119,7 @@ def open_expenses_piechart_window(expenses_data):
         canvasbar.get_tk_widget().place(relx=0.5, rely=0.5, anchor=CENTER)  
 
         # Create a Button widget to show more details
-        details_button = CTkButton(expenses_piechart_window, text="Show Details", command=lambda: show_details(filtered_expenses, selected_month))
+        details_button = CTkButton(expenses_piechart_window, text="Show Details", command=lambda: show_details(rows, selected_month))
         details_button.place(relx=0.5, rely=0.95, anchor="center")
 
     #Button to update expenses piechart
