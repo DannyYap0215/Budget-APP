@@ -55,7 +55,7 @@ def open_expenses_history_window(expenses_data):
 
     def update_expenses_treeview():
         selected_month = month_var.get()
-        
+        print(selected_month)
         con = sqlite3.connect("database.db")
         c = con.cursor()
         
@@ -70,8 +70,26 @@ def open_expenses_history_window(expenses_data):
         # Insert fetched expenses into the treeview
         for expense in rows:
             expenses_treeview.insert("", "end", values=(expense[0], expense[1], expense[2], expense[3]))  
-
-
+            
+    def search_function():
+        search_query = search_var.get()
+        
+        con = sqlite3.connect("database.db")
+        c = con.cursor()    
+        c.execute("SELECT de.date, de.expenses ,cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months LIKE ? OR cd.category LIKE ? OR de.expenses LIKE ? OR de.date LIKE ? OR de.note LIKE ?", 
+            (f"%{search_query}%" , f"%{search_query}%" , f"%{search_query}%" , f"%{search_query}%" , f"%{search_query}%"))
+        rows = c.fetchall()
+        print(rows)
+        print(search_query)
+        for item in expenses_treeview.get_children():
+                expenses_treeview.delete(item)
+            
+        for expense in rows:
+            expenses_treeview.insert("", "end", values=(expense[0], expense[1], expense[2], expense[3])) 
+    
+        
+        
+            
     # def update_expenses_treeview():
     #     selected_month = month_var.get()
         
@@ -87,13 +105,24 @@ def open_expenses_history_window(expenses_data):
     update_button = CTkButton(expenses_history_window, text="Update", font=CTkFont("font/Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
     update_button.grid(row=3, column=2, padx=10, pady=5, sticky="w")
     
+    #Danny 's search functions
+    search_var = StringVar()
+    search_entry = CTkEntry(expenses_history_window,textvariable=search_var)
+    search_entry.grid(row=4,column =1,padx=10, pady=5)
+    
+   
+    
+    
+    search_button = CTkButton(expenses_history_window, text="Search", font = CTkFont("font/Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6",command=search_function)
+    search_button.grid(row=4,column =2,padx=10, pady=5, sticky="w")
+    
 
     expenses_treeview = ttk.Treeview(expenses_history_window, columns=("Date", "Amount", "Category", "Note"), show="headings")
     expenses_treeview.heading("Date", text="Date")
     expenses_treeview.heading("Amount", text="Amount (RM)")
     expenses_treeview.heading("Category", text="Category")
     expenses_treeview.heading("Note", text="Note")
-    expenses_treeview.grid(row=5, column=0, columnspan=3, padx=10, pady=5)
+    expenses_treeview.grid(row=6, column=0, columnspan=3, padx=10, pady=5)
 
     #Insert all expenses data initially
     for expense in expenses_data:
@@ -102,3 +131,4 @@ def open_expenses_history_window(expenses_data):
 
     #Update the treeview based on the initially selected month
     update_expenses_treeview()
+   

@@ -154,9 +154,8 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     con.commit()
     
     
-def get_value_for_history(selected_month): # date amount category note
-    c.execute("SELECT date, expenses, cat_ID, note FROM daily_expenses WHERE months = ?",(selected_month,))
-    rows = c.fetchall()
+# def search_history():
+#     c.execute("SELECT")
     
 
     
@@ -169,7 +168,7 @@ def get_value_for_history(selected_month): # date amount category note
 #     rows = months_and_allocated_income
     
     
-get_value_for_history("May")
+
 
 #random values
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
