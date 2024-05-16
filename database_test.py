@@ -92,11 +92,11 @@ def allocating_budget_to_table(month_choosen, allocated_budget, category_selecte
     if ID_row:
         cat_ID = ID_row[0]
         table_name = f"budget_2024"
-        c.execute(f"SELECT cat_ID FROM {table_name} WHERE cat_ID = ?", (cat_ID,))
+        c.execute(f"SELECT cat_ID FROM {table_name} WHERE cat_ID = ? AND months = ?", (cat_ID, month_choosen))
         existing_row = c.fetchone()
         con.commit()
         if existing_row:
-            c.execute(f"UPDATE {table_name} SET budget_allocated = ? WHERE cat_ID = ?", (allocated_budget, cat_ID))
+            c.execute(f"UPDATE {table_name} SET budget_allocated = ? WHERE cat_ID = ? AND months = ?", (allocated_budget, cat_ID, month_choosen))
             con.commit()
         else:
             c.execute(f"INSERT INTO {table_name} (cat_ID, months, budget_allocated, budget_used) VALUES (?, ?, ?, ?)", (cat_ID, month_choosen, allocated_budget, 0))
