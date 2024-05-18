@@ -57,6 +57,9 @@ expenses_history_button.place(relx=0.03, rely=0.6, anchor="w")
 expenses_history_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 expenses_history_indicator.place(relx=0.02, rely=0.6, anchor="w")
 
+dashbard_right_frame = CTkFrame(master=root, width=1500, height=1080, corner_radius=10, fg_color="#C6C5DC")
+dashbard_right_frame.place(relx=0.22, rely=0.5, anchor="w")
+
 # def toggle_fullscreen(event=None):
     # state = not root.attributes('-fullscreen') #True or False basically 
     # root.attributes('-fullscreen', state)
