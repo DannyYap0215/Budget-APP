@@ -22,6 +22,14 @@ months = [
     "December",
 ]
 
+def get_distinct_years():
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
+    c.execute("SELECT DISTINCT strftime('%Y', date) FROM daily_expenses")
+    years = [str(row[0]) for row in c.fetchall()]
+    con.close()
+    return years
+
 def show_details(expenses_data, selected_month):
     con = sqlite3.connect("database.db")
     c = con.cursor()
@@ -67,9 +75,52 @@ def open_expenses_piechart_window(expenses_data):
     expenses_piechart_window.geometry("640x640+300+200")
     expenses_piechart_window.wm_attributes("-topmost",True)
 
+    # Define the colors dictionary
+    colors = {
+    "red":"#FF5733",  # Red (Lighter shade)
+    "green":"#4CAF50",  # Green (Darker shade)
+    "blue":"#2196F3",  # Blue (Darker shade)
+    "yellow":"#FFEB3B",  # Yellow (Darker shade)
+    "orange":"#FF9800",  # Orange (Darker shade)
+    "purple":"#9C27B0",  # Purple (Darker shade)
+    "pink":"#E91E63",  # Pink (Darker shade)
+    "brown":"#795548",  # Brown (Darker shade)
+    "cyan":"#00BCD4",  # Cyan (Darker shade)
+    "magenta":"#E040FB",  # Magenta (Darker shade)
+    "black":"#212121",  # Black (Darker shade)
+    "white":"#FFFFFF",  # White (Pure white)
+    "gray":"#9E9E9E",  # Gray (Darker shade)
+    "lightgray":"#BDBDBD",  # Lightgray (Lighter shade)
+    "darkgray":"#616161",  # Darkgray (Darker shade)
+    "lightblue":"#03A9F4",  # Lightblue (Lighter shade)
+    "darkblue":"#1976D2",  # Darkblue (Darker shade)
+    "lightgreen":"#8BC34A",  # Lightgreen (Lighter shade)
+    "darkgreen":"#388E3C",  # Darkgreen (Darker shade)
+    "lightred":"#FFCDD2",  # Lightred (Lighter shade)
+    "darkred":"#D32F2F",  # Darkred (Darker shade)
+    "lightyellow":"#FFF9C4",  # Lightyellow (Lighter shade)
+    "darkyellow":"#FBC02D",  # Darkyellow (Darker shade)
+    "lightorange":"#FFCC80",  # Lightorange (Lighter shade)
+    "darkorange":"#FF5722",  # Darkorange (Darker shade)
+    "lightpurple":"#CE93D8",  # Lightpurple (Lighter shade)
+    "darkpurple":"#7B1FA2"   # Darkpurple (Darker shade)
+}
+
     #Label for Expenses Pie Chart
     expenses_piechart_title_label = CTkLabel(expenses_piechart_window, text="Expenses Pie Chart", font=("Poppins-ExtraBold",30), text_color="#6965A3")
     expenses_piechart_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+
+    # Year Label
+    year_label = CTkLabel(expenses_piechart_window, text="Select Year:", font=("Poppins-ExtraBold", 20))
+    year_label.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+
+    # Fetch distinct years from the database
+    year_list = get_distinct_years()
+
+    # Dropdown menu for year
+    year_var = StringVar()
+    year_dropdown = CTkOptionMenu(expenses_piechart_window, values=year_list, variable=year_var, fg_color="#6965A3")
+    year_dropdown.grid(row=2, column=1, padx=10, pady=5, sticky=N)
 
     #Month Label
     month_label = CTkLabel(expenses_piechart_window, text="Select Month:", font=("Poppins-ExtraBold",20))
@@ -87,27 +138,38 @@ def open_expenses_piechart_window(expenses_data):
         con = sqlite3.connect("database.db")
         c = con.cursor()
         selected_month = month_var.get()  # Get the selected month
+        selected_year = year_var.get()  # Get the selected year
 
         # Filter expenses data by the selected month
         # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
         
         # # Initialize a dictionary to store total expenses for each category
         category_expenses = defaultdict(float)
+        category_colors = {}
 
         # Calculate total expenses for each category
-        c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
+        c.execute("SELECT de.date, de.expenses, cd.category, cd.colour FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
         rows = c.fetchall()
+
         for expense in rows:
             category = expense[2]  # Assuming category is at index 2
             amount = float(expense[1])    # Assuming amount is at index 1
+            color_name = expense[3]  # Assuming color name is at index 3 in the database
+            hex_color = colors.get(color_name)  # Retrieve hex color code from the predefined colors dictionary
             category_expenses[category] += amount
+            category_colors[category] = hex_color
+        
+            if hex_color:
+                # Color exists in the predefined colors dictionary
+                print(f"Category: {category}, Hex Color: {hex_color}")
+            else:
+                # Color does not exist in the predefined colors dictionary
+                print(f"Category: {category}, Color '{color_name}' not found in predefined colors.")
 
         # Extract categories and corresponding expenses
         expenses_categories = list(category_expenses.keys())
         weights = list(category_expenses.values())
-
-        # Pie chart colors
-        colours = ["#ffcd8e", "#ffb255", "#ff8ca1", "#f45f74", "#ffc9ed", "#b77ea3", "#8fd7d7", "#00b0be", "#bdd373", "#98c127"]
+        colours = [category_colors[category] for category in expenses_categories]
 
         fig = plt.figure()
         ax = fig.add_axes([0,0,1,1])
@@ -116,7 +178,7 @@ def open_expenses_piechart_window(expenses_data):
         # Create a canvas widget for displaying the pie chart
         canvasbar = FigureCanvasTkAgg(fig, master=expenses_piechart_window)
         canvasbar.draw()
-        canvasbar.get_tk_widget().place(relx=0.5, rely=0.5, anchor=CENTER)  
+        canvasbar.get_tk_widget().place(relx=0.5, rely=0.55, anchor=CENTER)  
 
         # Create a Button widget to show more details
         details_button = CTkButton(expenses_piechart_window, text="Show Details", command=lambda: show_details(rows, selected_month))
