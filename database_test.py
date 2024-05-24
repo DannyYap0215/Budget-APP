@@ -103,9 +103,9 @@ def allocating_budget_to_table(month_choosen, allocated_budget, category_selecte
             con.commit()
     
 
-def allocated_income_for_month(income_allocated,selected_month_menu): #used in set_income.py
+def allocated_income_for_month(income_allocated,selected_month_menu,selected_year): #used in set_income.py
     table_name = "allocated_income_for_month_2024"
-    c.execute(f"UPDATE {table_name} SET allocated_income = ? WHERE months= ? ", (income_allocated,selected_month_menu))  
+    c.execute(f"UPDATE {table_name} SET allocated_income = ? WHERE months= ? AND year = ? ", (income_allocated,selected_month_menu,selected_year))  
     con.commit()
 
 
