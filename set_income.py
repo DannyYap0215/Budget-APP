@@ -19,21 +19,11 @@ def open_set_income_window():
     
     def save_budget():
         global selected_month_menu
-        global income_allocated  # Access the global variable income_allocated
+        global income_allocated  
         
-        # Update selected_month_menu and income_allocated
         selected_month_menu = month_issued_menu.get()
         income_allocated = income_entry.get()
         selected_year = year_entry.get()
-
-        # Check if both month and income are selected
-        if selected_month_menu is not None and income_allocated.strip() != "":
-            # Append data to income_data
-            income_data.append((selected_month_menu, income_allocated))
-            # Print for debugging purposes
-            print((selected_month_menu, income_allocated))
-        else:
-            messagebox.showerror("Error", "Please select a month and enter income!")
 
         if month_is_saved:
             selected_month_menu = month_issued_menu.get()
@@ -47,39 +37,26 @@ def open_set_income_window():
 
                 if existing_year:
                     print(f"The year {selected_year} already exists in the database.")
-                    if income_allocated.strip() != "" and income_allocated.isdigit():
-                        print((income_allocated, selected_month_menu,selected_year))
-                        db.allocated_income_for_month(income_allocated, selected_month_menu,selected_year)
-                    elif income_allocated.strip() == "":
-                        messagebox.showerror("Error", "Please enter a non-empty value!")
-                    elif not income_allocated.isdigit():
-                        messagebox.showerror("Error", "Please check if you've entered a digit!")
-
                 else:
                     print(f"The year {selected_year} does not exist in the database.")
                     c.executemany("INSERT INTO allocated_income_for_month_2024 (months, year, allocated_income) VALUES (?, ?, ?)",
                                 [(month, selected_year, income_allocated if month == selected_month_menu else 0) for month in months])
                     con.commit()  
-                    if income_allocated.strip() != "" and income_allocated.isdigit():
-                        print((income_allocated, selected_month_menu,selected_year))
-                        db.allocated_income_for_month(income_allocated, selected_month_menu,selected_year)
-                    elif income_allocated.strip() == "":
-                        messagebox.showerror("Error", "Please enter a non-empty value!")
-                    elif not income_allocated.isdigit():
-                        messagebox.showerror("Error", "Please check if you've entered a digit!")
-
-                
-                
-
+                    
+                    
+                if income_allocated.strip() != "" and income_allocated.isdigit():
+                    print((income_allocated, selected_month_menu,selected_year))
+                    table_name = "allocated_income_for_month_2024"
+                    c.execute(f"UPDATE {table_name} SET allocated_income = ? WHERE months = ? AND year = ?", (income_allocated, selected_month_menu, selected_year))
+                    con.commit()
+                elif income_allocated.strip() == "":
+                    messagebox.showerror("Error", "Please enter a non-empty value!")
+                elif not income_allocated.isdigit():
+                    messagebox.showerror("Error", "Please check if you've entered a digit!")
             else:
                 messagebox.showerror("Error", "Please enter a year!")
         else:
             messagebox.showerror("Error", "Please choose a month first!")
-
-
-
-    
-
 
 
     def save_month():
