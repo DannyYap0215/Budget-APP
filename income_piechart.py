@@ -8,7 +8,6 @@ import sqlite3
 # from set_income import income_data
 
 def show_details(income_data):
-    
     # Create a string to store the details
     details_text = "Income Details:\n\n"
 
@@ -16,7 +15,7 @@ def show_details(income_data):
     con = sqlite3.connect("database.db")
     c = con.cursor()
     
-    c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024")
+    c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024 WHERE year = ?",(year_selected,))
     months_and_allocated_income = c.fetchall()
     rows = months_and_allocated_income
     
@@ -56,15 +55,26 @@ def open_income_piechart_window(income_data):
     year_label = CTkLabel(income_piechart_window, text="Select Year:", font=("Poppins-ExtraBold", 20))
     year_label.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
+    c.execute("SELECT DISTINCT year FROM daily_expenses")
+    years = c.fetchall()
+    years = [str(year[0]) for year in years]
+
     # Dropdown menu for year
     year_var = StringVar()
-    year_dropdown = CTkOptionMenu(income_piechart_window, values=['2024'], variable=year_var, fg_color="#6965A3")
+    year_dropdown = CTkOptionMenu(income_piechart_window, values=years, variable=year_var, fg_color="#6965A3")
     year_dropdown.grid(row=2, column=1, padx=10, pady=5, sticky=N)
+    year_var.set(years[0]) 
+    
+
 
     def update_income_piechart():
+        global year_selected
+        year_selected = year_var.get()
         con = sqlite3.connect("database.db")
         c = con.cursor()
-        c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024")
+        c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024 WHERE year = ?",(year_selected,))
         months_and_allocated_income = c.fetchall()
         rows = months_and_allocated_income
         
