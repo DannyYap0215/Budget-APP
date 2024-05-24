@@ -25,8 +25,9 @@ months = [
 def get_distinct_years():
     con = sqlite3.connect("database.db")
     c = con.cursor()
-    c.execute("SELECT DISTINCT strftime('%Y', date) FROM daily_expenses")
-    years = [str(row[0]) for row in c.fetchall()]
+    c.execute("SELECT DISTINCT year FROM daily_expenses")
+    years = c.fetchall()
+    years = [str(year[0]) for year in years]
     con.close()
     return years
 
@@ -42,7 +43,7 @@ def show_details(expenses_data, selected_month):
     # Create a string to store the sorted details
     details_text = f"Expense Details for {selected_month} :\n\n"
 
-    c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
+    c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year = ?", (selected_month,selected_year))
     rows = c.fetchall()
 
     # Append each expense detail to the string
@@ -118,6 +119,7 @@ def open_expenses_piechart_window(expenses_data):
     year_list = get_distinct_years()
 
     # Dropdown menu for year
+    
     year_var = StringVar()
     year_dropdown = CTkOptionMenu(expenses_piechart_window, values=year_list, variable=year_var, fg_color="#6965A3")
     year_dropdown.grid(row=2, column=1, padx=10, pady=5, sticky=N)
@@ -135,6 +137,7 @@ def open_expenses_piechart_window(expenses_data):
     month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=N)
 
     def update_expenses_piechart():
+        global selected_year
         con = sqlite3.connect("database.db")
         c = con.cursor()
         selected_month = month_var.get()  # Get the selected month
@@ -148,7 +151,7 @@ def open_expenses_piechart_window(expenses_data):
         category_colors = {}
 
         # Calculate total expenses for each category
-        c.execute("SELECT de.date, de.expenses, cd.category, cd.colour FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ?", (selected_month,))
+        c.execute("SELECT de.date, de.expenses, cd.category, cd.colour FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year =?", (selected_month,year_dropdown.get()))
         rows = c.fetchall()
 
         for expense in rows:
