@@ -130,6 +130,7 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     
     month = str(expenses_date).split("-")[1]
     month = numbers_to_month[month]
+    year = str(expenses_date).split("-")[0]
     
     c.execute("SELECT expenses_ID FROM daily_expenses")
     row = c.fetchall()
@@ -144,9 +145,9 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     c.execute("SELECT cat_ID FROM category_data WHERE category = ?", (expenses_categories,))
     cat_ID = c.fetchone()  # Fetch ID
     table_name = f"daily_expenses"
-    c.execute(f"INSERT INTO {table_name} (expenses_ID, months, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?, ?)", (expenses_ID, month, cat_ID[0], expenses_amount,expenses_date,expenses_note))
+    c.execute(f"INSERT INTO {table_name} (expenses_ID, months, year, cat_ID, expenses, date, note) VALUES (?, ?, ?, ?, ?, ?, ?)", (expenses_ID, month,year, cat_ID[0], expenses_amount,expenses_date,expenses_note))
     con.commit()
-    c.execute("SELECT budget_used FROM budget_2024 WHERE cat_ID = ?  AND months = ?",(cat_ID[0][0],month))
+    c.execute("SELECT budget_used FROM budget_2024 WHERE cat_ID = ?  AND months = ? AND year = ?",(cat_ID[0][0],month,year))
     budget_value = c.fetchone()
     if budget_value is None:
         budget_value = 0
@@ -155,7 +156,7 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     budget_value = budget_value + float(expenses_amount) 
     cat_ID = c.execute("SELECT cat_ID FROM category_data WHERE category = ?",(expenses_categories,))
     cat_ID = c.fetchall()
-    c.execute("UPDATE budget_2024 SET budget_used = ? WHERE cat_ID = ?  AND months = ? ",(budget_value,cat_ID[0][0],month))
+    c.execute("UPDATE budget_2024 SET budget_used = ? WHERE cat_ID = ?  AND months = ? AND year = ? ",(budget_value,cat_ID[0][0],month,year))
     con.commit()
     
     
