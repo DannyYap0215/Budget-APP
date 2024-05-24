@@ -125,7 +125,7 @@ def open_set_categories_window():
         
     set_categories_window = CTkToplevel()
     set_categories_window.title("Set Categories")
-    set_categories_window.geometry("500x600")
+    set_categories_window.geometry("660x470")
     set_categories_window.resizable(width=False,height=False)
     set_categories_window.wm_attributes("-topmost",True)
     
@@ -141,7 +141,7 @@ def open_set_categories_window():
     choose_year_menu.grid(row=1, column=1, padx=10, pady=5)
     
     choose_year_button = CTkButton(set_categories_window, text="Updates Year", fg_color="#6965A3",image= CTkImage(update_icon),command= choose_year)
-    choose_year_button.grid(row=2, column=1)
+    choose_year_button.grid(row=1, column=2)
     
     
     choose_month_label = CTkLabel(set_categories_window, text="Select Month of Income:",font=CTkFont("font/Poppins-Bold.ttf",20))
@@ -153,7 +153,7 @@ def open_set_categories_window():
     choose_month_menu.grid(row=3, column=1, padx=10, pady=5)
     
     choose_month_button = CTkButton(set_categories_window, text="Updates Month", fg_color="#6965A3",image= CTkImage(update_icon), command=choose_month)
-    choose_month_button.grid(row=4, column=1)
+    choose_month_button.grid(row=3, column=2)
     
     #add a new categories
     add_categories_label = CTkLabel(set_categories_window, text="Add New Categories:",font=CTkFont("font/Poppins-Bold.ttf",20))
@@ -165,7 +165,7 @@ def open_set_categories_window():
     
     #save button
     add_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3", command=save_1)
-    add_categories_save_button.grid(row=6, column=1)
+    add_categories_save_button.grid(row=5, column=2)
     
     #select categories
     select_categories_label = CTkLabel(set_categories_window, text="Select Categories:",font=CTkFont("font/Poppins-Bold.ttf",20))
@@ -187,19 +187,19 @@ def open_set_categories_window():
     
     #save button 2
     allocate_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3", command=save_2)
-    allocate_categories_save_button.grid(row=9, column=1)
+    allocate_categories_save_button.grid(row=8, column=2)
 
     #frame around deletion
     deletion_frame = CTkFrame(master=set_categories_window,
                               width=200,height= 180,
-                              fg_color="#1f2124",border_color="purple",
+                              fg_color="#1f2124",border_color="#535085",
                               border_width=4,corner_radius=8)
     deletion_frame.grid(row=10, column=0,padx=(10,1),pady=(20,0))
     
     #set colour frame
     set_colour_frame = CTkFrame(master=set_categories_window,
                               width=200,height= 180,
-                              fg_color="#1f2124",border_color="purple",
+                              fg_color="#1f2124",border_color="#535085",
                               border_width=4,corner_radius=8)
     set_colour_frame.grid(row=10, column=1,padx=(1,10),pady=(20,0))
 
