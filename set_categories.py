@@ -2,6 +2,7 @@ from customtkinter import *
 from set_income import months
 from tkinter import messagebox
 import database_test as db
+import sqlite3
 
 
 colors = [
@@ -71,7 +72,7 @@ def open_set_categories_window():
             allocated.append(allocated_budget) 
             print(category_selected, allocated_budget)
             allocate_categories_entry.delete(0, 'end')
-            db.allocating_budget_to_table(month_choosen,allocated_budget,category_selected)
+            db.allocating_budget_to_table(month_choosen,allocated_budget,category_selected,year_choosen)
         else:
             pass
         
@@ -105,13 +106,31 @@ def open_set_categories_window():
         
         db.add_new_colour(colour_for_category,category_for_colour)
         
-        
+    def choose_year():
+        global year_choosen
+        year_choosen = choose_year_menu.get()
+        print(year_choosen)
+
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
+    c.execute("SELECT DISTINCT year FROM allocated_income_for_month_2024")
+    years = c.fetchall()
+    years = [str(year[0]) for year in years]
         
     set_categories_window = CTkToplevel()
     set_categories_window.title("Set Categories")
     set_categories_window.geometry("360x500")
     set_categories_window.resizable(width=False,height=False)
     set_categories_window.wm_attributes("-topmost",True)
+    
+    choose_year_label = CTkLabel(set_categories_window, text="Select Year of Income:")
+    choose_year_label.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+    
+    choose_year_menu = CTkOptionMenu(set_categories_window,values=years)
+    choose_year_menu.grid(row=0, column=1, padx=10, pady=5)
+    
+    choose_year_button = CTkButton(set_categories_window, text="Confirm Year",command= choose_year)
+    choose_year_button.grid(row=1, column=1)
     
     
     choose_month_label = CTkLabel(set_categories_window, text="Select Month of Income:")

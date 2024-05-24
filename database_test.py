@@ -83,7 +83,7 @@ def delete_categories(category_to_delete): #used in set_categories.py
         
         
     
-def allocating_budget_to_table(month_choosen, allocated_budget, category_selected):
+def allocating_budget_to_table(month_choosen, allocated_budget, category_selected,year_choosen):
     # Retrieve the cat_ID corresponding to the selected category from the category_data table
     c.execute("SELECT cat_ID FROM category_data WHERE category = ?", (category_selected,))
     ID_row = c.fetchone()  # Fetch only one row
@@ -92,14 +92,14 @@ def allocating_budget_to_table(month_choosen, allocated_budget, category_selecte
     if ID_row:
         cat_ID = ID_row[0]
         table_name = f"budget_2024"
-        c.execute(f"SELECT cat_ID FROM {table_name} WHERE cat_ID = ? AND months = ?", (cat_ID, month_choosen))
+        c.execute(f"SELECT cat_ID FROM {table_name} WHERE cat_ID = ? AND months = ? AND year = ?", (cat_ID, month_choosen,year_choosen))
         existing_row = c.fetchone()
         con.commit()
         if existing_row:
-            c.execute(f"UPDATE {table_name} SET budget_allocated = ? WHERE cat_ID = ? AND months = ?", (allocated_budget, cat_ID, month_choosen))
+            c.execute(f"UPDATE {table_name} SET budget_allocated = ? WHERE cat_ID = ? AND months = ? AND year = ?", (allocated_budget, cat_ID, month_choosen,year_choosen))
             con.commit()
         else:
-            c.execute(f"INSERT INTO {table_name} (cat_ID, months, budget_allocated, budget_used) VALUES (?, ?, ?, ?)", (cat_ID, month_choosen, allocated_budget, 0))
+            c.execute(f"INSERT INTO {table_name} (cat_ID, months, year, budget_allocated, budget_used) VALUES (?, ?, ?, ?, ?)", (cat_ID, month_choosen,year_choosen, allocated_budget, 0))
             con.commit()
     
 
@@ -107,10 +107,6 @@ def allocated_income_for_month(income_allocated,selected_month_menu,selected_yea
     c.execute(f"UPDATE allocated_income_for_month_2024 SET allocated_income = ? WHERE year= ? AND months = ? ", (income_allocated,selected_month_menu,selected_year))  
     con.commit()
 
-def allocated_income_for_month(income_allocated, selected_month_menu, selected_year):
-    table_name = "allocated_income_for_month_2024"
-    c.execute(f"UPDATE {table_name} SET allocated_income = ? WHERE months = ? AND year = ?", (income_allocated, selected_month_menu, selected_year))
-    con.commit()
 
 def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,expenses_note):
     numbers_to_month = {
