@@ -31,7 +31,7 @@ def get_distinct_years():
     con.close()
     return years
 
-def show_details(selected_month):
+def show_details(rows,selected_month):
     con = sqlite3.connect("database.db")
     c = con.cursor()
      # Filter expenses data by the selected month
