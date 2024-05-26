@@ -3,7 +3,7 @@ import expenses_piechart
 import income_piechart
 import usage_barchart
 
-def open_insight_window(expenses_piechart, income_piechart, expenses_data, income_data, budget_data):
+def open_insight_window(expenses_piechart, income_piechart):
     def close_existing_windows():
         # Destroy any existing windows
         for widget in insight_window.winfo_children():
@@ -18,21 +18,21 @@ def open_insight_window(expenses_piechart, income_piechart, expenses_data, incom
     insight_window.wm_attributes("-topmost",True)
 
     def open_expenses_piechart():
-        expenses_piechart.open_expenses_piechart_window(expenses_data)
+        expenses_piechart.open_expenses_piechart_window()
 
     def open_income_piechart():
-        income_piechart.open_income_piechart_window(income_data)
+        income_piechart.open_income_piechart_window()
 
     def open_usage_barchart():
-        usage_barchart.open_usage_barchart_window(budget_data, expenses_data)
+        usage_barchart.open_usage_barchart_window()
 
-    expenses_button = CTkButton(insight_window, text="Expenses",command=lambda: expenses_piechart.open_expenses_piechart_window(expenses_data))
+    expenses_button = CTkButton(insight_window, text="Expenses",command=open_expenses_piechart)
     expenses_button.grid(row=0, column=0, padx=10, pady=5, sticky="w")
     
-    income_button = CTkButton(insight_window, text="Income",command=lambda: income_piechart.open_income_piechart_window(income_data))
+    income_button = CTkButton(insight_window, text="Income",command=open_income_piechart)
     income_button.grid(row=1, column=0, padx=10, pady=5, sticky="w")
     
-    usage_button = CTkButton(insight_window, text="Usage of Budget",command=lambda: usage_barchart.open_usage_barchart_window(budget_data, expenses_data))
+    usage_button = CTkButton(insight_window, text="Usage of Budget",command=open_usage_barchart)
     usage_button.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 
     #check for m1 click on the button if so it goes through the function o_b_c()
