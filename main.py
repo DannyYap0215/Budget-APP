@@ -4,9 +4,6 @@ import update_expenses
 import expenses_history
 import expenses_piechart
 import income_piechart
-from update_expenses import expenses_data
-from set_income import income_data
-from set_categories import allocated
 import insight
 
 
@@ -29,10 +26,10 @@ def open_update_expenses_window():
     update_expenses.open_update_expenses_window()
 
 def open_insight_window():
-    insight.open_insight_window(expenses_piechart, income_piechart, expenses_data, income_data, allocated)
+    insight.open_insight_window(expenses_piechart, income_piechart)
 
 def open_expenses_history_window():
-    expenses_history.open_expenses_history_window(expenses_data)
+    expenses_history.open_expenses_history_window()
     
 insight_button = CTkButton(root, text="Insight", height= 10,width=20, command=open_insight_window)
 insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
