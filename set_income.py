@@ -110,13 +110,13 @@ def open_set_income_window():
     month_image = CTkLabel(set_income_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(calendar_icon))
     month_image.grid(row=2, column=0, padx=10, pady=(5,30), sticky="w")
     
-    choose_month_button = CTkButton(set_income_window, text="Updates Month ",fg_color="#6965A3", bg_color="#1f2124",image= CTkImage(update_icon), command=save_month)
+    choose_month_button = CTkButton(set_income_window, text="Updates Month ",fg_color="#6965A3", bg_color="#1f2124",hover_color="#8885B6",image= CTkImage(update_icon), command=save_month)
     choose_month_button.grid(row=2, column=2, padx=10, pady=(5,30))
     
-    choose_year_button = CTkButton(set_income_window, text="Updates Year",fg_color="#6965A3", bg_color="#1f2124",image= CTkImage(update_icon), command=save_year)
+    choose_year_button = CTkButton(set_income_window, text="Updates Year",fg_color="#6965A3", bg_color="#1f2124",hover_color="#8885B6",image= CTkImage(update_icon), command=save_year)
     choose_year_button.grid(row=1, column=2)
   
-    save_button = CTkButton(set_income_window, text="Save ALL",image=CTkImage(save_icon),fg_color="#6965A3", bg_color="#1f2124", command=save_budget)
+    save_button = CTkButton(set_income_window, text="Save ALL",image=CTkImage(save_icon),fg_color="#6965A3", bg_color="#1f2124",hover_color="#8885B6", command=save_budget)
     save_button.grid(row=3, column=2, padx=10, pady=5)
     
     income_data.append((selected_month_menu, income_allocated))
