@@ -10,7 +10,7 @@ import insight
 
 
 root = CTk()
-root.title("Budget!")
+root.title("Budget Dashboard")
 screen_width = 1920
 screen_height = 1080
 root.geometry(f"{screen_width}x{screen_height}")
@@ -31,25 +31,46 @@ def indicator(label):
     hide_indicator()
     label.configure(fg_color="#8885B6", bg_color="#535085")
 
+def open_insight_window():
+    insight.open_insight_window(dashbard_right_frame)
+
+def open_edit_budget_window():
+    edit_budget.open_edit_budget_window(dashbard_right_frame)
+
+def open_update_expenses_window():
+    update_expenses.open_update_expenses_window(dashbard_right_frame)
+
+def open_expenses_history_window():
+    expenses_history.open_expenses_history_window(dashbard_right_frame)
+
 dashboard_left_frame = CTkFrame(master=root, width=420, height=1080, corner_radius=10, fg_color="#535085")
 dashboard_left_frame.place(relx=0.0, rely=0.5, anchor="w")
 
-insight_button = CTkButton(root, image=CTkImage(insight_icon), text="Insight", font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", command=lambda:indicator(insight_indicator))
+insight_button = CTkButton(root, image=CTkImage(insight_icon), text="Insight", font=CTkFont("font/Poppins-Bold.ttf",35), 
+                           corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
+                           command=lambda:(indicator(insight_indicator), open_insight_window))
 insight_button.place(relx=0.03, rely=0.3, anchor="w")
 insight_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 insight_indicator.place(relx=0.02, rely=0.3, anchor="w")
 
-edit_budget_button = CTkButton(root, image=CTkImage(edit_budget_icon), text="Edit Budget", font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", command=lambda:indicator(edit_budget_indicator))
+edit_budget_button = CTkButton(root, image=CTkImage(edit_budget_icon), text="Edit Budget", font=CTkFont("font/Poppins-Bold.ttf",35), 
+                               corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
+                               command=lambda:(indicator(edit_budget_indicator), open_edit_budget_window))
 edit_budget_button.place(relx=0.03, rely=0.4, anchor="w")
 edit_budget_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 edit_budget_indicator.place(relx=0.02, rely=0.4, anchor="w")
 
-update_expenses_button = CTkButton(root, image=CTkImage(update_expenses_icon), text="Update Expenses", font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", command=lambda:indicator(update_expenses_indicator))
+update_expenses_button = CTkButton(root, image=CTkImage(update_expenses_icon), text="Update Expenses", font=CTkFont("font/Poppins-Bold.ttf",35), 
+                                   corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
+                                   command=lambda:(indicator(update_expenses_indicator), open_expenses_history_window))
 update_expenses_button.place(relx=0.03, rely=0.5, anchor="w")
 update_expenses_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 update_expenses_indicator.place(relx=0.02, rely=0.5, anchor="w")
 
-expenses_history_button = CTkButton(root, image=CTkImage(expenses_history_icon), text="Expenses History", font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", command=lambda:indicator(expenses_history_indicator))
+expenses_history_button = CTkButton(root, image=CTkImage(expenses_history_icon), text="Expenses History", 
+                                    font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", 
+                                    hover_color="#2B2A45", text_color="#FFFFFF", 
+                                    command=lambda:(indicator(expenses_history_indicator), open_expenses_history_window))
 expenses_history_button.place(relx=0.03, rely=0.6, anchor="w")
 expenses_history_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 expenses_history_indicator.place(relx=0.02, rely=0.6, anchor="w")
