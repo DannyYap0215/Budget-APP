@@ -7,7 +7,7 @@ import database_test as db
 import sqlite3
 # from set_income import income_data
 
-def show_details(income_data):
+def show_details():
     # Create a string to store the details
     details_text = "Income Details:\n\n"
 
@@ -41,7 +41,7 @@ def show_details(income_data):
     top.destroy()
     root.destroy()
 
-def open_income_piechart_window(income_data):
+def open_income_piechart_window():
     income_piechart_window = CTk()
     income_piechart_window.title("Income Pie Chart")
     income_piechart_window.geometry("640x640+300+200")
@@ -79,7 +79,7 @@ def open_income_piechart_window(income_data):
         rows = months_and_allocated_income
         
         # Filter out None values from income_data
-        income_data_filtered = [(month, amount) for month, amount in income_data if amount is not None and amount.strip() != ""]
+        # income_data_filtered = [(month, amount) for month, amount in income_data if amount is not None and amount.strip() != ""]
 
         # Initialize a dictionary to store total income for each category
         month_income = defaultdict(float)

@@ -31,7 +31,7 @@ def get_distinct_years():
     con.close()
     return years
 
-def show_details(expenses_data, selected_month):
+def show_details(selected_month):
     con = sqlite3.connect("database.db")
     c = con.cursor()
      # Filter expenses data by the selected month
@@ -70,7 +70,7 @@ def show_details(expenses_data, selected_month):
     top.destroy()
     root.destroy()
 
-def open_expenses_piechart_window(expenses_data):
+def open_expenses_piechart_window():
     expenses_piechart_window = CTkToplevel()
     expenses_piechart_window.title("Expenses Pie Chart")
     expenses_piechart_window.geometry("640x640+300+200")
