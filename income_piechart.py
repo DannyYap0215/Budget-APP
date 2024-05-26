@@ -107,7 +107,7 @@ def open_income_piechart_window():
         canvasbar.get_tk_widget().place(relx=0.5, rely=0.55, anchor=CENTER)  
 
         # Create a Button widget to show more details
-        details_button = CTkButton(income_piechart_window, text="Show Details", command=lambda: show_details(income_data_filtered))
+        details_button = CTkButton(income_piechart_window, text="Show Details", command=lambda: show_details())
         details_button.place(relx=0.5, rely=0.95, anchor="center")
 
     #Button to update expenses piechart
