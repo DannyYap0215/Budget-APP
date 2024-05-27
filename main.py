@@ -1,6 +1,8 @@
 from customtkinter import *
 import tkinter as tk
 from PIL import Image
+from time import strftime
+from datetime import datetime
 import edit_budget
 import update_expenses
 import expenses_history
@@ -16,6 +18,7 @@ screen_height = 1080
 root.geometry(f"{screen_width}x{screen_height}")
 
 set_appearance_mode("dark")
+
 insight_icon = Image.open("icon/insight.png")
 edit_budget_icon = Image.open("icon/edit_budget.png")
 update_expenses_icon = Image.open("icon/update_expenses.png")
@@ -32,37 +35,37 @@ def indicator(label):
     label.configure(fg_color="#8885B6", bg_color="#535085")
 
 def open_insight_window():
-    insight.open_insight_window(dashbard_right_frame)
+    insight.open_insight_window(dashboard_right_frame, expenses_piechart, income_piechart)
 
 def open_edit_budget_window():
-    edit_budget.open_edit_budget_window(dashbard_right_frame)
+    edit_budget.open_edit_budget_window(dashboard_right_frame)
 
 def open_update_expenses_window():
-    update_expenses.open_update_expenses_window(dashbard_right_frame)
+    update_expenses.open_update_expenses_window(dashboard_right_frame)
 
 def open_expenses_history_window():
-    expenses_history.open_expenses_history_window(dashbard_right_frame)
+    expenses_history.open_expenses_history_window(dashboard_right_frame)
 
 dashboard_left_frame = CTkFrame(master=root, width=420, height=1080, corner_radius=10, fg_color="#535085")
 dashboard_left_frame.place(relx=0.0, rely=0.5, anchor="w")
 
 insight_button = CTkButton(root, image=CTkImage(insight_icon), text="Insight", font=CTkFont("font/Poppins-Bold.ttf",35), 
                            corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
-                           command=lambda:(indicator(insight_indicator), open_insight_window))
+                           command=lambda:(indicator(insight_indicator), open_insight_window()))
 insight_button.place(relx=0.03, rely=0.3, anchor="w")
 insight_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 insight_indicator.place(relx=0.02, rely=0.3, anchor="w")
 
 edit_budget_button = CTkButton(root, image=CTkImage(edit_budget_icon), text="Edit Budget", font=CTkFont("font/Poppins-Bold.ttf",35), 
                                corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
-                               command=lambda:(indicator(edit_budget_indicator), open_edit_budget_window))
+                               command=lambda:(indicator(edit_budget_indicator), open_edit_budget_window()))
 edit_budget_button.place(relx=0.03, rely=0.4, anchor="w")
 edit_budget_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 edit_budget_indicator.place(relx=0.02, rely=0.4, anchor="w")
 
 update_expenses_button = CTkButton(root, image=CTkImage(update_expenses_icon), text="Update Expenses", font=CTkFont("font/Poppins-Bold.ttf",35), 
                                    corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
-                                   command=lambda:(indicator(update_expenses_indicator), open_expenses_history_window))
+                                   command=lambda:(indicator(update_expenses_indicator), open_update_expenses_window()))
 update_expenses_button.place(relx=0.03, rely=0.5, anchor="w")
 update_expenses_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 update_expenses_indicator.place(relx=0.02, rely=0.5, anchor="w")
@@ -70,13 +73,37 @@ update_expenses_indicator.place(relx=0.02, rely=0.5, anchor="w")
 expenses_history_button = CTkButton(root, image=CTkImage(expenses_history_icon), text="Expenses History", 
                                     font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", 
                                     hover_color="#2B2A45", text_color="#FFFFFF", 
-                                    command=lambda:(indicator(expenses_history_indicator), open_expenses_history_window))
+                                    command=lambda:(indicator(expenses_history_indicator), open_expenses_history_window()))
 expenses_history_button.place(relx=0.03, rely=0.6, anchor="w")
 expenses_history_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 expenses_history_indicator.place(relx=0.02, rely=0.6, anchor="w")
 
-dashbard_right_frame = CTkFrame(master=root, width=1500, height=1080, corner_radius=10, fg_color="#C6C5DC")
-dashbard_right_frame.place(relx=0.22, rely=0.5, anchor="w")
+dashboard_right_frame = CTkFrame(master=root, width=1500, height=1080, corner_radius=10, fg_color="#202124")
+dashboard_right_frame.place(relx=0.22, rely=0.5, anchor="w")
+
+#Date function
+def update_date():
+    date_string = datetime.now().strftime("%d/%m/%Y")
+    date_label.configure(text=date_string)
+
+#Clock function
+def clock_time ():
+        clock_string = strftime("%H:%M:%S %p")
+        clock_label.configure(text=clock_string)
+        clock_label.after(1000, clock_time)
+
+#Date Label
+date_label = CTkLabel(root, font=CTkFont("Jersey.ttf", 30, "bold"), bg_color="#535085")
+date_label.place(relx=0.062, rely=0.8, anchor="w")
+update_date()
+
+#Clock Label
+clock_label = CTkLabel(root, font=CTkFont("Jersey.ttf", 30, "bold"), bg_color="#535085")
+clock_label.place(relx=0.057, rely=0.85, anchor="w")
+clock_time()
+
+# clock_frame = CTkFrame(master=update_expenses_frame, width=700, height=600,border_width=5, border_color="#3F3D65", corner_radius=15)
+# clock_frame.grid(row=10, column=4, padx=20, pady=5, sticky="n")
 
 # def toggle_fullscreen(event=None):
     # state = not root.attributes('-fullscreen') #True or False basically 
@@ -88,11 +115,11 @@ dashbard_right_frame.place(relx=0.22, rely=0.5, anchor="w")
 # def open_update_expenses_window():
 #     update_expenses.open_update_expenses_window()
 
-def open_insight_window():
-    insight.open_insight_window(expenses_piechart, income_piechart)
+# def open_insight_window():
+#     insight.open_insight_window(expenses_piechart, income_piechart)
 
-def open_expenses_history_window():
-    expenses_history.open_expenses_history_window()
+# def open_expenses_history_window():
+#     expenses_history.open_expenses_history_window()
     
 # insight_button = CTkButton(root, text="Insight", height= 10,width=20, command=open_insight_window)
 # insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
