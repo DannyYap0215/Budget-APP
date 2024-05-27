@@ -5,6 +5,7 @@ import expenses_history
 import expenses_piechart
 import income_piechart
 import insight
+import settings
 
 
 root = CTk()
@@ -31,6 +32,9 @@ def open_insight_window():
 def open_expenses_history_window():
     expenses_history.open_expenses_history_window()
     
+def open_settings_window():
+        settings.Settings()
+    
 insight_button = CTkButton(root, text="Insight", height= 10,width=20, command=open_insight_window)
 insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
 
@@ -42,6 +46,9 @@ update_expenses_button.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
 expenses_history_button = CTkButton(root, text="Expenses History",height= 10,width=20, command=open_expenses_history_window)
 expenses_history_button.grid(row=3, column=1, padx=10, pady=5, sticky="w")
+
+settings_button = CTkButton(root, text="Settings",height= 10,width=20, command=open_settings_window)
+settings_button.grid(row=4, column=1, padx=10, pady=5, sticky="w")
 
 root.bind("<F11>", toggle_fullscreen)
 
