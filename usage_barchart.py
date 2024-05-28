@@ -28,7 +28,7 @@ def parse_date(date):
         return datetime.strptime(date, "%d-%m-%Y")  # Adjust the format string as needed
     return date
 
-def open_usage_barchart_window(budget_data, expenses_data):
+def open_usage_barchart_window():
     usage_barchart_window = CTk()
     usage_barchart_window.title("Usage of Budget Bar Chart")
     usage_barchart_window.geometry("800x600+300+200")
@@ -57,15 +57,15 @@ def open_usage_barchart_window(budget_data, expenses_data):
     month_label = CTkLabel(usage_barchart_window, text="Select Month:", font=("Poppins-ExtraBold", 20))
     month_label.grid(row=3, column=0, padx=10, pady=5, sticky="w")
 
-    month_set = set(expense[0].strftime("%B") for expense in expenses_data)  # Extract month from the date entered
-    month_list = sorted(month_set)  # Sort the extracted month
+    # month_set = set(expense[0].strftime("%B") for expense in expenses_data)  # Extract month from the date entered
+    # month_list = sorted(month_set)  # Sort the extracted month
 
     # Dropdown menu for month
     month_var = tk.StringVar()
     month_dropdown = CTkOptionMenu(usage_barchart_window, values=months, variable=month_var, fg_color="#6965A3")
     month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=tk.N)
 
-    def get_global_limits(expenses_data):
+    def get_global_limits():
         min_value, max_value = 0, float('-inf')
         con = sqlite3.connect("database.db")
         c = con.cursor()
@@ -82,8 +82,8 @@ def open_usage_barchart_window(budget_data, expenses_data):
         range_buffer = max_value * 0.1  # Add a 10% buffer to the range
         return 0, max_value + range_buffer
 
-    global_y_min, global_y_max = get_global_limits(expenses_data)
-    
+    global_y_min, global_y_max = get_global_limits()
+
     def update_usage_barchart():
         selected_month = month_var.get()  # Get the selected month
         selected_year = year_var.get()  # Get the selected year

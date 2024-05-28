@@ -1,7 +1,7 @@
 from customtkinter import *
 from tkcalendar import DateEntry
 from tkinter import ttk
-from update_expenses import expenses_data
+
 from PIL import Image
 import database_test as db
 import sqlite3
@@ -23,7 +23,7 @@ month = [
 
 calendar_icon = Image.open("icon/calendar_icon.png")
 
-def open_expenses_history_window(expenses_data):
+def open_expenses_history_window():
     expenses_history_window = CTkToplevel()
     expenses_history_window.title("Expenses History")
     expenses_history_window.geometry("800x600")
@@ -40,8 +40,8 @@ def open_expenses_history_window(expenses_data):
     date_icon_label = CTkLabel(expenses_history_window, text="",image= CTkImage(calendar_icon) )
     date_icon_label.grid(row=3, column=0, padx=20, pady=5, sticky="w")
 
-    month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
-    month_list = sorted (month_set) #Sort the extracted month
+    # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
+    # month_list = sorted (month_set) #Sort the extracted month
 
     #Dropdown menu for month
     month_var = StringVar()
@@ -125,9 +125,9 @@ def open_expenses_history_window(expenses_data):
     expenses_treeview.grid(row=6, column=0, columnspan=3, padx=10, pady=5)
 
     #Insert all expenses data initially
-    for expense in expenses_data:
-        formatted_date = expense[0].strftime("%d-%m-%Y")
-        expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
+    # for expense in expenses_data:
+    #     formatted_date = expense[0].strftime("%d-%m-%Y")
+    #     expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
 
     #Update the treeview based on the initially selected month
     update_expenses_treeview()

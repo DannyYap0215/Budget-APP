@@ -65,40 +65,7 @@ def show_details(year_selected):
 
     con.close()
 
-    # # Create a string to store the details
-    # details_text = "Income Details:\n\n"
-
-    # #danny's part
-    # con = sqlite3.connect("database.db")
-    # c = con.cursor()
-    
-    # c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024 WHERE year = ?",(year_selected,))
-    # months_and_allocated_income = c.fetchall()
-    # rows = months_and_allocated_income
-    
-    # # Append each income detail to the string
-    # for income in rows:
-    #     month = income[0]  # Assuming month is at index 0
-    #     amount = income[1]  # Assuming amount is at index 1
-    #     details_text += f"Month: {month}\nAmount: {amount}\n\n"
-
-    # # Create a root window (if not already created)
-    # root = CTk()
-    # root.withdraw()  # Hide the root window
-
-    # # Create a new top-level window to ensure the message box is on top
-    # top = CTkToplevel(root)
-    # top.attributes('-topmost', True)
-    # top.withdraw()  # Hide the top-level window
-
-    # # Display the details in a message box
-    # tkinter.messagebox.showinfo("Income Details", details_text, parent=top)
-
-    # # Destroy the top-level window after use
-    # top.destroy()
-    # root.destroy()
-
-def open_income_piechart_window(income_data):
+def open_income_piechart_window():
     income_piechart_window = CTk()
     income_piechart_window.title("Income Pie Chart")
     income_piechart_window.geometry("640x640+300+200")
@@ -124,8 +91,6 @@ def open_income_piechart_window(income_data):
     year_dropdown.grid(row=2, column=1, padx=10, pady=5, sticky=N)
    # year_var.set(years[0]) 
     
-
-
     def update_income_piechart():
         global year_selected
         year_selected = year_var.get()
@@ -136,7 +101,7 @@ def open_income_piechart_window(income_data):
         rows = months_and_allocated_income
         
         # Filter out None values from income_data
-        income_data_filtered = [(month, amount) for month, amount in income_data if amount is not None and amount.strip() != ""]
+        # income_data_filtered = [(month, amount) for month, amount in income_data if amount is not None and amount.strip() != ""]
 
         # Initialize a dictionary to store total income for each category
         month_income = defaultdict(float)

@@ -94,7 +94,7 @@ def show_details_window(selected_month, selected_year):
 
     con.close()
 
-def open_expenses_piechart_window(expenses_data):
+def open_expenses_piechart_window():
     expenses_piechart_window = CTkToplevel()
     expenses_piechart_window.title("Expenses Pie Chart")
     expenses_piechart_window.geometry("640x640+300+200")
