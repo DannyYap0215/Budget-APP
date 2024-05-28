@@ -28,14 +28,6 @@ def parse_date(date):
         return datetime.strptime(date, "%d-%m-%Y")  # Adjust the format string as needed
     return date
 
-def get_distinct_years():
-    con = sqlite3.connect("database.db")
-    c = con.cursor()
-    c.execute("SELECT DISTINCT strftime('%Y', date) FROM daily_expenses")
-    years = [str(row[0]) for row in c.fetchall()]
-    con.close()
-    return years
-
 def open_usage_barchart_window(budget_data, expenses_data):
     usage_barchart_window = CTk()
     usage_barchart_window.title("Usage of Budget Bar Chart")
@@ -50,12 +42,15 @@ def open_usage_barchart_window(budget_data, expenses_data):
     year_label = CTkLabel(usage_barchart_window, text="Select Year:", font=("Poppins-ExtraBold", 20))
     year_label.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 
-    # Fetch distinct years from the database
-    year_list = get_distinct_years()
+    con = sqlite3.connect("database.db")
+    c = con.cursor()
+    c.execute("SELECT DISTINCT year FROM budget_2024")
+    years = c.fetchall()
+    years = [str(year[0]) for year in years]
 
     # Dropdown menu for year
     year_var = tk.StringVar()
-    year_dropdown = CTkOptionMenu(usage_barchart_window, values=year_list, variable=year_var, fg_color="#6965A3")
+    year_dropdown = CTkOptionMenu(usage_barchart_window, values=years, variable=year_var, fg_color="#6965A3")
     year_dropdown.grid(row=2, column=1, padx=10, pady=5, sticky=tk.N)
 
     # Month Label
@@ -88,13 +83,13 @@ def open_usage_barchart_window(budget_data, expenses_data):
         return 0, max_value + range_buffer
 
     global_y_min, global_y_max = get_global_limits(expenses_data)
-
+    
     def update_usage_barchart():
         selected_month = month_var.get()  # Get the selected month
         selected_year = year_var.get()  # Get the selected year
         con = sqlite3.connect("database.db")
         c = con.cursor()
-        c.execute("SELECT cd.category, bu.months, bu.budget_allocated, bu.budget_used FROM budget_2024 bu JOIN category_data cd ON bu.cat_ID = cd.cat_ID WHERE bu.months = ?", (selected_month,))
+        c.execute("SELECT cd.category, bu.months, bu.budget_allocated, bu.budget_used FROM budget_2024 bu JOIN category_data cd ON bu.cat_ID = cd.cat_ID WHERE bu.months = ? AND bu.year = ?", (selected_month, selected_year))
         rows = c.fetchall()
         print(rows)
 
@@ -134,7 +129,7 @@ def open_usage_barchart_window(budget_data, expenses_data):
         # Annotate bar chart with expenses values
         for bar in bars:
             height = bar.get_height()
-            ax1.annotate(f'${height}',
+            ax1.annotate(f'RM {height}',
                          xy=(bar.get_x() + bar.get_width() / 2, height),
                          xytext=(0, 3),  # 3 points vertical offset
                          textcoords="offset points",
@@ -164,7 +159,7 @@ def open_usage_barchart_window(budget_data, expenses_data):
         cursor = mplcursors.cursor(markers, hover=True)
         @cursor.connect("add")
         def on_add(sel):
-            sel.annotation.set_text(f'Budget: ${sel.target[1]:.2f}')
+            sel.annotation.set_text(f'Budget: RM {sel.target[1]:.2f}')
             sel.annotation.get_bbox_patch().set_facecolor('#FF8CA1')  # Change background color
             sel.annotation.get_bbox_patch().set_edgecolor('#F45F74')  # Change edge color
 
