@@ -2,7 +2,6 @@ from customtkinter import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib import pyplot as plt
 from collections import defaultdict
-import tkinter.messagebox
 import database_test as db
 from datetime import datetime
 import sqlite3
@@ -31,44 +30,69 @@ def get_distinct_years():
     con.close()
     return years
 
-def show_details(rows,selected_month):
+def show_details_window(selected_month, selected_year):
+    details_window = CTkToplevel()
+    details_window.title("Expenses Details")
+    details_window.geometry("800x600")
+    details_window.wm_attributes("-topmost",True)
+
+    # Add a label for the selected month and year
+    month_year_label = CTkLabel(details_window, text=f"Expenses Details for {selected_month} {selected_year}", font=("Poppins-Bold", 30), text_color="#6965A3")
+    month_year_label.pack(pady=15)
+
     con = sqlite3.connect("database.db")
     c = con.cursor()
-     # Filter expenses data by the selected month
-    # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
-    
-    # Sort the filtered expenses data by date
-    # filtered_expenses.sort(key=lambda x: x[0])  # Assuming date is at index 0
-    
-    # Create a string to store the sorted details
-    details_text = f"Expense Details for {selected_month} :\n\n"
-
-    c.execute("SELECT de.date, de.expenses, cd.category, de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year = ?", (selected_month,selected_year))
+    c.execute("SELECT de.date, de.expenses, cd.category FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year = ? ORDER BY de.cat_ID", (selected_month, selected_year))
     rows = c.fetchall()
 
-    # Append each expense detail to the string
+    # Initialize dictionaries to store statistics
+    category_totals = defaultdict(float)
+    category_counts = defaultdict(int)
+
+    # Collect statistics
     for expense in rows:
-        date = expense[0]  # Assuming date is at index 0
-        amount = expense[1]  # Assuming amount is at index 1
-        category = expense[2]  # Assuming category is at index 2
-        note = expense[3]  # Assuming note is at index 3
-        details_text += f"Date: {date}\nAmount: {amount}\nCategory: {category}\nNote: {note}\n\n"
+        amount = expense[1]
+        category = expense[2]
 
-    # Create a root window (if not already created)
-    root = CTk()
-    root.withdraw()  # Hide the root window
+        # Update the totals and counts
+        category_totals[category] += amount
+        category_counts[category] += 1
+    
+    total_expenses = sum(category_totals.values())
+    total_label = CTkLabel(details_window, text=f"Total Expenses: RM {total_expenses:.2f}", font=("Poppins-Bold", 25))
+    total_label.pack(pady=(0, 10))
 
-    # Create a new top-level window to ensure the message box is on top
-    top = CTkToplevel(root)
-    top.attributes('-topmost', True)
-    top.withdraw()  # Hide the top-level window
+    # Create a frame to hold the details
+    details_frame = CTkFrame(details_window)
+    details_frame.pack(padx=20, pady=20, fill="both", expand=True)
 
-    # Display the details in a message box
-    tkinter.messagebox.showinfo("Expenses Details", details_text, parent=top)
+    # Configure row and column weights
+    for i in range(11):  # Assuming 11 rows and 4 columns in the table
+        details_frame.grid_rowconfigure(i, weight=1)
+    for j in range(4):
+        details_frame.grid_columnconfigure(j, weight=1)
 
-    # Destroy the top-level window after use
-    top.destroy()
-    root.destroy()
+    # Create headers for the table
+    headers = ["Category", "Total Expenses (RM)", "Number of Transactions", "Average Expenses (RM)"]
+    for col, header in enumerate(headers):
+        header_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
+        header_frame.grid(row=0, column=col, sticky="nsew")
+        header_label = CTkLabel(details_frame, text=header, font=("Poppins-Bold", 14))
+        header_label.grid(row=0, column=col, padx=5, pady=5, sticky="nsew")
+        
+    # Insert data into the table
+    for row, category in enumerate(category_totals.keys(), start=1):
+        total = category_totals[category]
+        count = category_counts[category]
+        average = total / count
+
+        for col, data in enumerate([category, f"{total:.2f}", f"{count}", f"{average:.2f}"]):
+            data_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
+            data_frame.grid(row=row, column=col, sticky="nsew")
+            data_label = CTkLabel(details_frame, text=data, font=("Poppins", 12))
+            data_label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
+
+    con.close()
 
 def open_expenses_piechart_window():
     expenses_piechart_window = CTkToplevel()
@@ -151,7 +175,7 @@ def open_expenses_piechart_window():
         category_colors = {}
 
         # Calculate total expenses for each category
-        c.execute("SELECT de.date, de.expenses, cd.category, cd.colour FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year =?", (selected_month,year_dropdown.get()))
+        c.execute("SELECT de.date, de.expenses, cd.category, cd.colour , de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year =?", (selected_month,year_dropdown.get()))
         rows = c.fetchall()
 
         for expense in rows:
@@ -184,7 +208,7 @@ def open_expenses_piechart_window():
         canvasbar.get_tk_widget().place(relx=0.5, rely=0.55, anchor=CENTER)  
 
         # Create a Button widget to show more details
-        details_button = CTkButton(expenses_piechart_window, text="Show Details", command=lambda: show_details(rows, selected_month))
+        details_button = CTkButton(expenses_piechart_window, text="Show Details", command=lambda: show_details_window(selected_month, selected_year))
         details_button.place(relx=0.5, rely=0.95, anchor="center")
 
     #Button to update expenses piechart
