@@ -16,6 +16,7 @@ root.geometry(f"{screen_width}x{screen_height}")
 
 set_appearance_mode("dark")
 
+
 def toggle_fullscreen(event=None):
     state = not root.attributes('-fullscreen') #True or False basically 
     root.attributes('-fullscreen', state)
