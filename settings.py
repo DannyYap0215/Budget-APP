@@ -44,20 +44,14 @@ class Settings():
         pass
     
     def reset_data(self) : #dont delete lol(working)
-        self.confirm_window = CTkToplevel(self.settings_window)
-        self.confirm_window.title("Confirm Reset")
-        self.confirm_window.geometry("300x150")
-        self.confirm_window.wm_attributes("-topmost", True)
-        self.confirm_window.resizable(width=False, height=False)
+        confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", justify=LEFT)
+        confirm_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
 
-        confirm_label = CTkLabel(self.confirm_window, text="Type 'CONFIRM' to reset data:", justify=LEFT)
-        confirm_label.pack(pady=10)
+        self.confirm_entry = CTkEntry(self.settings_frame, width=200)
+        self.confirm_entry.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
 
-        self.confirm_entry = CTkEntry(self.confirm_window, width=200)
-        self.confirm_entry.pack(pady=5)
-
-        confirm_button = CTkButton(self.confirm_window, text="Delete", command=self.perform_reset)
-        confirm_button.pack(pady=10)
+        confirm_button = CTkButton(self.settings_frame, text="Delete", command=self.perform_reset)
+        confirm_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
     
     def perform_reset(self) :
         if self.confirm_entry.get() == "CONFIRM":
@@ -68,7 +62,6 @@ class Settings():
             c.execute("DELETE FROM daily_expenses")
             con.commit()
             messagebox.showinfo("Data Reset", "Data has been successfully reset.")
-            self.confirm_window.destroy()
         else:
             messagebox.showerror("Error", "You must type 'CONFIRM' to reset data.")
             self.confirm_entry.delete(0, 'end')
