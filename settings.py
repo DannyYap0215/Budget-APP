@@ -37,13 +37,19 @@ class Settings():
 
         reset_data_button = CTkButton(self.button_frame, text="Reset Data",width = 130, height = 85, command=self.reset_data)
         reset_data_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
+        
+    def clear_frame(self):
+        for widget in self.settings_frame.winfo_children():
+            widget.destroy() 
     
     def user_guide(self) :
+        self.clear_frame()
         self.guide1 = CTkLabel(self.settings_frame, text="First of, you can set up ur monthly income first!", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30,"bold") , text_color="#6965A3", wraplength=380)
         self.guide1.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
         pass
     
     def reset_data(self) : #dont delete lol(working)
+        self.clear_frame()
         confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", justify=LEFT)
         confirm_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
 
@@ -61,9 +67,13 @@ class Settings():
             c.execute("DELETE FROM budget_2024")
             c.execute("DELETE FROM daily_expenses")
             con.commit()
+            self.settings_window.wm_attributes("-topmost", False)
             messagebox.showinfo("Data Reset", "Data has been successfully reset.")
+            self.settings_window.wm_attributes("-topmost", True)
         else:
+            self.settings_window.wm_attributes("-topmost", False)
             messagebox.showerror("Error", "You must type 'CONFIRM' to reset data.")
             self.confirm_entry.delete(0, 'end')
+            self.settings_window.wm_attributes("-topmost", True)
     
    
