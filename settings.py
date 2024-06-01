@@ -39,6 +39,7 @@ class Settings():
         for widget in self.settings_frame.winfo_children():
             widget.destroy() 
     
+    #frame for user_guide
     def user_guide(self) :
         #frame for user guide
         self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=self.settings_frame.winfo_height()-60,corner_radius=0)
@@ -47,19 +48,45 @@ class Settings():
         
         #frame for user guide buttons
         self.page = 1
+        self.update_user_guide(self)
         self.user_guide_button_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=60,corner_radius=0)
         self.user_guide_button_frame.grid(row=1,column=0, sticky="nsew")
         self.user_guide_button_frame.grid_propagate(False)
         
-        back_button = CTkButton(self.user_guide_button_frame, text="BACK")
+        
+        back_button = CTkButton(self.user_guide_button_frame, text="BACK",command=self.previous_page)
         back_button.grid(row=0,column=0, padx=(53,0), pady=(13,5),sticky = "e")
-        next_button = CTkButton(self.user_guide_button_frame, text="NEXT")
+        next_button = CTkButton(self.user_guide_button_frame, text="NEXT",command=self.next_page)
         next_button.grid(row=0,column=1, padx=10, pady=(13,5),sticky = "w")
         
-        if self.page == 1 :
-            UserGuide.userGuide1(self)
         
     
+    #functions for user guides
+    def update_user_guide(self) :
+        for widget in self.user_guide_frame.winfo_children():
+            widget.destroy()
+        
+        if self.page == 1:
+            UserGuide.userGuide1(self)
+        elif self.page == 2:
+            pass
+        else :
+            pass
+            
+    def previous_page(self):
+        if self.page > 0:
+            self.page -= 1
+            self.update_user_guide()
+            print(self.page)
+        else :
+            pass
+
+    def next_page(self):
+        self.page += 1
+        self.update_user_guide()
+        print(self.page)     
+    
+    #data
     def reset_data(self) : #dont delete lol(working)
         self.clear_frame()
         confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", justify=LEFT)
