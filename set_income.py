@@ -95,6 +95,7 @@ def open_set_income_window(set_income_frame):
     year_label = CTkLabel(set_income_frame, text="Enter Year:",font=CTkFont("font/Poppins-Bold.ttf",35))
     year_label.place(relx=0.08, rely=0.18, anchor="w")
 
+    #Mei Ting's Part : Entry font change
     def year_entry_font_change(event):
         text = year_entry.get
         year_entry.configure(font=CTkFont("font/Poppins.ttf",35))
@@ -109,6 +110,7 @@ def open_set_income_window(set_income_frame):
     income_label = CTkLabel(set_income_frame, text="Allocate Income:",font=CTkFont("font/Poppins-Bold.ttf",35))
     income_label.place(relx=0.08, rely=0.34, anchor="w")
 
+    #Mei Ting's Part : Entry font change
     def income_entry_font_change(event):
         text = income_entry.get
         income_entry.configure(font=CTkFont("font/Poppins.ttf",35))
@@ -147,9 +149,3 @@ def open_set_income_window(set_income_frame):
     month_selection_icon.place(relx=0.05, rely=0.58, anchor="w")
     month_selection = CTkLabel(set_income_frame, text=f"Month Selected:",font=CTkFont("font/Poppins-Bold.ttf",35))
     month_selection.place(relx=0.08, rely=0.58, anchor="w")
-    
-
-
-
-
-

@@ -47,7 +47,11 @@ categories = db.update_categories_list()
 list_for_coloured_categories = []
 month_is_choosen = False
 #add categories then save ; then select categories and add individual budget 
-def open_set_categories_window():
+
+def open_set_categories_window(set_categories_frame):
+    for widget in set_categories_frame.winfo_children():
+        widget.destroy
+
     global categories
     
     def save_1(): #adding new categories
@@ -123,19 +127,19 @@ def open_set_categories_window():
     years = c.fetchall()
     years = [str(year[0]) for year in years]
         
-    set_categories_window = CTkToplevel()
-    set_categories_window.title("Set Categories")
-    set_categories_window.geometry("660x470")
-    set_categories_window.resizable(width=False,height=False)
-    set_categories_window.wm_attributes("-topmost",True)
+    # set_categories_window = CTkToplevel()
+    # set_categories_window.title("Set Categories")
+    # set_categories_window.geometry("660x470")
+    # set_categories_window.resizable(width=False,height=False)
+    # set_categories_window.wm_attributes("-topmost",True)
     
-    categories_label = CTkLabel(set_categories_window, text="Categories", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3" )
-    categories_label.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+    categories_label = CTkLabel(set_categories_frame, text="Categories", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3" )
+    categories_label.place(relx=0.05, rely=0.08, anchor="w")
     
-    choose_year_label = CTkLabel(set_categories_window, text="Select Year of Income:",font=CTkFont("font/Poppins-Bold.ttf",20))
-    choose_year_label.grid(row=1, column=0, padx=40, pady=5, sticky="w")
-    year_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(calendar_icon))
-    year_image.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+    choose_year_label = CTkLabel(set_categories_frame, text="Select Year of Income:",font=CTkFont("font/Poppins-Bold.ttf",30))
+    choose_year_label.place(relx=0.08, rely=0.18, anchor="w")
+    year_image = CTkLabel(set_categories_frame, text="",font=CTkFont("font/Poppins-Bold.ttf",30),image= CTkImage(calendar_icon))
+    year_image.place(relx=0.05, rely=0.18, anchor="w")
     
     choose_year_menu = CTkOptionMenu(set_categories_window,values=years,anchor= CENTER ,fg_color="#6965A3")
     choose_year_menu.grid(row=1, column=1, padx=10, pady=5)
@@ -144,10 +148,10 @@ def open_set_categories_window():
     choose_year_button.grid(row=1, column=2)
     
     
-    choose_month_label = CTkLabel(set_categories_window, text="Select Month of Income:",font=CTkFont("font/Poppins-Bold.ttf",20))
-    choose_month_label.grid(row=3, column=0, padx=40, pady=5, sticky="w")
-    month_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(calendar_icon))
-    month_image.grid(row=3, column=0, padx=10, pady=5, sticky="w")
+    choose_month_label = CTkLabel(set_categories_frame, text="Select Month of Income:",font=CTkFont("font/Poppins-Bold.ttf",30))
+    choose_month_label.place(relx=0.08, rely=0.26, anchor="w")
+    month_image = CTkLabel(set_categories_frame, text="",font=CTkFont("font/Poppins-Bold.ttf",30),image= CTkImage(calendar_icon))
+    month_image.place(relx=0.05, rely=0.26, anchor="w")
     
     choose_month_menu = CTkOptionMenu(set_categories_window,values=months,anchor= CENTER, fg_color="#6965A3")
     choose_month_menu.grid(row=3, column=1, padx=10, pady=5)
@@ -156,60 +160,74 @@ def open_set_categories_window():
     choose_month_button.grid(row=3, column=2)
     
     #add a new categories
-    add_categories_label = CTkLabel(set_categories_window, text="Add New Categories:",font=CTkFont("font/Poppins-Bold.ttf",20))
-    add_categories_label.grid(row=5, column=0, padx=40, pady=5, sticky="w")
-    add_categories_entry = CTkEntry(set_categories_window)
-    add_categories_entry.grid(row=5, column=1, padx=10, pady=5)
-    add_cat_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(category_icon))
-    add_cat_image.grid(row=5, column=0, padx=10, pady=5, sticky="w")
+    add_categories_label = CTkLabel(set_categories_frame, text="Add New Categories:",font=CTkFont("font/Poppins-Bold.ttf",30))
+    add_categories_label.place(relx=0.08, rely=0.34, anchor="w")
+
+    #Mei Ting's Part : Entry font change
+    def add_categories_entry_font_change(event):
+        text = add_categories_entry.get
+        add_categories_entry.configure(font=CTkFont("font/Poppins.ttf",35))
+
+    add_categories_entry = CTkEntry(set_categories_frame)
+    add_categories_entry.place(relx=0.40, rely=0.34, anchor="w")
+    add_categories_entry.bind("<KeyRelease>", add_categories_entry_font_change)
+    add_cat_image = CTkLabel(set_categories_frame, text="",font=CTkFont("font/Poppins-Bold.ttf",30),image= CTkImage(category_icon))
+    add_cat_image.place(relx=0.05, rely=0.34, anchor="w")
     
     #save button
     add_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3",hover_color="#8885B6", command=save_1)
     add_categories_save_button.grid(row=5, column=2)
     
     #select categories
-    select_categories_label = CTkLabel(set_categories_window, text="Select Categories:",font=CTkFont("font/Poppins-Bold.ttf",20))
-    select_categories_label.grid(row=7, column=0, padx=40, pady=5, sticky="w")
-    select_cat_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(category_icon))
-    select_cat_image.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+    select_categories_label = CTkLabel(set_categories_frame, text="Select Categories:",font=CTkFont("font/Poppins-Bold.ttf",30))
+    select_categories_label.place(relx=0.08, rely=0.42, anchor="w")
+    select_cat_image = CTkLabel(set_categories_frame, text="",font=CTkFont("font/Poppins-Bold.ttf",30),image= CTkImage(category_icon))
+    select_cat_image.place(relx=0.05, rely=0.42, anchor="w")
     
     #drop down selected categories menu
     category_menu = CTkOptionMenu(set_categories_window,values=categories,anchor= CENTER, fg_color="#6965A3")
     category_menu.grid(row=7, column=1, padx=10, pady=(5,0))
     
     #allocate categories
-    allocate_categories_label = CTkLabel(set_categories_window, text="Allocate Budget:",font=CTkFont("font/Poppins-Bold.ttf",20))
-    allocate_categories_label.grid(row=8, column=0, padx=40, pady=5, sticky="w")
-    allocate_categories_entry = CTkEntry(set_categories_window)
-    allocate_categories_entry.grid(row=8, column=1, padx=10, pady=5)
-    income_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(expenses_icon))
-    income_image.grid(row=8, column=0, padx=10, pady=5, sticky="w")
+    allocate_categories_label = CTkLabel(set_categories_frame, text="Allocate Budget (RM):",font=CTkFont("font/Poppins-Bold.ttf",30))
+    allocate_categories_label.place(relx=0.08, rely=0.50, anchor="w")
+
+    #Mei Ting's Part : Entry font change
+    def allocate_categories_entry_font_change(event):
+        text = allocate_categories_entry.get
+        allocate_categories_entry.configure(font=CTkFont("font/Poppins.ttf",35))
+
+    allocate_categories_entry = CTkEntry(set_categories_frame)
+    allocate_categories_entry.place(relx=0.40, rely=0.50, anchor="w")
+    allocate_categories_entry.bind("<KeyRelease>", allocate_categories_entry_font_change)
+    income_image = CTkLabel(set_categories_frame, text="",font=CTkFont("font/Poppins-Bold.ttf",30),image= CTkImage(expenses_icon))
+    income_image.place(relx=0.05, rely=0.50, anchor="w")
     
     #save button 2
     allocate_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3",hover_color="#8885B6", command=save_2)
     allocate_categories_save_button.grid(row=8, column=2)
 
     #frame around deletion
-    deletion_frame = CTkFrame(master=set_categories_window,
-                              width=200,height= 180,
+    deletion_frame = CTkFrame(master=set_categories_frame,
+                              width=320, height=260,
                               fg_color="#1f2124",border_color="#535085",
                               border_width=4,corner_radius=8)
-    deletion_frame.grid(row=10, column=0,padx=(10,1),pady=(20,0))
+    deletion_frame.place(relx=0.05, rely=0.68, anchor="w")
     
     #set colour frame
-    set_colour_frame = CTkFrame(master=set_categories_window,
-                              width=200,height= 180,
+    set_colour_frame = CTkFrame(master=set_categories_frame,
+                              width=320, height=260,
                               fg_color="#1f2124",border_color="#535085",
                               border_width=4,corner_radius=8)
-    set_colour_frame.grid(row=10, column=1,padx=(1,10),pady=(20,0))
+    set_colour_frame.place(relx=0.35, rely=0.68, anchor="w")
 
     #delete category label
-    delete_categories_label = CTkLabel(deletion_frame, text="Delete Categories Here",font=CTkFont("font/Poppins-Bold.ttf",15))
-    delete_categories_label.place(x=25, rely=0.05, anchor="nw")
+    delete_categories_label = CTkLabel(deletion_frame, text="Delete Categories Here",font=CTkFont("font/Poppins-Bold.ttf",25))
+    delete_categories_label.place(x=25, rely=0.06, anchor="nw")
     
     #set color label
-    color_categories_label = CTkLabel(set_colour_frame, text="Set Colour Here",font=CTkFont("font/Poppins-Bold.ttf",15))
-    color_categories_label.place(x=50, rely=0.05, anchor="nw")
+    color_categories_label = CTkLabel(set_colour_frame, text="Set Colour Here",font=CTkFont("font/Poppins-Bold.ttf",25))
+    color_categories_label.place(x=60, rely=0.06, anchor="nw")
     
     #optionmenu for category deletion 
     delete_category_menu = CTkOptionMenu(deletion_frame,values=categories,anchor= CENTER,width=130,height=40, fg_color="#6965A3")
