@@ -137,10 +137,10 @@ def open_set_categories_window():
     year_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(calendar_icon))
     year_image.grid(row=1, column=0, padx=10, pady=5, sticky="w")
     
-    choose_year_menu = CTkOptionMenu(set_categories_window,values=years, fg_color="#6965A3")
+    choose_year_menu = CTkOptionMenu(set_categories_window,values=years,anchor= CENTER ,fg_color="#6965A3")
     choose_year_menu.grid(row=1, column=1, padx=10, pady=5)
     
-    choose_year_button = CTkButton(set_categories_window, text="Updates Year", fg_color="#6965A3",image= CTkImage(update_icon),command= choose_year)
+    choose_year_button = CTkButton(set_categories_window, text="Updates Year", fg_color="#6965A3",hover_color="#8885B6",image= CTkImage(update_icon),command= choose_year)
     choose_year_button.grid(row=1, column=2)
     
     
@@ -149,10 +149,10 @@ def open_set_categories_window():
     month_image = CTkLabel(set_categories_window, text="",font=CTkFont("font/Poppins-Bold.ttf",20),image= CTkImage(calendar_icon))
     month_image.grid(row=3, column=0, padx=10, pady=5, sticky="w")
     
-    choose_month_menu = CTkOptionMenu(set_categories_window,values=months, fg_color="#6965A3")
+    choose_month_menu = CTkOptionMenu(set_categories_window,values=months,anchor= CENTER, fg_color="#6965A3")
     choose_month_menu.grid(row=3, column=1, padx=10, pady=5)
     
-    choose_month_button = CTkButton(set_categories_window, text="Updates Month", fg_color="#6965A3",image= CTkImage(update_icon), command=choose_month)
+    choose_month_button = CTkButton(set_categories_window, text="Updates Month", fg_color="#6965A3",hover_color="#8885B6",image= CTkImage(update_icon), command=choose_month)
     choose_month_button.grid(row=3, column=2)
     
     #add a new categories
@@ -164,7 +164,7 @@ def open_set_categories_window():
     add_cat_image.grid(row=5, column=0, padx=10, pady=5, sticky="w")
     
     #save button
-    add_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3", command=save_1)
+    add_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3",hover_color="#8885B6", command=save_1)
     add_categories_save_button.grid(row=5, column=2)
     
     #select categories
@@ -174,7 +174,7 @@ def open_set_categories_window():
     select_cat_image.grid(row=7, column=0, padx=10, pady=5, sticky="w")
     
     #drop down selected categories menu
-    category_menu = CTkOptionMenu(set_categories_window,values=categories, fg_color="#6965A3")
+    category_menu = CTkOptionMenu(set_categories_window,values=categories,anchor= CENTER, fg_color="#6965A3")
     category_menu.grid(row=7, column=1, padx=10, pady=(5,0))
     
     #allocate categories
@@ -186,7 +186,7 @@ def open_set_categories_window():
     income_image.grid(row=8, column=0, padx=10, pady=5, sticky="w")
     
     #save button 2
-    allocate_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3", command=save_2)
+    allocate_categories_save_button = CTkButton(set_categories_window, text="Save",image=CTkImage(save_icon), fg_color="#6965A3",hover_color="#8885B6", command=save_2)
     allocate_categories_save_button.grid(row=8, column=2)
 
     #frame around deletion
@@ -212,22 +212,22 @@ def open_set_categories_window():
     color_categories_label.place(x=50, rely=0.05, anchor="nw")
     
     #optionmenu for category deletion 
-    delete_category_menu = CTkOptionMenu(deletion_frame,values=categories,width=130,height=40, fg_color="#6965A3")
+    delete_category_menu = CTkOptionMenu(deletion_frame,values=categories,anchor= CENTER,width=130,height=40, fg_color="#6965A3")
     delete_category_menu.place(x=35, rely=0.2, anchor="nw")
     
     #deletion button
-    delete_categories_button = CTkButton(deletion_frame, text="Delete Categories",image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124",command=delete_category)
+    delete_categories_button = CTkButton(deletion_frame, text="Delete Categories",image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124",hover_color="#8885B6",command=delete_category)
     delete_categories_button.place(x=27, rely=0.95, anchor="sw")
 
     #set colours 
-    set_colour_button = CTkButton(set_colour_frame, text="Set Categories Colours",image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124",command=category_and_colour_save)
+    set_colour_button = CTkButton(set_colour_frame, text="Set Categories Colours",image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124",hover_color="#8885B6",command=category_and_colour_save)
     set_colour_button.place(x=15, rely=0.95, anchor="sw")
     
     #choose categories for color 
-    category_to_be_tag_menu = CTkOptionMenu(set_colour_frame,values=categories,width=130,height=40, fg_color="#6965A3")
+    category_to_be_tag_menu = CTkOptionMenu(set_colour_frame,values=categories,anchor= CENTER,width=130,height=40, fg_color="#6965A3")
     category_to_be_tag_menu.place(x=35, rely=0.2, anchor="nw")
     
-    colour_to_be_tag_menu = CTkOptionMenu(set_colour_frame,values=colors,width=130,height=40, fg_color="#6965A3")
+    colour_to_be_tag_menu = CTkOptionMenu(set_colour_frame,values=colors,anchor= CENTER,width=130,height=40, fg_color="#6965A3")
     colour_to_be_tag_menu.place(x=35, rely=0.5, anchor="nw")
     
 

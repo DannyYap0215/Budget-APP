@@ -9,6 +9,7 @@ import expenses_history
 import expenses_piechart
 import income_piechart
 import insight
+import settings
 
 
 root = CTk()
@@ -19,6 +20,10 @@ root.geometry(f"{screen_width}x{screen_height}")
 
 set_appearance_mode("dark")
 
+def toggle_fullscreen(event=None):
+    state = not root.attributes('-fullscreen') #True or False basically 
+    root.attributes('-fullscreen', state)
+    
 insight_icon = Image.open("icon/insight.png")
 edit_budget_icon = Image.open("icon/edit_budget.png")
 update_expenses_icon = Image.open("icon/update_expenses.png")
@@ -49,6 +54,9 @@ def open_expenses_history_window():
 dashboard_left_frame = CTkFrame(master=root, width=420, height=1080, corner_radius=10, fg_color="#535085")
 dashboard_left_frame.place(relx=0.0, rely=0.5, anchor="w")
 
+def open_settings_window():
+    settings.Settings()
+    
 insight_button = CTkButton(root, image=CTkImage(insight_icon), text="Insight", font=CTkFont("font/Poppins-Bold.ttf",35), 
                            corner_radius=10, fg_color="#8885B6", bg_color="#535085", hover_color="#2B2A45", text_color="#FFFFFF", 
                            command=lambda:(indicator(insight_indicator), open_insight_window()))
@@ -132,6 +140,9 @@ clock_time()
 
 # expenses_history_button = CTkButton(root, text="Expenses History",height= 10,width=20, command=open_expenses_history_window)
 # expenses_history_button.grid(row=3, column=1, padx=10, pady=5, sticky="w")
+
+settings_button = CTkButton(root, text="Settings",height= 10,width=20, command=open_settings_window)
+settings_button.grid(row=4, column=1, padx=10, pady=5, sticky="w")
 
 # root.bind("<F11>", toggle_fullscreen)
 
