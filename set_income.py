@@ -5,7 +5,16 @@ import database_test as db
 import sqlite3
 from PIL import Image
 
-months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+months = ["January",
+          "February", 
+          "March", 
+          "April", 
+          "May", "June", 
+          "July", "August", 
+          "September", 
+          "October", 
+          "November", 
+          "December"]
 
 month_is_saved = False
 
