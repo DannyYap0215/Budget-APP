@@ -40,7 +40,7 @@ def indicator(label):
     label.configure(fg_color="#8885B6", bg_color="#535085")
 
 def open_insight_window():
-    insight.open_insight_window(dashboard_right_frame, expenses_piechart, income_piechart)
+    insight.open_insight_window(dashboard_right_frame)
 
 def open_edit_budget_window():
     edit_budget.open_edit_budget_window(dashboard_right_frame)
