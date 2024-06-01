@@ -59,8 +59,8 @@ def open_update_expenses_window(update_expenses_frame):
     expenses_icon_label = CTkLabel(update_expenses_frame, text="",image= CTkImage(expenses_icon) )
     expenses_icon_label.place(relx=0.05, rely=0.26, anchor="w")
 
-    def amount_entry_font_change(event):
-        text = expenses_amount_entry.get
+    def amount_entry_font_change(expenses_amount_entry):
+        expenses_amount = expenses_amount_entry.get
         expenses_amount_entry.configure(font=CTkFont("font/Poppins.ttf",35))
 
     #Entry for expenses amount
