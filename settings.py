@@ -8,14 +8,23 @@ from user_guide import UserGuide
 
 class Settings():
     def __init__ (self):
-        self.settings_window = CTkToplevel()
-        self.settings_window.title("Settings")
-        self.settings_window.geometry("620x320")
-        self.settings_window.wm_attributes("-topmost",True)
-        self.settings_window.resizable(width=False, height=False)
+        for widget in self.winfo_children():
+            widget.destroy()
+
+        # self.settings_window = CTkToplevel()
+        # self.settings_window.title("Settings")
+        # self.settings_window.geometry("620x320")
+        # self.settings_window.wm_attributes("-topmost",True)
+        # self.settings_window.resizable(width=False, height=False)
         # self.settings_window.minsize(620, 320)  
         # self.settings_window.maxsize(620, 320)
+
+        settings_label = CTkLabel(self.settings_window, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
+        settings_label.place(relx=0.05, rely=0.08, anchor="w")
         
+        settings_frame_two = CTkFrame(self.settings_window, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
+        settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
+
         self.settings_frame = CTkFrame(self.settings_window,
                                 width=400,height= 300)
         self.settings_frame.grid(row=0,column=1, sticky="nsew")
