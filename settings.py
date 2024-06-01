@@ -4,6 +4,7 @@ from tkinter import messagebox
 import database_test as db
 import sqlite3
 from PIL import Image
+from user_guide import UserGuide
 
 class Settings():
     def __init__ (self):
@@ -16,16 +17,12 @@ class Settings():
         # self.settings_window.maxsize(620, 320)
         
         self.settings_frame = CTkFrame(self.settings_window,
-                                width=400,height= 300,
-                                fg_color="#1f2124",border_color="#535085",
-                                border_width=4,corner_radius=8)
+                                width=400,height= 300)
         self.settings_frame.grid(row=0,column=1, sticky="nsew")
         self.settings_frame.grid_propagate(False) #makes frame stays in shape
         
         self.button_frame = CTkFrame(self.settings_window,
-                                width=150,height= 300,
-                                fg_color="#1f2124",border_color="#535085",
-                                border_width=4,corner_radius=8)
+                                width=150,height= 300)
         self.button_frame.grid(row=0,column=0, sticky="nsew")
         self.button_frame.grid_propagate(False)
 
@@ -43,10 +40,25 @@ class Settings():
             widget.destroy() 
     
     def user_guide(self) :
-        self.clear_frame()
-        self.guide1 = CTkLabel(self.settings_frame, text="First of, you can set up ur monthly income first!", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30,"bold") , text_color="#6965A3", wraplength=380)
-        self.guide1.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
-        pass
+        #frame for user guide
+        self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=self.settings_frame.winfo_height()-60,corner_radius=0)
+        self.user_guide_frame.grid(row=0,column=0, sticky="nsew")
+        self.user_guide_frame.grid_propagate(False)
+        
+        #frame for user guide buttons
+        self.page = 1
+        self.user_guide_button_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=60,corner_radius=0)
+        self.user_guide_button_frame.grid(row=1,column=0, sticky="nsew")
+        self.user_guide_button_frame.grid_propagate(False)
+        
+        back_button = CTkButton(self.user_guide_button_frame, text="BACK")
+        back_button.grid(row=0,column=0, padx=(53,0), pady=(13,5),sticky = "e")
+        next_button = CTkButton(self.user_guide_button_frame, text="NEXT")
+        next_button.grid(row=0,column=1, padx=10, pady=(13,5),sticky = "w")
+        
+        if self.page == 1 :
+            UserGuide.userGuide1(self)
+        
     
     def reset_data(self) : #dont delete lol(working)
         self.clear_frame()

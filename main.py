@@ -34,7 +34,7 @@ def open_expenses_history_window():
     expenses_history.open_expenses_history_window()
     
 def open_settings_window():
-        settings.Settings()
+    settings.Settings()
     
 insight_button = CTkButton(root, text="Insight", height= 10,width=20, command=open_insight_window)
 insight_button.grid(row=0, column=1, padx=10, pady=5, sticky="w",)
