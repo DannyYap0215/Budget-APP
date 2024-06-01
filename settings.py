@@ -48,7 +48,7 @@ class Settings():
         
         #frame for user guide buttons
         self.page = 1
-        self.update_user_guide(self)
+        self.update_user_guide()
         self.user_guide_button_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=60,corner_radius=0)
         self.user_guide_button_frame.grid(row=1,column=0, sticky="nsew")
         self.user_guide_button_frame.grid_propagate(False)
