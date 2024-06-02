@@ -48,9 +48,12 @@ list_for_coloured_categories = []
 month_is_choosen = False
 #add categories then save ; then select categories and add individual budget 
 
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
 def open_set_categories_window(set_categories_frame):
-    for widget in set_categories_frame.winfo_children():
-        widget.destroy
+    clear_frame(set_categories_frame)
 
     global categories
     

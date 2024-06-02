@@ -35,6 +35,7 @@ def hide_indicator():
     edit_budget_indicator.configure(fg_color="#535085", bg_color="#535085")
     update_expenses_indicator.configure(fg_color="#535085", bg_color="#535085")
     expenses_history_indicator.configure(fg_color="#535085", bg_color="#535085")
+    settings_indicator.configure(fg_color="#535085", bg_color="#535085")
 
 def indicator(label):
     hide_indicator()
@@ -93,7 +94,7 @@ expenses_history_indicator.place(relx=0.02, rely=0.52, anchor="w")
 settings_button = CTkButton(root, image=CTkImage(settings_icon), text="Settings", 
                                     font=CTkFont("font/Poppins-Bold.ttf",35), corner_radius=10, fg_color="#8885B6", bg_color="#535085", 
                                     hover_color="#2B2A45", text_color="#FFFFFF", 
-                                    command=lambda:(indicator(settings_indicator), settings()))
+                                    command=lambda:(indicator(settings_indicator), open_settings_window()))
 settings_button.place(relx=0.03, rely=0.62, anchor="w")
 settings_indicator = CTkLabel(root, text="", width=8, height=45, bg_color="#535085")
 settings_indicator.place(relx=0.02, rely=0.62, anchor="w")

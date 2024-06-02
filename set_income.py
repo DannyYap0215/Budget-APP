@@ -25,9 +25,12 @@ save_icon = Image.open("icon/saved_icon.png")
 update_icon = Image.open("icon/update_icon.png")
 selected_icon = Image.open("icon/selected.png")
 
-def open_set_income_window(set_income_frame):
-    for widget in set_income_frame.winfo_children():
+def clear_frame(frame):
+    for widget in frame.winfo_children():
         widget.destroy()
+
+def open_set_income_window(set_income_frame):
+    clear_frame(set_income_frame)
 
     global selected_month_menu  # Define selected_month_menu as a global variable
     selected_month_menu = None  # Initialize selected_month_menu

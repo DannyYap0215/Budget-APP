@@ -30,18 +30,18 @@ class Settings():
         self.settings_frame.grid(row=0,column=1, sticky="nsew")
         self.settings_frame.grid_propagate(False) #makes frame stays in shape
         
-        self.button_frame = CTkFrame(self.settings_window,
-                                width=150,height= 300)
-        self.button_frame.grid(row=0,column=0, sticky="nsew")
-        self.button_frame.grid_propagate(False)
+        # self.button_frame = CTkFrame(self.settings_window,
+        #                         width=150,height= 300)
+        # self.button_frame.grid(row=0,column=0, sticky="nsew")
+        # self.button_frame.grid_propagate(False)
 
-        user_guide_button = CTkButton(self.button_frame, text="User Guide", width = 130, height = 85, command=self.user_guide)
+        user_guide_button = CTkButton(self.button_frame, text="User Guide", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.user_guide)
         user_guide_button.grid(row=0, column=0, padx=10, pady=(13,5),  sticky="nsew")
 
-        change_theme_button = CTkButton(self.button_frame, text="Edit Change Theme", width = 130, height = 85, command=self.user_guide)
+        change_theme_button = CTkButton(self.button_frame, text="Edit Change Theme", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.user_guide)
         change_theme_button.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
 
-        reset_data_button = CTkButton(self.button_frame, text="Reset Data",width = 130, height = 85, command=self.reset_data)
+        reset_data_button = CTkButton(self.button_frame, text="Reset Data", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.reset_data)
         reset_data_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
         
     def clear_frame(self):
