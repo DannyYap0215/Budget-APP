@@ -149,7 +149,7 @@ def open_set_categories_window(set_categories_frame):
     choose_year_menu = CTkOptionMenu(set_categories_frame,values=years, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     choose_year_menu.place(relx=0.43, rely=0.18, anchor="w")
     
-    choose_year_button = CTkButton(set_categories_frame, text="Updates Year", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3",image= CTkImage(update_icon),command= choose_year)
+    choose_year_button = CTkButton(set_categories_frame, text="Updates Year", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6",image= CTkImage(update_icon),command= choose_year)
     choose_year_button.place(relx=0.66, rely=0.18, anchor="w")
     
     
@@ -161,7 +161,7 @@ def open_set_categories_window(set_categories_frame):
     choose_month_menu = CTkOptionMenu(set_categories_frame,values=months, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     choose_month_menu.place(relx=0.43, rely=0.26, anchor="w")
     
-    choose_month_button = CTkButton(set_categories_frame, text="Updates Month", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3",image= CTkImage(update_icon), command=choose_month)
+    choose_month_button = CTkButton(set_categories_frame, text="Updates Month", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6",image= CTkImage(update_icon), command=choose_month)
     choose_month_button.place(relx=0.66, rely=0.26, anchor="w")
     
     #add a new categories
@@ -180,7 +180,7 @@ def open_set_categories_window(set_categories_frame):
     add_cat_image.place(relx=0.05, rely=0.34, anchor="w")
     
     #save button
-    add_categories_save_button = CTkButton(set_categories_frame, text="Save", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), fg_color="#6965A3", command=save_1)
+    add_categories_save_button = CTkButton(set_categories_frame, text="Save", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), fg_color="#6965A3", hover_color="#8885B6", command=save_1)
     add_categories_save_button.place(relx=0.66, rely=0.34, anchor="w")
     
     #select categories
@@ -209,7 +209,7 @@ def open_set_categories_window(set_categories_frame):
     income_image.place(relx=0.05, rely=0.50, anchor="w")
     
     #save button 2
-    allocate_categories_save_button = CTkButton(set_categories_frame, text="Save", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), fg_color="#6965A3", command=save_2)
+    allocate_categories_save_button = CTkButton(set_categories_frame, text="Save", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), fg_color="#6965A3", hover_color="#8885B6", command=save_2)
     allocate_categories_save_button.place(relx=0.66, rely=0.50, anchor="w")
 
     #frame around deletion
@@ -239,11 +239,11 @@ def open_set_categories_window(set_categories_frame):
     delete_category_menu.place(x=100, rely=0.25, anchor="nw")
     
     #deletion button
-    delete_categories_button = CTkButton(deletion_frame, text="Delete Categories", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124",command=delete_category)
+    delete_categories_button = CTkButton(deletion_frame, text="Delete Categories", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",command=delete_category)
     delete_categories_button.place(x=37, rely=0.90, anchor="sw")
 
     #set colours 
-    set_colour_button = CTkButton(set_colour_frame, text="Set Categories Colours", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124",command=category_and_colour_save)
+    set_colour_button = CTkButton(set_colour_frame, text="Set Categories Colours", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), corner_radius=6, fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",command=category_and_colour_save)
     set_colour_button.place(x=25, rely=0.90, anchor="sw")
     
     #choose categories for color 

@@ -143,13 +143,13 @@ def open_set_income_window(set_income_frame):
     month_image = CTkLabel(set_income_frame, text="",font=CTkFont("font/Poppins-Bold.ttf",35),image= CTkImage(calendar_icon))
     month_image.place(relx=0.05, rely=0.26, anchor="w")
     
-    choose_month_button = CTkButton(set_income_frame, text="Updates Month ", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124",image= CTkImage(update_icon), command=save_month)
+    choose_month_button = CTkButton(set_income_frame, text="Updates Month ", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(update_icon), command=save_month)
     choose_month_button.place(relx=0.58, rely=0.26, anchor="w")
     
-    choose_year_button = CTkButton(set_income_frame, text="Updates Year", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124",image= CTkImage(update_icon), command=save_year)
+    choose_year_button = CTkButton(set_income_frame, text="Updates Year", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(update_icon), command=save_year)
     choose_year_button.place(relx=0.58, rely=0.18, anchor="w")
   
-    save_button = CTkButton(set_income_frame, text="Save ALL", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), fg_color="#6965A3", bg_color="#1f2124", command=save_budget)
+    save_button = CTkButton(set_income_frame, text="Save ALL", font=CTkFont("font/Poppins-Bold.ttf",30), image=CTkImage(save_icon), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6", command=save_budget)
     save_button.place(relx=0.58, rely=0.34, anchor="w")
     
     income_data.append((selected_month_menu, income_allocated))
