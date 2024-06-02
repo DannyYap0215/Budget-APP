@@ -64,7 +64,7 @@ def open_update_expenses_window(update_expenses_frame):
         expenses_amount_entry.configure(font=CTkFont("font/Poppins.ttf",35))
 
     #Entry for expenses amount
-    expenses_amount_entry = CTkEntry(update_expenses_frame, width=150, height=34)
+    expenses_amount_entry = CTkEntry(update_expenses_frame, width=200, height=46)
     expenses_amount_entry.place(relx=0.2, rely=0.26, anchor="w")
     expenses_amount_entry.bind("<KeyRelease>", amount_entry_font_change)
 
@@ -75,9 +75,11 @@ def open_update_expenses_window(update_expenses_frame):
     category_icon_label = CTkLabel(update_expenses_frame, text="",image= CTkImage(category_icon) )
     category_icon_label.place(relx=0.05, rely=0.34, anchor="w")
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     category_var = StringVar()
     #dropdown expenses category menu
-    expenses_categories_menu = CTkOptionMenu(update_expenses_frame, values=categories, variable=category_var, width=150, height=34, fg_color="#6965A3")
+    expenses_categories_menu = CTkOptionMenu(update_expenses_frame, values=categories, variable=category_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     expenses_categories_menu.place(relx=0.2, rely=0.34, anchor="w")
 
     #Label for note
@@ -93,7 +95,7 @@ def open_update_expenses_window(update_expenses_frame):
         expenses_note_entry.configure(font=CTkFont("font/Poppins.ttf",35))
 
     #Entry for note
-    expenses_note_entry = CTkEntry(update_expenses_frame, width=150, height=34)
+    expenses_note_entry = CTkEntry(update_expenses_frame, width=200, height=46)
     expenses_note_entry.place(relx=0.2, rely=0.42, anchor="w")
     expenses_note_entry.bind("<KeyRelease>", note_entry_font_change)
 

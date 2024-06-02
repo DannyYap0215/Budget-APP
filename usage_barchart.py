@@ -60,9 +60,11 @@ def open_usage_barchart_window(usage_barchart_frame):
     years = c.fetchall()
     years = [str(year[0]) for year in years]
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     # Dropdown menu for year
     year_var = tk.StringVar()
-    year_dropdown = CTkOptionMenu(usage_barchart_frame, values=years, variable=year_var, fg_color="#6965A3")
+    year_dropdown = CTkOptionMenu(usage_barchart_frame, values=years, variable=year_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     year_dropdown.place(relx=0.35, rely=0.18, anchor="w")
 
     # Month Label
@@ -76,7 +78,7 @@ def open_usage_barchart_window(usage_barchart_frame):
 
     # Dropdown menu for month
     month_var = tk.StringVar()
-    month_dropdown = CTkOptionMenu(usage_barchart_frame, values=months, variable=month_var, fg_color="#6965A3")
+    month_dropdown = CTkOptionMenu(usage_barchart_frame, values=months, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     month_dropdown.place(relx=0.35, rely=0.26, anchor="w")
 
     def get_global_limits():

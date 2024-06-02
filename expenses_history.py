@@ -42,10 +42,12 @@ def open_expenses_history_window(expenses_history_frame):
     # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
     # month_list = sorted (month_set) #Sort the extracted month
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     #Dropdown menu for month
     month_var = StringVar()
     
-    month_dropdown = CTkOptionMenu(expenses_history_frame, values=month, variable=month_var, fg_color="#6965A3") 
+    month_dropdown = CTkOptionMenu(expenses_history_frame, values=month, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9") 
     month_dropdown.place(relx=0.26, rely=0.18, anchor="w")
     
     import sqlite3
@@ -101,7 +103,7 @@ def open_expenses_history_window(expenses_history_frame):
     #Button to update expenses treeview
     update_icon = Image.open("icon/update_icon.png")
     update_button = CTkButton(expenses_history_frame, text="Update Month", font=CTkFont("font/Poppins-ExtraBold",30), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
-    update_button.place(relx=0.4, rely=0.18, anchor="w")
+    update_button.place(relx=0.43, rely=0.18, anchor="w")
 
     #Search Label
     search_label = CTkLabel(expenses_history_frame, text="Search Your Expenses:", font=CTkFont("font/Poppins-ExtraBold",35))
@@ -116,7 +118,7 @@ def open_expenses_history_window(expenses_history_frame):
 
     #Danny 's search functions
     search_var = StringVar()
-    search_entry = CTkEntry(expenses_history_frame,textvariable=search_var,width=300)
+    search_entry = CTkEntry(expenses_history_frame,textvariable=search_var, width=300, height=46)
     search_entry.place(relx=0.36, rely=0.26, anchor="w")
     search_entry.bind("<KeyRelease>", search_entry_font_change)
 

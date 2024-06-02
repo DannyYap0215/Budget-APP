@@ -154,10 +154,11 @@ def open_expenses_piechart_window(expenses_piechart_frame):
     # Fetch distinct years from the database
     year_list = get_distinct_years()
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     # Dropdown menu for year
-    
     year_var = StringVar()
-    year_dropdown = CTkOptionMenu(expenses_piechart_frame, values=year_list, variable=year_var, fg_color="#6965A3")
+    year_dropdown = CTkOptionMenu(expenses_piechart_frame, values=year_list, variable=year_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     year_dropdown.place(relx=0.35, rely=0.18, anchor="w")
 
     #Month Label
@@ -171,7 +172,7 @@ def open_expenses_piechart_window(expenses_piechart_frame):
 
     #Dropdown menu for month
     month_var = StringVar()
-    month_dropdown = CTkOptionMenu(expenses_piechart_frame, values=months, variable=month_var, fg_color="#6965A3") 
+    month_dropdown = CTkOptionMenu(expenses_piechart_frame, values=months, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9") 
     month_dropdown.place(relx=0.35, rely=0.26, anchor="w")
 
     def update_expenses_piechart():

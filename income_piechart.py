@@ -95,9 +95,11 @@ def open_income_piechart_window(income_piechart_frame):
     years = c.fetchall()
     years = [str(year[0]) for year in years]
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     # Dropdown menu for year
     year_var = StringVar()
-    year_dropdown = CTkOptionMenu(income_piechart_frame, values=years, variable=year_var, fg_color="#6965A3")
+    year_dropdown = CTkOptionMenu(income_piechart_frame, values=years, variable=year_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     year_dropdown.place(relx=0.35, rely=0.18, anchor="w")
    # year_var.set(years[0]) 
     
