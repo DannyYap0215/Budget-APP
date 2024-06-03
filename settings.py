@@ -72,21 +72,27 @@ class Settings():
             UserGuide.userGuide2(self)
         elif self.page == 3:
             UserGuide.userGuide3(self)
+        elif self.page == 4:
+            UserGuide.userGuide4(self)
+        elif self.page == 5:
+            UserGuide.userGuide5(self)
             
     def previous_page(self):
-        if self.page > 0 and self.page != 1:
+        if self.page > 0  and self.page != 0:
             self.page -= 1
             self.update_user_guide()
             print(self.page)
-        else :
-            pass
+        elif self.page == 0 :
+            self.page = 5
+            self.update_user_guide()
+            print(self.page)
 
     def next_page(self):
-        if self.page > 0 and self.page < 3:
+        if self.page > 0 and self.page < 5:
             self.page += 1
             self.update_user_guide()
             print(self.page) 
-        elif self.page == 3:
+        elif self.page == 5:
             self.page = 1
             self.update_user_guide()
             print(self.page)    

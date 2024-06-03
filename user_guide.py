@@ -19,14 +19,82 @@ class UserGuide():
         self.guide2_line2 = CTkLabel(self.user_guide_frame, text="Use the sidebar to switch between different sections and click on the desired section to view or edit its content", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide2_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
         
-    def userGuide3(self):
+    def userGuide3(self):   
         self.guide3_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
         self.guide3_line1.grid(row=0, column=0, padx=10, sticky="nsew")
         
-        self.guide3_line2 = CTkLabel(self.user_guide_frame, text="Creating a Budget", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide3_line2 = CTkLabel(self.user_guide_frame, text="Allocate Income", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline= True) , text_color="#6965A3", wraplength=380)
         self.guide3_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
         
+        self.guide3_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Edit Budget\" button in the sidebar", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide3_line3.grid(row=2, column=0, padx=10, pady=(0,5), sticky="w")
         
+        self.guide3_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Set Income\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide3_line4.grid(row=3, column=0, padx=10, pady=5, sticky="w")
+        
+        self.guide3_line5 = CTkLabel(self.user_guide_frame, text="3. Enter the Year and select the Month( Make sure to update both to confirm selection ) ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide3_line5.grid(row=4, column=0, padx=10, pady=5, sticky="w")
+        
+        self.guide3_line6 = CTkLabel(self.user_guide_frame, text="4. Enter allocated income and click on \"Save ALL\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide3_line6.grid(row=5, column=0, padx=10, pady=5, sticky="w")
+        
+        
+    def userGuide4(self):
+        self.guide4_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide4_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide4_line2 = CTkLabel(self.user_guide_frame, text="Creating a Budget for Categories", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline= True) , text_color="#6965A3", wraplength=380)
+        self.guide4_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        
+        self.guide4_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Edit Budget\" button in the sidebar", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide4_line3.grid(row=2, column=0, padx=10, pady=(0,5), sticky="w")
+        
+        self.guide4_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Set Categories\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide4_line4.grid(row=3, column=0, padx=10, pady=5, sticky="w")
+        
+        self.guide4_line5 = CTkLabel(self.user_guide_frame, text="3. Select the Year, Month ( Make sure to update both to confirm selection ) and category of your choice ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide4_line5.grid(row=4, column=0, padx=10, pady=5, sticky="w")
+        
+        self.guide4_line6 = CTkLabel(self.user_guide_frame, text="4. Enter allocated budget and click on \"Save\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide4_line6.grid(row=5, column=0, padx=10, pady=5, sticky="w")
+        
+    def userGuide5(self):
+        self.guide5_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide5_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide5_line2 = CTkLabel(self.user_guide_frame, text="Updating Expenses ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide5_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide5_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Update Expenses\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide5_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide5_line4 = CTkLabel(self.user_guide_frame, text="2. Choose date, day and year", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide5_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide5_line5 = CTkLabel(self.user_guide_frame, text="3. Fill in the expenses used and select categories", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide5_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide5_line6 = CTkLabel(self.user_guide_frame, text="4. Add in a note (not required) and click \"Save Expenses\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide5_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+    
+    def userGuide6(self):
+        self.guide6_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide6_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide6_line2 = CTkLabel(self.user_guide_frame, text="View Expenses History", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide6_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide6_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Expenses History\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide6_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide6_line4 = CTkLabel(self.user_guide_frame, text="2. Select Month and Update", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide6_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide6_line5 = CTkLabel(self.user_guide_frame, text="3. Fill in the expenses used and select categories", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide6_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide6_line6 = CTkLabel(self.user_guide_frame, text="4. Add in a note (not required) and click \"Save Expenses\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide6_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
         
         
         
@@ -40,11 +108,13 @@ class UserGuide():
 # Click the Add New Budget button.
 # Enter the budget details including name, amount, and period.
 # Click Save to create the budget.
+
 # Adding Expenses and Income
 # Click on the Expenses or Income tab.
 # Click the Add New button.
 # Fill in the details such as category, amount, and date.
 # Click Save to record the transaction.
+
 # Viewing Reports
 # Click on the Reports tab.
 # Select the type of report (e.g., Monthly Summary, Expense Breakdown).
