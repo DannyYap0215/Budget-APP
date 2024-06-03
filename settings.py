@@ -6,6 +6,10 @@ import sqlite3
 from PIL import Image
 from user_guide import UserGuide
 
+back_icon = Image.open("icon/back_arrow.png")
+next_icon = Image.open("icon/next_arrow.png")
+delete_icon = Image.open("icon/delete_icon.png")
+
 class Settings():
     def __init__ (self,dashboard_right_frame):
         self.dashboard_right_frame = dashboard_right_frame
@@ -26,9 +30,9 @@ class Settings():
         # self.settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
         # self.settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
 
-        self.settings_frame = CTkFrame(self.dashboard_right_frame,
-                                width=1500, height=1080)
-        self.settings_frame.place(relx=0.22, rely=0.5, anchor="w")
+        self.settings_frame = CTkFrame(self.dashboard_right_frame,width=1500, height=1080, corner_radius=10,
+                                       border_width=2, border_color="#535085", fg_color="#202124")
+        self.settings_frame.place(relx=0.23, rely=0.5, anchor="w")
         self.settings_frame.grid_propagate(False)
         # self.settings_frame.grid_propagate(False) #makes frame stays in shape
         
@@ -65,12 +69,11 @@ class Settings():
         # self.user_guide_button_frame.grid_propagate(False)
         
         
-        back_button = CTkButton(self.settings_frame, text="BACK",command=self.previous_page)
-        back_button.grid(row=0,column=0, padx=(53,0), pady=(13,5),sticky = "e")
-        next_button = CTkButton(self.settings_frame, text="NEXT",command=self.next_page)
-        next_button.grid(row=0,column=1, padx=10, pady=(13,5),sticky = "w")
-        
-        
+        back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
+        back_button.place(relx=0.05, rely=0.9, anchor="w")
+        next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
+        next_button.place(relx=0.20, rely=0.9, anchor="w")
+    
     
     #functions for user guides
     def update_user_guide(self) :
@@ -95,18 +98,24 @@ class Settings():
         self.page += 1
         self.update_user_guide()
         print(self.page)     
-    
+
     #data
     def reset_data(self) : #dont delete lol(working)
         self.clear_frame()
-        confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", justify=LEFT)
-        confirm_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
+        confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", font=CTkFont("font/Poppins-Bold.ttf",35), justify=LEFT)
+        confirm_label.place(relx=0.05, rely=0.18, anchor="w")
 
-        self.confirm_entry = CTkEntry(self.settings_frame, width=200)
-        self.confirm_entry.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
+        #Mei Ting's Part : Entry font change
+        def confirm_entry_font_change(event):
+            text = self.confirm_entry.get()
+            self.confirm_entry.configure(font=CTkFont("font/Poppins.ttf",35))
 
-        confirm_button = CTkButton(self.settings_frame, text="Delete", command=self.perform_reset)
-        confirm_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
+        self.confirm_entry = CTkEntry(self.settings_frame, width=200, height=46)
+        self.confirm_entry.place(relx=0.05, rely=0.28, anchor="w")
+        self.confirm_entry.bind("<KeyRelease>", confirm_entry_font_change)
+
+        confirm_button = CTkButton(self.settings_frame, text="Delete ALL the data", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(delete_icon), command=self.perform_reset)
+        confirm_button.place(relx=0.05, rely=0.38, anchor="w")
     
     def perform_reset(self) :
         if self.confirm_entry.get() == "CONFIRM":
