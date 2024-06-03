@@ -72,7 +72,7 @@ class Settings():
         back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
         back_button.place(relx=0.05, rely=0.9, anchor="w")
         next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
-        next_button.place(relx=0.20, rely=0.9, anchor="w")
+        next_button.place(relx=0.62, rely=0.9, anchor="w")
     
     
     #functions for user guides
