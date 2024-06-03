@@ -90,6 +90,82 @@ class UserGuide():
         self.guide6_line4 = CTkLabel(self.user_guide_frame, text="2. Select Month and Update OR search for any keywords in the search tab and click on \"search\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide6_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
         
+    def userGuide7(self):
+        self.guide7_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide7_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide7_line2 = CTkLabel(self.user_guide_frame, text="Expenses Insights ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide7_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide7_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Insight\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide7_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide7_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Expenses\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide7_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide7_line5 = CTkLabel(self.user_guide_frame, text="3. Select Year and Month and click on the \"Update\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide7_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide7_line6 = CTkLabel(self.user_guide_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide7_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+        
+    def userGuide8(self):
+        self.guide8_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide8_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide8_line2 = CTkLabel(self.user_guide_frame, text="Income Insights ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide8_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide8_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Insight\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide8_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide8_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Income\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide8_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide8_line5 = CTkLabel(self.user_guide_frame, text="3. Select Year click on the \"Update\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide8_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide8_line6 = CTkLabel(self.user_guide_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide8_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+        
+    def userGuide9(self):
+        self.guide9_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide9_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide9_line2 = CTkLabel(self.user_guide_frame, text="Usage of Budget Insights ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide9_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide9_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Insight\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide9_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide9_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Usage of Budget\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide9_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide9_line5 = CTkLabel(self.user_guide_frame, text="3. Select Year and Month and click on the \"Update\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide9_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide9_line6 = CTkLabel(self.user_guide_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide9_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+        
+    def userGuide10(self):
+        self.guide10_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide10_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide10_line2 = CTkLabel(self.user_guide_frame, text="Usage of Budget Insights ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide10_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Insight\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide10_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Usage of Budget\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line5 = CTkLabel(self.user_guide_frame, text="3. Select Year and Month and click on the \"Update\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line6 = CTkLabel(self.user_guide_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+    
 
         
         
@@ -126,6 +202,7 @@ class UserGuide():
 # Advanced Features
 # Custom Categories
 # Click on Settings in the menu bar.
+
 # Navigate to the Categories section.
 # Click Add New Category and fill in the details.
 # Click Save to create the category.
