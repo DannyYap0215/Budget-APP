@@ -5,6 +5,7 @@ from collections import defaultdict
 import database_test as db
 from datetime import datetime
 import sqlite3
+from PIL import Image
 
 months = [
     "January",
@@ -21,6 +22,10 @@ months = [
     "December",
 ]
 
+calendar_icon = Image.open("icon/calendar_icon.png")
+update_icon = Image.open("icon/update_icon.png")
+details_icon = Image.open("icon/details_icon.png")
+
 def get_distinct_years():
     con = sqlite3.connect("database.db")
     c = con.cursor()
@@ -33,11 +38,11 @@ def get_distinct_years():
 def show_details_window(selected_month, selected_year):
     details_window = CTkToplevel()
     details_window.title("Expenses Details")
-    details_window.geometry("800x600")
+    details_window.geometry("1000x720")
     details_window.wm_attributes("-topmost",True)
 
     # Add a label for the selected month and year
-    month_year_label = CTkLabel(details_window, text=f"Expenses Details for {selected_month} {selected_year}", font=("Poppins-Bold", 30), text_color="#6965A3")
+    month_year_label = CTkLabel(details_window, text=f"Expenses Details for {selected_month} {selected_year}", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
     month_year_label.pack(pady=15)
 
     con = sqlite3.connect("database.db")
@@ -59,7 +64,7 @@ def show_details_window(selected_month, selected_year):
         category_counts[category] += 1
     
     total_expenses = sum(category_totals.values())
-    total_label = CTkLabel(details_window, text=f"Total Expenses: RM {total_expenses:.2f}", font=("Poppins-Bold", 25))
+    total_label = CTkLabel(details_window, text=f"Total Expenses: RM {total_expenses:.2f}", font=CTkFont("font/Poppins-Bold.ttf",30,"bold"))
     total_label.pack(pady=(0, 10))
 
     # Create a frame to hold the details
@@ -77,7 +82,7 @@ def show_details_window(selected_month, selected_year):
     for col, header in enumerate(headers):
         header_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
         header_frame.grid(row=0, column=col, sticky="nsew")
-        header_label = CTkLabel(details_frame, text=header, font=("Poppins-Bold", 14))
+        header_label = CTkLabel(details_frame, text=header, font=CTkFont("font/Poppins-Bold.ttf",20,"bold"))
         header_label.grid(row=0, column=col, padx=5, pady=5, sticky="nsew")
         
     # Insert data into the table
@@ -89,7 +94,7 @@ def show_details_window(selected_month, selected_year):
         for col, data in enumerate([category, f"{total:.2f}", f"{count}", f"{average:.2f}"]):
             data_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
             data_frame.grid(row=row, column=col, sticky="nsew")
-            data_label = CTkLabel(details_frame, text=data, font=("Poppins", 12))
+            data_label = CTkLabel(details_frame, text=data, font=CTkFont("font/Poppins-Bold.ttf",20))
             data_label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
 
     con.close()
@@ -97,7 +102,7 @@ def show_details_window(selected_month, selected_year):
 def open_expenses_piechart_window():
     expenses_piechart_window = CTkToplevel()
     expenses_piechart_window.title("Expenses Pie Chart")
-    expenses_piechart_window.geometry("640x640+300+200")
+    expenses_piechart_window.geometry("800x750")
     expenses_piechart_window.wm_attributes("-topmost",True)
 
     # Define the colors dictionary
@@ -132,12 +137,14 @@ def open_expenses_piechart_window():
 }
 
     #Label for Expenses Pie Chart
-    expenses_piechart_title_label = CTkLabel(expenses_piechart_window, text="Expenses Pie Chart", font=("Poppins-ExtraBold",30), text_color="#6965A3")
+    expenses_piechart_title_label = CTkLabel(expenses_piechart_window, text="Expenses Pie Chart", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
     expenses_piechart_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
 
     # Year Label
-    year_label = CTkLabel(expenses_piechart_window, text="Select Year:", font=("Poppins-ExtraBold", 20))
-    year_label.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+    year_label = CTkLabel(expenses_piechart_window, text="Select Year:", font=CTkFont("font/Poppins-Bold.ttf",40,"bold"))
+    year_label.grid(row=2, column=0, padx=60, pady=5, sticky="w")
+    year_image = CTkLabel(expenses_piechart_window, text="",image= CTkImage(calendar_icon, size=(40, 40)))
+    year_image.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 
     # Fetch distinct years from the database
     year_list = get_distinct_years()
@@ -146,19 +153,21 @@ def open_expenses_piechart_window():
     
     year_var = StringVar()
     year_dropdown = CTkOptionMenu(expenses_piechart_window, values=year_list, variable=year_var, fg_color="#6965A3")
-    year_dropdown.grid(row=2, column=1, padx=10, pady=5, sticky=N)
+    year_dropdown.grid(row=2, column=1, padx=10, pady=5)
 
     #Month Label
-    month_label = CTkLabel(expenses_piechart_window, text="Select Month:", font=("Poppins-ExtraBold",20))
-    month_label.grid(row=3, column=0, padx=10, pady=5, sticky="w")
-
+    month_label = CTkLabel(expenses_piechart_window, text="Select Month:", font=CTkFont("font/Poppins-Bold.ttf",40,"bold"))
+    month_label.grid(row=3, column=0, padx=60, pady=(5,30), sticky="w")
+    month_image = CTkLabel(expenses_piechart_window, text="",image= CTkImage(calendar_icon, size=(40, 40)))
+    month_image.grid(row=3, column=0, padx=10, pady=(5,30), sticky="w")
+    
     # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
     # month_list = sorted (month_set) #Sort the extracted month
 
     #Dropdown menu for month
     month_var = StringVar()
     month_dropdown = CTkOptionMenu(expenses_piechart_window, values=months, variable=month_var, fg_color="#6965A3") 
-    month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=N)
+    month_dropdown.grid(row=3, column=1, padx=10, pady=(5,30))
 
     def update_expenses_piechart():
         global selected_year
@@ -208,9 +217,9 @@ def open_expenses_piechart_window():
         canvasbar.get_tk_widget().place(relx=0.5, rely=0.55, anchor=CENTER)  
 
         # Create a Button widget to show more details
-        details_button = CTkButton(expenses_piechart_window, text="Show Details", command=lambda: show_details_window(selected_month, selected_year))
-        details_button.place(relx=0.5, rely=0.95, anchor="center")
+        details_button = CTkButton(expenses_piechart_window, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(details_icon), command=lambda: show_details_window(selected_month, selected_year))
+        details_button.place(relx=0.5, rely=0.9, anchor="center")
 
     #Button to update expenses piechart
-    update_button = CTkButton(expenses_piechart_window, text="Update", font=("Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", command=update_expenses_piechart)
-    update_button.grid(row=3, column=4, padx=10, pady=5, sticky="w")
+    update_button = CTkButton(expenses_piechart_window, text="Update", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_piechart)
+    update_button.grid(row=3, column=2, padx=10, pady=(5,30))
