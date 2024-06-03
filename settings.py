@@ -69,36 +69,42 @@ class Settings():
         # self.user_guide_button_frame.grid_propagate(False)
         
         
-        back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
-        back_button.place(relx=0.05, rely=0.9, anchor="w")
-        next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
-        next_button.place(relx=0.62, rely=0.9, anchor="w")
+        # back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
+        # back_button.place(relx=0.05, rely=0.9, anchor="w")
+        # next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
+        # next_button.place(relx=0.62, rely=0.9, anchor="w")
     
     
     #functions for user guides
     def update_user_guide(self) :
         self.clear_frame()
         
-        if self.page == 1:
-            UserGuide.userGuide1(self)
-        elif self.page == 2:
-            UserGuide.userGuide2(self)
-        elif self.page == 3:
-            UserGuide.userGuide3(self)
-        elif self.page == 4:
-            UserGuide.userGuide4(self)
-        elif self.page == 5:
-            UserGuide.userGuide5(self)
-        elif self.page == 6:
-            UserGuide.userGuide6(self)
-        elif self.page == 7:
-            UserGuide.userGuide7(self)
-        elif self.page == 8:
-            UserGuide.userGuide8(self)
-        elif self.page == 9:
-            UserGuide.userGuide9(self)
-        elif self.page == 10:
-            UserGuide.userGuide10(self)
+        if True:
+            back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
+            back_button.place(relx=0.05, rely=0.9, anchor="w")
+            next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
+            next_button.place(relx=0.62, rely=0.9, anchor="w")
+
+            if self.page == 1:
+                UserGuide.userGuide1(self)
+            elif self.page == 2:
+                UserGuide.userGuide2(self)
+            elif self.page == 3:
+                UserGuide.userGuide3(self)
+            elif self.page == 4:
+                UserGuide.userGuide4(self)
+            elif self.page == 5:
+                UserGuide.userGuide5(self)
+            elif self.page == 6:
+                UserGuide.userGuide6(self)
+            elif self.page == 7:
+                UserGuide.userGuide7(self)
+            elif self.page == 8:
+                UserGuide.userGuide8(self)
+            elif self.page == 9:
+                UserGuide.userGuide9(self)
+            elif self.page == 10:
+                UserGuide.userGuide10(self)
     
             
     def previous_page(self):
