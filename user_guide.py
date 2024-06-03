@@ -87,14 +87,10 @@ class UserGuide():
         self.guide6_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Expenses History\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide6_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
         
-        self.guide6_line4 = CTkLabel(self.user_guide_frame, text="2. Select Month and Update", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide6_line4 = CTkLabel(self.user_guide_frame, text="2. Select Month and Update OR search for any keywords in the search tab and click on \"search\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide6_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
         
-        self.guide6_line5 = CTkLabel(self.user_guide_frame, text="3. Fill in the expenses used and select categories", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
-        self.guide6_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
-        
-        self.guide6_line6 = CTkLabel(self.user_guide_frame, text="4. Add in a note (not required) and click \"Save Expenses\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
-        self.guide6_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+
         
         
         

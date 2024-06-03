@@ -76,6 +76,8 @@ class Settings():
             UserGuide.userGuide4(self)
         elif self.page == 5:
             UserGuide.userGuide5(self)
+        elif self.page == 6:
+            UserGuide.userGuide6(self)
             
     def previous_page(self):
         if self.page > 0  and self.page != 0:
@@ -83,16 +85,16 @@ class Settings():
             self.update_user_guide()
             print(self.page)
         elif self.page == 0 :
-            self.page = 5
+            self.page = 6
             self.update_user_guide()
             print(self.page)
 
     def next_page(self):
-        if self.page > 0 and self.page < 5:
+        if self.page > 0 and self.page < 6:
             self.page += 1
             self.update_user_guide()
             print(self.page) 
-        elif self.page == 5:
+        elif self.page == 6:
             self.page = 1
             self.update_user_guide()
             print(self.page)    
