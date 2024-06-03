@@ -148,23 +148,51 @@ class UserGuide():
         self.guide9_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
         
     def userGuide10(self):
-        self.guide10_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide10_line1 = CTkLabel(self.user_guide_frame, text="Advanced Features", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
         self.guide10_line1.grid(row=0, column=0, padx=10, sticky="nsew")
-        
-        self.guide10_line2 = CTkLabel(self.user_guide_frame, text="Usage of Budget Insights ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+    
+        self.guide10_line2 = CTkLabel(self.user_guide_frame, text="Custom Categories ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
         self.guide10_line2.grid(row=1, column=0, padx=10,pady=5, sticky="w")
         
-        self.guide10_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Insight\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line3 = CTkLabel(self.user_guide_frame, text="1. Click on the \"Edit Budget\" button in the sidebar ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide10_line3.grid(row=2, column=0, padx=10,pady=(0,5), sticky="w")
         
-        self.guide10_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Usage of Budget\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line4 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Set Categories\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide10_line4.grid(row=3, column=0, padx=10,pady=5, sticky="w")
         
         self.guide10_line5 = CTkLabel(self.user_guide_frame, text="3. Select Year and Month and click on the \"Update\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide10_line5.grid(row=4, column=0, padx=10,pady=5, sticky="w")
         
-        self.guide10_line6 = CTkLabel(self.user_guide_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line6 = CTkLabel(self.user_guide_frame, text="4. Enter Custom categories in the entry for \"Add New Categories\" and Click on \"Save\" Button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide10_line6.grid(row=5, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line7 = CTkLabel(self.user_guide_frame, text="Colour Tag Categories ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide10_line7.grid(row=6, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line8 = CTkLabel(self.user_guide_frame, text="1. On the same page as the step above select categories in the frame with the words \"Set Colour Here\" ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line8.grid(row=7, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide10_line9 = CTkLabel(self.user_guide_frame, text="2. Select colour to be assigned to the selected categories", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line9.grid(row=8, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line10 = CTkLabel(self.user_guide_frame, text="3. Click on the \"Set Categories Colours\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line10.grid(row=9, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line11 = CTkLabel(self.user_guide_frame, text="4. The assigned colours will now be shown in the insights page", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line11.grid(row=10, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line12 = CTkLabel(self.user_guide_frame, text="Delete Categories ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide10_line12.grid(row=11, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line13 = CTkLabel(self.user_guide_frame, text="1. On the same page as the step above select categories in the frame with the words \"Delete Categories Here\" ", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line13.grid(row=12, column=0, padx=10,pady=(0,5), sticky="w")
+        
+        self.guide10_line14 = CTkLabel(self.user_guide_frame, text="2. Click on the \"Delete Categories\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line14.grid(row=13, column=0, padx=10,pady=5, sticky="w")
+        
+        self.guide10_line15 = CTkLabel(self.user_guide_frame, text="3. The category selected will now be deleted from the database", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide10_line15.grid(row=14, column=0, padx=10,pady=5, sticky="w")
+        
     
 
         

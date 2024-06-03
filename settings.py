@@ -29,8 +29,8 @@ class Settings():
         user_guide_button = CTkButton(self.button_frame, text="User Guide", width = 130, height = 85, command=self.user_guide)
         user_guide_button.grid(row=0, column=0, padx=10, pady=(13,5),  sticky="nsew")
 
-        change_theme_button = CTkButton(self.button_frame, text="Edit Change Theme", width = 130, height = 85, command=self.user_guide)
-        change_theme_button.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
+        # change_theme_button = CTkButton(self.button_frame, text="Edit Change Theme", width = 130, height = 85, command=self.user_guide)
+        # change_theme_button.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
 
         reset_data_button = CTkButton(self.button_frame, text="Reset Data",width = 130, height = 85, command=self.reset_data)
         reset_data_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
@@ -78,6 +78,15 @@ class Settings():
             UserGuide.userGuide5(self)
         elif self.page == 6:
             UserGuide.userGuide6(self)
+        elif self.page == 7:
+            UserGuide.userGuide7(self)
+        elif self.page == 8:
+            UserGuide.userGuide8(self)
+        elif self.page == 9:
+            UserGuide.userGuide9(self)
+        elif self.page == 10:
+            UserGuide.userGuide10(self)
+    
             
     def previous_page(self):
         if self.page > 0  and self.page != 0:
@@ -85,16 +94,16 @@ class Settings():
             self.update_user_guide()
             print(self.page)
         elif self.page == 0 :
-            self.page = 6
+            self.page = 10
             self.update_user_guide()
             print(self.page)
 
     def next_page(self):
-        if self.page > 0 and self.page < 6:
+        if self.page > 0 and self.page < 10:
             self.page += 1
             self.update_user_guide()
             print(self.page) 
-        elif self.page == 6:
+        elif self.page == 10:
             self.page = 1
             self.update_user_guide()
             print(self.page)    
