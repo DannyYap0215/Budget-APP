@@ -9,14 +9,18 @@ from PIL import Image
 
 selected_icon = Image.open("icon/selected.png")
 
+# calendar_icon = Image.open("icon/calendar_icon.png")
+# update_icon = Image.open("icon/update_icon.png")
+# details_icon = Image.open("icon/details_icon.png")
+
 def show_details(year_selected):
     details_window = CTkToplevel()
     details_window.title("Income Details")
-    details_window.geometry("800x600")
+    details_window.geometry("1000x720")
     details_window.wm_attributes("-topmost",True)
 
     # Add a label for the selected year
-    year_label = CTkLabel(details_window, text=f"Income Details for {year_selected}", font=("Poppins-Bold", 30), text_color="#6965A3")
+    year_label = CTkLabel(details_window, text=f"Income Details for {year_selected}", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
     year_label.pack(pady=15)
 
     con = sqlite3.connect("database.db")
@@ -30,10 +34,10 @@ def show_details(year_selected):
     total_income = sum(month_income.values())
     average_income = total_income / 12  # Calculate average income over 12 months
     
-    total_label = CTkLabel(details_window, text=f"Total Income: RM {total_income:.2f}", font=("Poppins-Bold", 25))
+    total_label = CTkLabel(details_window, text=f"Total Income: RM {total_income:.2f}", font=CTkFont("font/Poppins-Bold.ttf",30,"bold"))
     total_label.pack(pady=(0, 10))
 
-    average_label = CTkLabel(details_window, text=f"Average Monthly Income: RM {average_income:.2f}", font=("Poppins-Bold", 25))
+    average_label = CTkLabel(details_window, text=f"Average Monthly Income: RM {average_income:.2f}", font=CTkFont("font/Poppins-Bold.ttf",30,"bold"))
     average_label.pack(pady=(0, 10))
 
     # Create a frame to hold the details
@@ -51,19 +55,19 @@ def show_details(year_selected):
     for col, header in enumerate(headers):
         header_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
         header_frame.grid(row=0, column=col, sticky="nsew")
-        header_label = CTkLabel(details_frame, text=header, font=("Poppins-Bold", 14))
-        header_label.grid(row=0, column=col, padx=5, pady=5, sticky="nsew")
+        header_label = CTkLabel(header_frame, text=header, font=CTkFont("font/Poppins-Bold.ttf",20,"bold"))
+        header_label.pack(padx=5, pady=5, fill="both", expand=True)
 
     # Insert data into the table
     for row, (month, total) in enumerate(month_income.items(), start=1):
         data_frame_month = CTkFrame(details_frame, border_width=1, corner_radius=0)
         data_frame_month.grid(row=row, column=0, sticky="nsew")
-        data_label_month = CTkLabel(data_frame_month, text=month, font=("Poppins", 12))
+        data_label_month = CTkLabel(data_frame_month, text=month, font=CTkFont("font/Poppins-Bold.ttf",20))
         data_label_month.pack(padx=5, pady=5, fill="both", expand=True)
 
         data_frame_total = CTkFrame(details_frame, border_width=1, corner_radius=0)
         data_frame_total.grid(row=row, column=1, sticky="nsew")
-        data_label_total = CTkLabel(data_frame_total, text=f"{total:.2f}", font=("Poppins", 12))
+        data_label_total = CTkLabel(data_frame_total, text=f"{total:.2f}", font=CTkFont("font/Poppins-Bold.ttf",20))
         data_label_total.pack(padx=5, pady=5, fill="both", expand=True)
 
     con.close()
@@ -77,7 +81,7 @@ def open_income_piechart_window(income_piechart_frame):
 
     # income_piechart_window = CTk()
     # income_piechart_window.title("Income Pie Chart")
-    # income_piechart_window.geometry("640x640+300+200")
+    # income_piechart_window.geometry("800x750")
     # income_piechart_window.wm_attributes("-topmost",True)
 
     #Label for Income Pie Chart

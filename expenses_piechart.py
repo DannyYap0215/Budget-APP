@@ -36,11 +36,11 @@ def get_distinct_years():
 def show_details_window(selected_month, selected_year):
     details_window = CTkToplevel()
     details_window.title("Expenses Details")
-    details_window.geometry("800x600")
+    details_window.geometry("1000x720")
     details_window.wm_attributes("-topmost",True)
 
     # Add a label for the selected month and year
-    month_year_label = CTkLabel(details_window, text=f"Expenses Details for {selected_month} {selected_year}", font=("Poppins-Bold", 30), text_color="#6965A3")
+    month_year_label = CTkLabel(details_window, text=f"Expenses Details for {selected_month} {selected_year}", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
     month_year_label.pack(pady=15)
 
     con = sqlite3.connect("database.db")
@@ -62,7 +62,7 @@ def show_details_window(selected_month, selected_year):
         category_counts[category] += 1
     
     total_expenses = sum(category_totals.values())
-    total_label = CTkLabel(details_window, text=f"Total Expenses: RM {total_expenses:.2f}", font=("Poppins-Bold", 25))
+    total_label = CTkLabel(details_window, text=f"Total Expenses: RM {total_expenses:.2f}", font=CTkFont("font/Poppins-Bold.ttf",30,"bold"))
     total_label.pack(pady=(0, 10))
 
     # Create a frame to hold the details
@@ -80,7 +80,7 @@ def show_details_window(selected_month, selected_year):
     for col, header in enumerate(headers):
         header_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
         header_frame.grid(row=0, column=col, sticky="nsew")
-        header_label = CTkLabel(details_frame, text=header, font=("Poppins-Bold", 14))
+        header_label = CTkLabel(details_frame, text=header, font=CTkFont("font/Poppins-Bold.ttf",20,"bold"))
         header_label.grid(row=0, column=col, padx=5, pady=5, sticky="nsew")
         
     # Insert data into the table
@@ -92,7 +92,7 @@ def show_details_window(selected_month, selected_year):
         for col, data in enumerate([category, f"{total:.2f}", f"{count}", f"{average:.2f}"]):
             data_frame = CTkFrame(details_frame, border_width=1, corner_radius=0)
             data_frame.grid(row=row, column=col, sticky="nsew")
-            data_label = CTkLabel(details_frame, text=data, font=("Poppins", 12))
+            data_label = CTkLabel(details_frame, text=data, font=CTkFont("font/Poppins-Bold.ttf",20))
             data_label.grid(row=row, column=col, padx=5, pady=5, sticky="nsew")
 
     con.close()
@@ -107,7 +107,7 @@ def open_expenses_piechart_window(expenses_piechart_frame):
 
     # expenses_piechart_window = CTkToplevel()
     # expenses_piechart_window.title("Expenses Pie Chart")
-    # expenses_piechart_window.geometry("640x640+300+200")
+    # expenses_piechart_window.geometry("800x750")
     # expenses_piechart_window.wm_attributes("-topmost",True)
 
     # Define the colors dictionary
