@@ -6,6 +6,11 @@ from PIL import Image
 set_income_icon = Image.open("icon/update_expenses.png")
 set_categories_icon = Image.open("icon/category_icon.png")
 
+# Mei Ting part clear frame b4 open new one
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
 def open_set_income_window(budget_frame_two):
     set_income.open_set_income_window(budget_frame_two)
     
@@ -13,8 +18,7 @@ def open_set_categories_window(budget_frame_two):
     set_categories.open_set_categories_window(budget_frame_two)
     
 def open_edit_budget_window(edit_budget_frame):
-    for widget in edit_budget_frame.winfo_children():
-        widget.destroy()
+    clear_frame(edit_budget_frame)
 
     # def on_button_click():
     #     # Reduce the topmost attribute when a button is clicked

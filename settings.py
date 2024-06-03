@@ -10,11 +10,14 @@ back_icon = Image.open("icon/back_arrow.png")
 next_icon = Image.open("icon/next_arrow.png")
 delete_icon = Image.open("icon/delete_icon.png")
 
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
 class Settings():
     def __init__ (self,dashboard_right_frame):
         self.dashboard_right_frame = dashboard_right_frame
-        for widget in self.dashboard_right_frame.winfo_children():
-            widget.destroy()
+        clear_frame(self.dashboard_right_frame)
 
         # self.settings_window = CTkToplevel()
         # self.settings_window.title("Settings")
@@ -81,29 +84,27 @@ class Settings():
         
         if True:
             back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
-            back_button.place(relx=0.05, rely=0.9, anchor="w")
+            back_button.place(relx=0.05, rely=0.93, anchor="w")
             next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
-            next_button.place(relx=0.62, rely=0.9, anchor="w")
+            next_button.place(relx=0.62, rely=0.93, anchor="w")
 
             if self.page == 1:
                 UserGuide.userGuide1(self)
             elif self.page == 2:
-                UserGuide.userGuide2(self)
-            elif self.page == 3:
                 UserGuide.userGuide3(self)
-            elif self.page == 4:
+            elif self.page == 3:
                 UserGuide.userGuide4(self)
-            elif self.page == 5:
+            elif self.page == 4:
                 UserGuide.userGuide5(self)
-            elif self.page == 6:
+            elif self.page == 5:
                 UserGuide.userGuide6(self)
-            elif self.page == 7:
+            elif self.page == 6:
                 UserGuide.userGuide7(self)
-            elif self.page == 8:
+            elif self.page == 7:
                 UserGuide.userGuide8(self)
-            elif self.page == 9:
+            elif self.page == 8:
                 UserGuide.userGuide9(self)
-            elif self.page == 10:
+            elif self.page == 9:
                 UserGuide.userGuide10(self)
     
             
