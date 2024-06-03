@@ -7,8 +7,9 @@ from PIL import Image
 from user_guide import UserGuide
 
 class Settings():
-    def __init__ (self):
-        for widget in self.winfo_children():
+    def __init__ (self,dashboard_right_frame):
+        self.dashboard_right_frame = dashboard_right_frame
+        for widget in self.dashboard_right_frame.winfo_children():
             widget.destroy()
 
         # self.settings_window = CTkToplevel()
@@ -19,21 +20,21 @@ class Settings():
         # self.settings_window.minsize(620, 320)  
         # self.settings_window.maxsize(620, 320)
 
-        settings_label = CTkLabel(self.settings_window, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
-        settings_label.place(relx=0.05, rely=0.08, anchor="w")
+        # settings_label = CTkLabel(self.dashboard_right_frame, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
+        # settings_label.place(relx=0.05, rely=0.08, anchor="w")
         
-        settings_frame_two = CTkFrame(self.settings_window, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
-        settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
+        # settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
+        # settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
 
-        self.settings_frame = CTkFrame(self.settings_window,
-                                width=400,height= 300)
+        self.settings_frame = CTkFrame(self.dashboard_right_frame,
+                                width=560,height= 880)
         self.settings_frame.grid(row=0,column=1, sticky="nsew")
         self.settings_frame.grid_propagate(False) #makes frame stays in shape
         
-        # self.button_frame = CTkFrame(self.settings_window,
-        #                         width=150,height= 300)
-        # self.button_frame.grid(row=0,column=0, sticky="nsew")
-        # self.button_frame.grid_propagate(False)
+        self.button_frame = CTkFrame(self.dashboard_right_frame,
+                                width=500,height= 1080)
+        self.button_frame.grid(row=0,column=0, sticky="nsew")
+        self.button_frame.grid_propagate(False)
 
         user_guide_button = CTkButton(self.button_frame, text="User Guide", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.user_guide)
         user_guide_button.grid(row=0, column=0, padx=10, pady=(13,5),  sticky="nsew")
@@ -51,7 +52,7 @@ class Settings():
     #frame for user_guide
     def user_guide(self) :
         #frame for user guide
-        self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=self.settings_frame.winfo_height()-60,corner_radius=0)
+        self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=200,corner_radius=0)
         self.user_guide_frame.grid(row=0,column=0, sticky="nsew")
         self.user_guide_frame.grid_propagate(False)
         

@@ -54,7 +54,7 @@ def open_expenses_history_window():
     expenses_history.open_expenses_history_window(dashboard_right_frame)
 
 def open_settings_window():
-    settings.Settings()
+    settings.Settings(dashboard_right_frame)
     
 # def open_settings_window():
 #     settings.open_settings_window(dashboard_right_frame)
