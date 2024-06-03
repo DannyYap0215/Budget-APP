@@ -20,30 +20,30 @@ class Settings():
         # self.settings_window.minsize(620, 320)  
         # self.settings_window.maxsize(620, 320)
 
-        # settings_label = CTkLabel(self.dashboard_right_frame, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
-        # settings_label.place(relx=0.05, rely=0.08, anchor="w")
+        settings_label = CTkLabel(self.dashboard_right_frame, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
+        settings_label.place(relx=0.02, rely=0.08, anchor="w")
         
-        # settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
-        # settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
+        self.settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
+        self.settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
 
         self.settings_frame = CTkFrame(self.dashboard_right_frame,
-                                width=560,height= 880)
-        self.settings_frame.grid(row=0,column=1, sticky="nsew")
-        self.settings_frame.grid_propagate(False) #makes frame stays in shape
+                                width=1500, height=1080)
+        self.settings_frame.place(relx=0.22, rely=0.5, anchor="w")
+        # self.settings_frame.grid_propagate(False) #makes frame stays in shape
         
-        self.button_frame = CTkFrame(self.dashboard_right_frame,
-                                width=500,height= 1080)
-        self.button_frame.grid(row=0,column=0, sticky="nsew")
-        self.button_frame.grid_propagate(False)
+        # self.button_frame = CTkFrame(self.dashboard_right_frame,
+        #                         width=500,height= 1080)
+        # self.button_frame.grid(row=0,column=0, sticky="nsew")
+        # self.button_frame.grid_propagate(False)
 
-        user_guide_button = CTkButton(self.button_frame, text="User Guide", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.user_guide)
-        user_guide_button.grid(row=0, column=0, padx=10, pady=(13,5),  sticky="nsew")
+        user_guide_button = CTkButton(self.dashboard_right_frame, text="User Guide", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
+        user_guide_button.place(relx=0.02, rely=0.18, anchor="w")
 
-        change_theme_button = CTkButton(self.button_frame, text="Edit Change Theme", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.user_guide)
-        change_theme_button.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
+        change_theme_button = CTkButton(self.dashboard_right_frame, text="Edit Change Theme", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
+        change_theme_button.place(relx=0.02, rely=0.28, anchor="w")
 
-        reset_data_button = CTkButton(self.button_frame, text="Reset Data", font=CTkFont("font/Poppins-Bold.ttf",30), width = 130, height = 85, command=self.reset_data)
-        reset_data_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
+        reset_data_button = CTkButton(self.dashboard_right_frame, text="Reset Data", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.reset_data)
+        reset_data_button.place(relx=0.02, rely=0.38, anchor="w")
         
     def clear_frame(self):
         for widget in self.settings_frame.winfo_children():
@@ -52,29 +52,28 @@ class Settings():
     #frame for user_guide
     def user_guide(self) :
         #frame for user guide
-        self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=200,corner_radius=0)
-        self.user_guide_frame.grid(row=0,column=0, sticky="nsew")
-        self.user_guide_frame.grid_propagate(False)
+        # self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=200,corner_radius=0)
+        # self.user_guide_frame.grid(row=0,column=0, sticky="nsew")
+        # self.user_guide_frame.grid_propagate(False)
         
         #frame for user guide buttons
         self.page = 1
         self.update_user_guide()
-        self.user_guide_button_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=60,corner_radius=0)
-        self.user_guide_button_frame.grid(row=1,column=0, sticky="nsew")
-        self.user_guide_button_frame.grid_propagate(False)
+        # self.user_guide_button_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=60,corner_radius=0)
+        # self.user_guide_button_frame.grid(row=1,column=0, sticky="nsew")
+        # self.user_guide_button_frame.grid_propagate(False)
         
         
-        back_button = CTkButton(self.user_guide_button_frame, text="BACK",command=self.previous_page)
+        back_button = CTkButton(self.settings_frame_two, text="BACK",command=self.previous_page)
         back_button.grid(row=0,column=0, padx=(53,0), pady=(13,5),sticky = "e")
-        next_button = CTkButton(self.user_guide_button_frame, text="NEXT",command=self.next_page)
+        next_button = CTkButton(self.settings_frame_two, text="NEXT",command=self.next_page)
         next_button.grid(row=0,column=1, padx=10, pady=(13,5),sticky = "w")
         
         
     
     #functions for user guides
     def update_user_guide(self) :
-        for widget in self.user_guide_frame.winfo_children():
-            widget.destroy()
+        self.clear_frame()
         
         if self.page == 1:
             UserGuide.userGuide1(self)
@@ -84,7 +83,7 @@ class Settings():
             pass
             
     def previous_page(self):
-        if self.page > 0:
+        if self.page > 1:
             self.page -= 1
             self.update_user_guide()
             print(self.page)
@@ -99,13 +98,13 @@ class Settings():
     #data
     def reset_data(self) : #dont delete lol(working)
         self.clear_frame()
-        confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", justify=LEFT)
+        confirm_label = CTkLabel(self.settings_frame_two, text="Type 'CONFIRM' to reset data:", justify=LEFT)
         confirm_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
 
-        self.confirm_entry = CTkEntry(self.settings_frame, width=200)
+        self.confirm_entry = CTkEntry(self.settings_frame_two, width=200)
         self.confirm_entry.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
 
-        confirm_button = CTkButton(self.settings_frame, text="Delete", command=self.perform_reset)
+        confirm_button = CTkButton(self.settings_frame_two, text="Delete", command=self.perform_reset)
         confirm_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
     
     def perform_reset(self) :
@@ -116,13 +115,13 @@ class Settings():
             c.execute("DELETE FROM budget_2024")
             c.execute("DELETE FROM daily_expenses")
             con.commit()
-            self.settings_window.wm_attributes("-topmost", False)
+            self.settings_frame.wm_attributes("-topmost", False)
             messagebox.showinfo("Data Reset", "Data has been successfully reset.")
-            self.settings_window.wm_attributes("-topmost", True)
+            # self.settings_window.wm_attributes("-topmost", True)
         else:
-            self.settings_window.wm_attributes("-topmost", False)
+            self.settings_frame.wm_attributes("-topmost", False)
             messagebox.showerror("Error", "You must type 'CONFIRM' to reset data.")
             self.confirm_entry.delete(0, 'end')
-            self.settings_window.wm_attributes("-topmost", True)
+            # self.settings_frame.wm_attributes("-topmost", True)
     
    
