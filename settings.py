@@ -23,12 +23,13 @@ class Settings():
         settings_label = CTkLabel(self.dashboard_right_frame, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
         settings_label.place(relx=0.02, rely=0.08, anchor="w")
         
-        self.settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
-        self.settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
+        # self.settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
+        # self.settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
 
         self.settings_frame = CTkFrame(self.dashboard_right_frame,
                                 width=1500, height=1080)
         self.settings_frame.place(relx=0.22, rely=0.5, anchor="w")
+        self.settings_frame.grid_propagate(False)
         # self.settings_frame.grid_propagate(False) #makes frame stays in shape
         
         # self.button_frame = CTkFrame(self.dashboard_right_frame,
@@ -64,9 +65,9 @@ class Settings():
         # self.user_guide_button_frame.grid_propagate(False)
         
         
-        back_button = CTkButton(self.settings_frame_two, text="BACK",command=self.previous_page)
+        back_button = CTkButton(self.settings_frame, text="BACK",command=self.previous_page)
         back_button.grid(row=0,column=0, padx=(53,0), pady=(13,5),sticky = "e")
-        next_button = CTkButton(self.settings_frame_two, text="NEXT",command=self.next_page)
+        next_button = CTkButton(self.settings_frame, text="NEXT",command=self.next_page)
         next_button.grid(row=0,column=1, padx=10, pady=(13,5),sticky = "w")
         
         
@@ -98,13 +99,13 @@ class Settings():
     #data
     def reset_data(self) : #dont delete lol(working)
         self.clear_frame()
-        confirm_label = CTkLabel(self.settings_frame_two, text="Type 'CONFIRM' to reset data:", justify=LEFT)
+        confirm_label = CTkLabel(self.settings_frame, text="Type 'CONFIRM' to reset data:", justify=LEFT)
         confirm_label.grid(row=0, column=0, padx=10, pady=5, sticky="nsew")
 
-        self.confirm_entry = CTkEntry(self.settings_frame_two, width=200)
+        self.confirm_entry = CTkEntry(self.settings_frame, width=200)
         self.confirm_entry.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
 
-        confirm_button = CTkButton(self.settings_frame_two, text="Delete", command=self.perform_reset)
+        confirm_button = CTkButton(self.settings_frame, text="Delete", command=self.perform_reset)
         confirm_button.grid(row=2, column=0, padx=10, pady=5, sticky="nsew")
     
     def perform_reset(self) :

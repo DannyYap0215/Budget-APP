@@ -2,13 +2,13 @@ from customtkinter import *
 
 
 class UserGuide():
-    def userGuide1(settings):
+    def userGuide1(self):
         # self.clear_frame()
-        guide1_line1 = CTkLabel(settings.settings_frame_two, text="Main Interface", justify = LEFT,
+        guide1_line1 = CTkLabel(self.settings_frame, text="Main Interface", justify = LEFT,
                                 font=CTkFont("font/Poppins-Bold.ttf",30,"bold",underline=True) , text_color="#6965A3", wraplength=380)
         guide1_line1.grid(row=0, column=0, padx=10, sticky="nsew")
 
-        guide1_line2 = CTkLabel(settings.settings_frame_two, text="Overview", justify = LEFT,
+        guide1_line2 = CTkLabel(self.settings_frame, text="Overview", justify = LEFT,
                                 font=CTkFont("font/Poppins-Bold.ttf",22,"bold") , text_color="#6965A3", wraplength=380)
         guide1_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
         
