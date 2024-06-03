@@ -1,32 +1,41 @@
 from customtkinter import *
 import set_income
 import set_categories
+from PIL import Image
 
-def open_set_income_window():
-    set_income.open_set_income_window()
-    
-def open_set_categories_window():
-    set_categories.open_set_categories_window()
-    
-def open_edit_budget_window():
-    
-    def on_button_click():
-        # Reduce the topmost attribute when a button is clicked
-        edit_budget_window.wm_attributes("-topmost", False)
-    
-    edit_budget_window = CTkToplevel()
-    edit_budget_window.title("Edit Budget")
-    edit_budget_window.geometry("400x300")
-    edit_budget_window.wm_attributes("-topmost",True)
+set_income_icon = Image.open("icon/update_expenses.png")
+set_categories_icon = Image.open("icon/category_icon.png")
 
-    set_income_button = CTkButton(edit_budget_window, text="Set Income",command=open_set_income_window)
-    set_income_button.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+def open_set_income_window(budget_frame_two):
+    set_income.open_set_income_window(budget_frame_two)
     
-    set_categories_button = CTkButton(edit_budget_window, text="Set Categories",command=open_set_categories_window)
-    set_categories_button.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+def open_set_categories_window(budget_frame_two):
+    set_categories.open_set_categories_window(budget_frame_two)
     
-    #check for m1 click on the button if so it goes through the function o_b_c()
-    set_income_button.bind("<Button-1>", lambda event: on_button_click())
-    set_categories_button.bind("<Button-1>", lambda event: on_button_click())
+def open_edit_budget_window(edit_budget_frame):
+    for widget in edit_budget_frame.winfo_children():
+        widget.destroy()
 
+    # def on_button_click():
+    #     # Reduce the topmost attribute when a button is clicked
+    #     edit_budget_frame.wm_attributes("-topmost", False)
+    
+    budget_frame_two = CTkFrame(master=edit_budget_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
+    budget_frame_two.place(relx=0.23, rely=0.5, anchor="w")
 
+    #Label for Update Expenses
+    edit_budget_title_label = CTkLabel(edit_budget_frame, text="Edit Budget", 
+                                           font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
+    edit_budget_title_label.place(relx=0.02, rely=0.08, anchor="w")
+
+    set_income_button = CTkButton(edit_budget_frame, text="Set Income", font=CTkFont("font/Poppins-Bold.ttf",30), 
+                                fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(set_income_icon), command=lambda:open_set_income_window(budget_frame_two))
+    set_income_button.place(relx=0.02, rely=0.18, anchor="w")
+    
+    set_categories_button = CTkButton(edit_budget_frame, text="Set Categories", font=CTkFont("font/Poppins-Bold.ttf",30), 
+                                fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(set_categories_icon), command=lambda:open_set_categories_window(budget_frame_two))
+    set_categories_button.place(relx=0.02, rely=0.28, anchor="w")
+    
+    # #check for m1 click on the button if so it goes through the function o_b_c()
+    # set_income_button.bind("<Button-1>", lambda event: on_button_click())
+    # set_categories_button.bind("<Button-1>", lambda event: on_button_click())

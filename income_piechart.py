@@ -7,6 +7,8 @@ import sqlite3
 from PIL import Image
 # from set_income import income_data
 
+selected_icon = Image.open("icon/selected.png")
+
 # calendar_icon = Image.open("icon/calendar_icon.png")
 # update_icon = Image.open("icon/update_icon.png")
 # details_icon = Image.open("icon/details_icon.png")
@@ -70,21 +72,26 @@ def show_details(year_selected):
 
     con.close()
 
-def open_income_piechart_window():
-    income_piechart_window = CTk()
-    income_piechart_window.title("Income Pie Chart")
-    income_piechart_window.geometry("800x750")
-    income_piechart_window.wm_attributes("-topmost",True)
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+def open_income_piechart_window(income_piechart_frame):
+    clear_frame(income_piechart_frame)
+
+    # income_piechart_window = CTk()
+    # income_piechart_window.title("Income Pie Chart")
+    # income_piechart_window.geometry("800x750")
+    # income_piechart_window.wm_attributes("-topmost",True)
 
     #Label for Income Pie Chart
-    income_piechart_title_label = CTkLabel(income_piechart_window, text="Income Pie Chart", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
-    income_piechart_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
-
+    income_piechart_title_label = CTkLabel(income_piechart_frame, text="Income Pie Chart", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
+    income_piechart_title_label.place(relx=0.05, rely=0.08, anchor="w")
     # Year Label
-    year_label = CTkLabel(income_piechart_window, text="Select Year:", font=CTkFont("font/Poppins-Bold.ttf",40,"bold"))
-    year_label.grid(row=2, column=0, padx=60, pady=(5,30), sticky="w")
-    # year_image = CTkLabel(income_piechart_window, text="", image= income_piechart_window.calendar_icon_image)
-    # year_image.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+    year_label = CTkLabel(income_piechart_frame, text="Select Year:", font=CTkFont("font/Poppins-Bold.ttf",35))
+    year_label.place(relx=0.08, rely=0.18, anchor="w")
+    year_selection_icon = CTkLabel(income_piechart_frame, text="", image= CTkImage(selected_icon))
+    year_selection_icon.place(relx=0.05, rely=0.18, anchor="w")
 
     con = sqlite3.connect("database.db")
     c = con.cursor()
@@ -92,10 +99,12 @@ def open_income_piechart_window():
     years = c.fetchall()
     years = [str(year[0]) for year in years]
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     # Dropdown menu for year
     year_var = StringVar()
-    year_dropdown = CTkOptionMenu(income_piechart_window, values=years, variable=year_var, fg_color="#6965A3")
-    year_dropdown.grid(row=2, column=1, padx=10, pady=(5,30))
+    year_dropdown = CTkOptionMenu(income_piechart_frame, values=years, variable=year_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
+    year_dropdown.place(relx=0.35, rely=0.18, anchor="w")
    # year_var.set(years[0]) 
     
     def update_income_piechart():
@@ -131,18 +140,16 @@ def open_income_piechart_window():
         ax.pie(amounts, labels = income_months , autopct='%1.2f%%',colors=colours)
 
         # Create a canvas widget for displaying the pie chart
-        canvasbar = FigureCanvasTkAgg(fig, master=income_piechart_window)
+        canvasbar = FigureCanvasTkAgg(fig, master=income_piechart_frame)
         canvasbar.draw()
-        canvasbar.get_tk_widget().place(relx=0.5, rely=0.55, anchor=CENTER)  
+        canvasbar.get_tk_widget().place(relx=0.33, rely=0.45, anchor=CENTER)  
 
         # Create a Button widget to show more details
-        details_button = CTkButton(income_piechart_window, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", command=lambda: show_details(year_selected))
-        #details_button = CTkButton(income_piechart_window, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(details_icon), command=lambda: show_details(year_selected))
-        details_button.place(relx=0.5, rely=0.9, anchor="center")
+        details_button = CTkButton(income_piechart_frame, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=lambda: show_details(year_selected))
+        details_button.place(relx=0.33, rely=0.73, anchor="center")
 
     #Button to update expenses piechart
-    update_button = CTkButton(income_piechart_window, text="Update", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", command=update_income_piechart)
-    #update_button = CTkButton(income_piechart_window, text="Update", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_income_piechart)
-    update_button.grid(row=2, column=2, padx=10, pady=(5,30)) 
+    update_button = CTkButton(income_piechart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=update_income_piechart)
+    update_button.place(relx=0.60, rely=0.18, anchor="w")
 
-    income_piechart_window.mainloop()
+    # income_piechart_frame.mainloop()

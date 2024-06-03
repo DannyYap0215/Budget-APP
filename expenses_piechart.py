@@ -22,9 +22,7 @@ months = [
     "December",
 ]
 
-calendar_icon = Image.open("icon/calendar_icon.png")
-update_icon = Image.open("icon/update_icon.png")
-details_icon = Image.open("icon/details_icon.png")
+selected_icon = Image.open("icon/selected.png")
 
 def get_distinct_years():
     con = sqlite3.connect("database.db")
@@ -99,11 +97,18 @@ def show_details_window(selected_month, selected_year):
 
     con.close()
 
-def open_expenses_piechart_window():
-    expenses_piechart_window = CTkToplevel()
-    expenses_piechart_window.title("Expenses Pie Chart")
-    expenses_piechart_window.geometry("800x750")
-    expenses_piechart_window.wm_attributes("-topmost",True)
+# Mei Ting part clear frame b4 open new one
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+def open_expenses_piechart_window(expenses_piechart_frame):
+    clear_frame(expenses_piechart_frame)
+
+    # expenses_piechart_window = CTkToplevel()
+    # expenses_piechart_window.title("Expenses Pie Chart")
+    # expenses_piechart_window.geometry("800x750")
+    # expenses_piechart_window.wm_attributes("-topmost",True)
 
     # Define the colors dictionary
     colors = {
@@ -137,37 +142,38 @@ def open_expenses_piechart_window():
 }
 
     #Label for Expenses Pie Chart
-    expenses_piechart_title_label = CTkLabel(expenses_piechart_window, text="Expenses Pie Chart", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
-    expenses_piechart_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+    expenses_piechart_title_label = CTkLabel(expenses_piechart_frame, text="Expenses Pie Chart", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3")
+    expenses_piechart_title_label.place(relx=0.05, rely=0.08, anchor="w")
 
     # Year Label
-    year_label = CTkLabel(expenses_piechart_window, text="Select Year:", font=CTkFont("font/Poppins-Bold.ttf",40,"bold"))
-    year_label.grid(row=2, column=0, padx=60, pady=5, sticky="w")
-    year_image = CTkLabel(expenses_piechart_window, text="",image= CTkImage(calendar_icon, size=(40, 40)))
-    year_image.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+    year_label = CTkLabel(expenses_piechart_frame, text="Select Year:", font=CTkFont("font/Poppins-Bold.ttf",35))
+    year_label.place(relx=0.08, rely=0.18, anchor="w")
+    year_selection_icon = CTkLabel(expenses_piechart_frame, text="", image= CTkImage(selected_icon))
+    year_selection_icon.place(relx=0.05, rely=0.18, anchor="w")
 
     # Fetch distinct years from the database
     year_list = get_distinct_years()
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     # Dropdown menu for year
-    
     year_var = StringVar()
-    year_dropdown = CTkOptionMenu(expenses_piechart_window, values=year_list, variable=year_var, fg_color="#6965A3")
-    year_dropdown.grid(row=2, column=1, padx=10, pady=5)
+    year_dropdown = CTkOptionMenu(expenses_piechart_frame, values=year_list, variable=year_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
+    year_dropdown.place(relx=0.35, rely=0.18, anchor="w")
 
     #Month Label
-    month_label = CTkLabel(expenses_piechart_window, text="Select Month:", font=CTkFont("font/Poppins-Bold.ttf",40,"bold"))
-    month_label.grid(row=3, column=0, padx=60, pady=(5,30), sticky="w")
-    month_image = CTkLabel(expenses_piechart_window, text="",image= CTkImage(calendar_icon, size=(40, 40)))
-    month_image.grid(row=3, column=0, padx=10, pady=(5,30), sticky="w")
-    
+    month_label = CTkLabel(expenses_piechart_frame, text="Select Month:", font=CTkFont("font/Poppins-Bold.ttf",35))
+    month_label.place(relx=0.08, rely=0.26, anchor="w")
+    month_selection_icon = CTkLabel(expenses_piechart_frame, text="", image= CTkImage(selected_icon))
+    month_selection_icon.place(relx=0.05, rely=0.26, anchor="w")
+
     # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
     # month_list = sorted (month_set) #Sort the extracted month
 
     #Dropdown menu for month
     month_var = StringVar()
-    month_dropdown = CTkOptionMenu(expenses_piechart_window, values=months, variable=month_var, fg_color="#6965A3") 
-    month_dropdown.grid(row=3, column=1, padx=10, pady=(5,30))
+    month_dropdown = CTkOptionMenu(expenses_piechart_frame, values=months, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9") 
+    month_dropdown.place(relx=0.35, rely=0.26, anchor="w")
 
     def update_expenses_piechart():
         global selected_year
@@ -212,14 +218,14 @@ def open_expenses_piechart_window():
         ax.pie(weights, labels = expenses_categories , autopct='%1.2f%%',colors=colours)
 
         # Create a canvas widget for displaying the pie chart
-        canvasbar = FigureCanvasTkAgg(fig, master=expenses_piechart_window)
+        canvasbar = FigureCanvasTkAgg(fig, master=expenses_piechart_frame)
         canvasbar.draw()
-        canvasbar.get_tk_widget().place(relx=0.5, rely=0.55, anchor=CENTER)  
+        canvasbar.get_tk_widget().place(relx=0.33, rely=0.63, anchor=CENTER)  
 
         # Create a Button widget to show more details
-        details_button = CTkButton(expenses_piechart_window, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(details_icon), command=lambda: show_details_window(selected_month, selected_year))
-        details_button.place(relx=0.5, rely=0.9, anchor="center")
+        details_button = CTkButton(expenses_piechart_frame, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=lambda: show_details_window(selected_month, selected_year))
+        details_button.place(relx=0.33, rely=0.90, anchor="center")
 
     #Button to update expenses piechart
-    update_button = CTkButton(expenses_piechart_window, text="Update", font=CTkFont("font/Poppins-Bold.ttf",25), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_piechart)
-    update_button.grid(row=3, column=2, padx=10, pady=(5,30))
+    update_button = CTkButton(expenses_piechart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=update_expenses_piechart)
+    update_button.place(relx=0.35, rely=0.34, anchor="w")
