@@ -3,24 +3,36 @@ from customtkinter import *
 
 class UserGuide():
     def userGuide1(self):
-        # self.clear_frame()
-        self.guide1_line1 = CTkLabel(self.user_guide_frame, text="Main Interface", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide1_line1 = CTkLabel(self.user_guide_frame, text="Main Interface", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
         self.guide1_line1.grid(row=0, column=0, padx=10, sticky="nsew")
-        self.guide1_line2 = CTkLabel(self.user_guide_frame, text="Overview", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",22,"bold") , text_color="#6965A3", wraplength=380)
+        
+        self.guide1_line2 = CTkLabel(self.user_guide_frame, text="Sidebar: Navigate between different sections like Insights, Budget, Update Expenses, Expenses History and Settings", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide1_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
         
-# Main Interface
-# Overview
-# The main interface of BudgetPro consists of the following components:
-
-# Menu Bar: Access different features and settings.
-# Dashboard: View your financial summary.
-# Sidebar: Navigate between different sections like Budget, Expenses, Income, and Reports.
-# Dashboard
-# The dashboard displays a summary of your current financial status, including total income, total expenses, and budget balance.
-
-# Navigation
-# Use the sidebar to switch between different sections. Click on the desired section to view or edit its content.
+        self.guide1_line3 = CTkLabel(self.user_guide_frame, text="Dashboard: View functions of sections", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide1_line3.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+        
+    def userGuide2(self):
+        self.guide2_line1 = CTkLabel(self.user_guide_frame, text="Navigation", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide2_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide2_line2 = CTkLabel(self.user_guide_frame, text="Use the sidebar to switch between different sections and click on the desired section to view or edit its content", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide2_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        
+    def userGuide3(self):
+        self.guide3_line1 = CTkLabel(self.user_guide_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide3_line1.grid(row=0, column=0, padx=10, sticky="nsew")
+        
+        self.guide3_line2 = CTkLabel(self.user_guide_frame, text="Creating a Budget", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide3_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        
+        
+        
+        
+        
+        
+        
+        
 
 # Key Features and How to Use Them
 # Creating a Budget

@@ -69,12 +69,12 @@ class Settings():
         if self.page == 1:
             UserGuide.userGuide1(self)
         elif self.page == 2:
-            pass
-        else :
-            pass
+            UserGuide.userGuide2(self)
+        elif self.page == 3:
+            UserGuide.userGuide3(self)
             
     def previous_page(self):
-        if self.page > 0:
+        if self.page > 0 and self.page != 1:
             self.page -= 1
             self.update_user_guide()
             print(self.page)
@@ -82,9 +82,14 @@ class Settings():
             pass
 
     def next_page(self):
-        self.page += 1
-        self.update_user_guide()
-        print(self.page)     
+        if self.page > 0 and self.page < 3:
+            self.page += 1
+            self.update_user_guide()
+            print(self.page) 
+        elif self.page == 3:
+            self.page = 1
+            self.update_user_guide()
+            print(self.page)    
     
     #data
     def reset_data(self) : #dont delete lol(working)
