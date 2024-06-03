@@ -3,11 +3,11 @@ from customtkinter import *
 
 class UserGuide():
     def userGuide1(self):
-        self.guide1_line1 = CTkLabel(self.user_guide_frame, text="Main Interface", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",25,"bold",underline=True) , text_color="#6965A3", wraplength=380)
-        self.guide1_line1.grid(row=0, column=0, padx=10, sticky="nsew")
-        
-        self.guide1_line2 = CTkLabel(self.user_guide_frame, text="Sidebar: Navigate between different sections like Insights, Budget, Update Expenses, Expenses History and Settings", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
-        self.guide1_line2.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        # self.clear_frame()
+        self.guide1_line1 = CTkLabel(self.user_guide_frame, text="Main Interface", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30,"bold",underline=True) , text_color="#6965A3", wraplength=380)
+        self.guide1_line1.place(relx=0.05, rely=0.08, anchor="w")
+        self.guide1_line2 = CTkLabel(self.user_guide_frame, text="Overview", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",22,"bold") , text_color="#6965A3", wraplength=380)
+        self.guide1_line2.place(relx=0.05, rely=0.16, anchor="w")
         
         self.guide1_line3 = CTkLabel(self.user_guide_frame, text="Dashboard: View functions of sections", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",15,"bold") , text_color="#6965A3", wraplength=380)
         self.guide1_line3.grid(row=2, column=0, padx=10, pady=5, sticky="w")

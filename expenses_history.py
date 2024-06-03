@@ -1,7 +1,6 @@
 from customtkinter import *
 from tkcalendar import DateEntry
 from tkinter import ttk
-
 from PIL import Image
 import database_test as db
 import sqlite3
@@ -22,32 +21,34 @@ month = [
 ]
 
 calendar_icon = Image.open("icon/calendar_icon.png")
+search_icon = Image.open("icon/search_icon.png")
 
-def open_expenses_history_window():
-    expenses_history_window = CTkToplevel()
-    expenses_history_window.title("Expenses History")
-    expenses_history_window.geometry("800x600")
-    expenses_history_window.wm_attributes("-topmost",True)
-    
+def open_expenses_history_window(expenses_history_frame):
+    for widget in expenses_history_frame.winfo_children():
+        widget.destroy()
+
     #Label for Update Expenses
-    expenses_history_title_label = CTkLabel(expenses_history_window, text="Expenses History", font=CTkFont("font/Poppins-ExtraBold",50, "bold"), text_color="#6965A3")
-    expenses_history_title_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+    expenses_history_title_label = CTkLabel(expenses_history_frame, text="Expenses History", 
+                                            font=CTkFont("font/Poppins-ExtraBold",50, "bold"), text_color="#6965A3")
+    expenses_history_title_label.place(relx=0.05, rely=0.08, anchor="w")
 
     #Month Label
-    month_label = CTkLabel(expenses_history_window, text="Select Month:", font=CTkFont("font/Poppins-ExtraBold",30))
-    month_label.grid(row=3, column=0, padx=50, pady=5, sticky="w")
+    month_label = CTkLabel(expenses_history_frame, text="Select Month:", font=CTkFont("font/Poppins-ExtraBold",35))
+    month_label.place(relx=0.07, rely=0.18, anchor="w")
 
-    date_icon_label = CTkLabel(expenses_history_window, text="",image= CTkImage(calendar_icon) )
-    date_icon_label.grid(row=3, column=0, padx=20, pady=5, sticky="w")
+    date_icon_label = CTkLabel(expenses_history_frame, text="",image= CTkImage(calendar_icon) )
+    date_icon_label.place(relx=0.05, rely=0.18, anchor="w")
 
     # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
     # month_list = sorted (month_set) #Sort the extracted month
 
+    custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
+
     #Dropdown menu for month
     month_var = StringVar()
     
-    month_dropdown = CTkOptionMenu(expenses_history_window, values=month, variable=month_var, fg_color="#6965A3") 
-    month_dropdown.grid(row=3, column=1, padx=10, pady=5, sticky=N)
+    month_dropdown = CTkOptionMenu(expenses_history_frame, values=month, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9") 
+    month_dropdown.place(relx=0.26, rely=0.18, anchor="w")
     
     import sqlite3
 
@@ -87,8 +88,6 @@ def open_expenses_history_window():
         for expense in rows:
             expenses_treeview.insert("", "end", values=(expense[0], expense[1], expense[2], expense[3])) 
     
-        
-        
             
     # def update_expenses_treeview():
     #     selected_month = month_var.get()
@@ -100,29 +99,51 @@ def open_expenses_history_window():
     #         formatted_date = expense[0].strftime("%d-%m-%Y")
     #         expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
 
+
     #Button to update expenses treeview
     update_icon = Image.open("icon/update_icon.png")
-    update_button = CTkButton(expenses_history_window, text="Update", font=CTkFont("font/Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
-    update_button.grid(row=3, column=2, padx=10, pady=5, sticky="w")
-    
+    update_button = CTkButton(expenses_history_frame, text="Update Month", font=CTkFont("font/Poppins-ExtraBold",30), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(update_icon), command=update_expenses_treeview)
+    update_button.place(relx=0.43, rely=0.18, anchor="w")
+
+    #Search Label
+    search_label = CTkLabel(expenses_history_frame, text="Search Your Expenses:", font=CTkFont("font/Poppins-ExtraBold",35))
+    search_label.place(relx=0.07, rely=0.26, anchor="w")
+
+    search_icon_label = CTkLabel(expenses_history_frame, text="",image= CTkImage(search_icon) )
+    search_icon_label.place(relx=0.05, rely=0.26, anchor="w")
+
+    def search_entry_font_change(event):
+        text = search_entry.get
+        search_entry.configure(font=CTkFont("font/Poppins.ttf",30))
+
     #Danny 's search functions
     search_var = StringVar()
-    search_entry = CTkEntry(expenses_history_window,textvariable=search_var)
-    search_entry.grid(row=4,column =1,padx=10, pady=5)
-    
-   
-    
-    
-    search_button = CTkButton(expenses_history_window, text="Search", font = CTkFont("font/Poppins-ExtraBold",15), fg_color="#6965A3", hover_color="#8885B6",command=search_function)
-    search_button.grid(row=4,column =2,padx=10, pady=5, sticky="w")
-    
+    search_entry = CTkEntry(expenses_history_frame,textvariable=search_var, width=300, height=46)
+    search_entry.place(relx=0.36, rely=0.26, anchor="w")
+    search_entry.bind("<KeyRelease>", search_entry_font_change)
 
-    expenses_treeview = ttk.Treeview(expenses_history_window, columns=("Date", "Amount", "Category", "Note"), show="headings")
+    find_icon = Image.open("icon/find_icon.png") #Mei Ting's GUI
+    search_button = CTkButton(expenses_history_frame, text="Search", font = CTkFont("font/Poppins-ExtraBold",30), fg_color="#6965A3", hover_color="#8885B6", image=CTkImage(find_icon), command=search_function)
+    search_button.place(relx=0.61, rely=0.26, anchor="w")
+
+    expenses_treeview_style = ttk.Style()
+    expenses_treeview_style.configure("Treeview.Heading", font=("Poppins-ExtraBold", 20))
+    expenses_treeview_style.configure("Treeview", font=("Poppins", 15))
+    expenses_treeview_style.configure("Treeview", rowheight=30)
+
+    expenses_treeview = ttk.Treeview(expenses_history_frame, columns=("Date", "Amount", "Category", "Note"), show="headings", height=21, style="Treeview")
     expenses_treeview.heading("Date", text="Date")
     expenses_treeview.heading("Amount", text="Amount (RM)")
     expenses_treeview.heading("Category", text="Category")
     expenses_treeview.heading("Note", text="Note")
-    expenses_treeview.grid(row=6, column=0, columnspan=3, padx=10, pady=5)
+
+    expenses_treeview.column("Date", width=200)
+    expenses_treeview.column("Amount", width=250)
+    expenses_treeview.column("Category", width=200)
+    expenses_treeview.column("Note", width=300)
+
+    expenses_treeview.place(relx=0.05, rely=0.63, anchor="w")
+
 
     #Insert all expenses data initially
     # for expense in expenses_data:
@@ -130,5 +151,7 @@ def open_expenses_history_window():
     #     expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
 
     #Update the treeview based on the initially selected month
+
+
     update_expenses_treeview()
    
