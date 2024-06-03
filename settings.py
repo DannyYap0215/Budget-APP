@@ -82,23 +82,45 @@ class Settings():
         if self.page == 1:
             UserGuide.userGuide1(self)
         elif self.page == 2:
-            pass
-        else :
-            pass
+            UserGuide.userGuide2(self)
+        elif self.page == 3:
+            UserGuide.userGuide3(self)
+        elif self.page == 4:
+            UserGuide.userGuide4(self)
+        elif self.page == 5:
+            UserGuide.userGuide5(self)
+        elif self.page == 6:
+            UserGuide.userGuide6(self)
+        elif self.page == 7:
+            UserGuide.userGuide7(self)
+        elif self.page == 8:
+            UserGuide.userGuide8(self)
+        elif self.page == 9:
+            UserGuide.userGuide9(self)
+        elif self.page == 10:
+            UserGuide.userGuide10(self)
+    
             
     def previous_page(self):
-        if self.page > 1:
+        if self.page > 0  and self.page != 0:
             self.page -= 1
             self.update_user_guide()
             print(self.page)
-        else :
-            pass
+        elif self.page == 0 :
+            self.page = 10
+            self.update_user_guide()
+            print(self.page)
 
     def next_page(self):
-        self.page += 1
-        self.update_user_guide()
-        print(self.page)     
-
+        if self.page > 0 and self.page < 10:
+            self.page += 1
+            self.update_user_guide()
+            print(self.page) 
+        elif self.page == 10:
+            self.page = 1
+            self.update_user_guide()
+            print(self.page)    
+    
     #data
     def reset_data(self) : #dont delete lol(working)
         self.clear_frame()
