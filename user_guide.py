@@ -15,7 +15,7 @@ colour_label_icon =  Image.open("icon/colour_tag_P.png")
 delete_icon = Image.open("icon/delete_p.png")
 
 class UserGuide():
-    def userGuide1(self):
+    def userGuide1(self):#first page
         # self.clear_frame()
         main_interface_icon = CTkLabel(self.settings_frame, text="", image= CTkImage(main_icon))
         main_interface_icon.place(relx=0.05, rely=0.08, anchor="w")
@@ -29,13 +29,13 @@ class UserGuide():
         
         navigation_icon = CTkLabel(self.settings_frame, text="", image= CTkImage(navigate_icon))
         navigation_icon.place(relx=0.05, rely=0.34, anchor="w")
-        self.guide2_line1 = CTkLabel(self.settings_frame, text="Navigation", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",40,underline=True) , text_color="#8885B6", wraplength=1020)
-        self.guide2_line1.place(relx=0.08, rely=0.34, anchor="w")
+        self.guide1_line4 = CTkLabel(self.settings_frame, text="Navigation", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",40,underline=True) , text_color="#8885B6", wraplength=1020)
+        self.guide1_line4.place(relx=0.08, rely=0.34, anchor="w")
         
-        self.guide2_line2 = CTkLabel(self.settings_frame, text="Use the sidebar to switch between different sections and click on the desired section to view or edit its content", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
-        self.guide2_line2.place(relx=0.05, rely=0.42, anchor="w")
+        self.guide1_line5 = CTkLabel(self.settings_frame, text="Use the sidebar to switch between different sections and click on the desired section to view or edit its content", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
+        self.guide1_line5.place(relx=0.05, rely=0.42, anchor="w")
         
-    def userGuide3(self):   
+    def userGuide3(self):   #second
         self.guide3_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide3_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -57,7 +57,7 @@ class UserGuide():
         self.guide3_line6.place(relx=0.05, rely=0.40, anchor="w")
         
         
-    def userGuide4(self):
+    def userGuide4(self):   #third
         self.guide4_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide4_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -78,7 +78,7 @@ class UserGuide():
         self.guide4_line6 = CTkLabel(self.settings_frame, text="4. Enter allocated budget and click on \"Save\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
         self.guide4_line6.place(relx=0.05, rely=0.40, anchor="w")
         
-    def userGuide5(self):
+    def userGuide5(self):   #fourth
         self.guide5_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide5_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -99,7 +99,7 @@ class UserGuide():
         self.guide5_line6 = CTkLabel(self.settings_frame, text="4. Add in a note (not required) and click \"Save Expenses\"", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
         self.guide5_line6.place(relx=0.05, rely=0.40, anchor="w")
     
-    def userGuide6(self):
+    def userGuide6(self):   #page 5
         self.guide6_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide6_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -114,7 +114,7 @@ class UserGuide():
         self.guide6_line4 = CTkLabel(self.settings_frame, text="2. Select Month and Update OR search for any keywords in the search tab and click on \"search\" button", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
         self.guide6_line4.place(relx=0.05, rely=0.30, anchor="w")
         
-    def userGuide7(self):
+    def userGuide7(self):   #page 6 
         self.guide7_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide7_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -135,7 +135,7 @@ class UserGuide():
         self.guide7_line6 = CTkLabel(self.settings_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
         self.guide7_line6.place(relx=0.05, rely=0.40, anchor="w")
         
-    def userGuide8(self):
+    def userGuide8(self):   #page 7
         self.guide8_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide8_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -156,7 +156,7 @@ class UserGuide():
         self.guide8_line6 = CTkLabel(self.settings_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
         self.guide8_line6.place(relx=0.05, rely=0.40, anchor="w")
         
-    def userGuide9(self):
+    def userGuide9(self):   #page 8
         self.guide9_line1 = CTkLabel(self.settings_frame, text="Key Features and How to Use Them", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",50,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide9_line1.place(relx=0.05, rely=0.08, anchor="w")
         
@@ -177,7 +177,7 @@ class UserGuide():
         self.guide9_line6 = CTkLabel(self.settings_frame, text="4. You can also view details by clicking on \"Show Details\" after step 3", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",30) , text_color="#6965A3", wraplength=1020)
         self.guide9_line6.place(relx=0.05, rely=0.40, anchor="w")
         
-    def userGuide10(self):
+    def userGuide10(self):  #page 9
         self.guide10_line1 = CTkLabel(self.settings_frame, text="Advanced Features", justify = LEFT,font=CTkFont("font/Poppins-Bold.ttf",45,"bold",underline=True) , text_color="#A7A5C9", wraplength=1020)
         self.guide10_line1.place(relx=0.05, rely=0.08, anchor="w")
 

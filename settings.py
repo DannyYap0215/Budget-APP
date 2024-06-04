@@ -109,21 +109,21 @@ class Settings():
     
             
     def previous_page(self):
-        if self.page > 0  and self.page != 0:
+        if self.page > 0  and self.page != 1:
             self.page -= 1
             self.update_user_guide()
             print(self.page)
-        elif self.page == 0 :
-            self.page = 10
+        elif self.page == 1 :
+            self.page = 9
             self.update_user_guide()
             print(self.page)
 
     def next_page(self):
-        if self.page > 0 and self.page < 10:
+        if self.page > 0 and self.page < 9:
             self.page += 1
             self.update_user_guide()
             print(self.page) 
-        elif self.page == 10:
+        elif self.page == 9:
             self.page = 1
             self.update_user_guide()
             print(self.page)    
