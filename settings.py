@@ -15,7 +15,8 @@ def clear_frame(frame):
         widget.destroy()
 
 class Settings():
-    def __init__ (self,dashboard_right_frame):
+    def __init__ (self,dashboard_right_frame,root):
+        self.root = root
         self.dashboard_right_frame = dashboard_right_frame
         clear_frame(self.dashboard_right_frame)
 
@@ -154,11 +155,11 @@ class Settings():
             c.execute("DELETE FROM budget_2024")
             c.execute("DELETE FROM daily_expenses")
             con.commit()
-            self.settings_frame.wm_attributes("-topmost", False)
+            self.root.wm_attributes("-topmost", False)
             messagebox.showinfo("Data Reset", "Data has been successfully reset.")
             # self.settings_window.wm_attributes("-topmost", True)
         else:
-            self.settings_frame.wm_attributes("-topmost", False)
+            self.root.wm_attributes("-topmost", False)
             messagebox.showerror("Error", "You must type 'CONFIRM' to reset data.")
             self.confirm_entry.delete(0, 'end')
             # self.settings_frame.wm_attributes("-topmost", True)
