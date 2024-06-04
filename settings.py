@@ -47,11 +47,11 @@ class Settings():
         user_guide_button = CTkButton(self.dashboard_right_frame, text="User Guide", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
         user_guide_button.place(relx=0.02, rely=0.18, anchor="w")
 
-        change_theme_button = CTkButton(self.dashboard_right_frame, text="Edit Change Theme", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
-        change_theme_button.place(relx=0.02, rely=0.28, anchor="w")
+        # change_theme_button = CTkButton(self.dashboard_right_frame, text="Edit Change Theme", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
+        # change_theme_button.place(relx=0.02, rely=0.28, anchor="w")
 
         reset_data_button = CTkButton(self.dashboard_right_frame, text="Reset Data", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.reset_data)
-        reset_data_button.place(relx=0.02, rely=0.38, anchor="w")
+        reset_data_button.place(relx=0.02, rely=0.28, anchor="w")
         
     def clear_frame(self):
         for widget in self.settings_frame.winfo_children():
