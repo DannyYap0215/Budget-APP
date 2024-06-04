@@ -100,7 +100,7 @@ def open_usage_barchart_window(usage_barchart_frame):
 
     global_y_min, global_y_max = get_global_limits()
 
-    def update_usage_barchart():
+    def update_usage_barchart(*args):
         selected_month = month_var.get()  # Get the selected month
         selected_year = year_var.get()  # Get the selected year
         con = sqlite3.connect("database.db")
@@ -169,7 +169,7 @@ def open_usage_barchart_window(usage_barchart_frame):
         # Create a canvas to display the plot
         canvas = FigureCanvasTkAgg(fig, master=usage_barchart_frame)
         canvas.draw()
-        canvas.get_tk_widget().place(relx=0.40, rely=0.63, anchor=tk.CENTER)
+        canvas.get_tk_widget().place(relx=0.40, rely=0.50, anchor=tk.CENTER)
 
         # Add hover annotations using mplcursors
         cursor = mplcursors.cursor(markers, hover=True)
@@ -179,20 +179,22 @@ def open_usage_barchart_window(usage_barchart_frame):
             sel.annotation.get_bbox_patch().set_facecolor('#FF8CA1')  # Change background color
             sel.annotation.get_bbox_patch().set_edgecolor('#F45F74')  # Change edge color
 
-    # Button to update usage barchart
-    update_button = CTkButton(usage_barchart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=lambda: (update_usage_barchart(), reminder()))
-    update_button.place(relx=0.35, rely=0.34, anchor="w")
-
-    # Mei Ting part Reminder
-    def reminder():
-        reminder_frame = CTkFrame(usage_barchart_frame, width=360, height=215,
+        # Mei Ting part Reminder
+        reminder_frame = CTkFrame(usage_barchart_frame, width=420, height=150,
                               fg_color="#1f2124",border_color="#535085",
                               border_width=4,corner_radius=8)
-        reminder_frame. place(relx=0.58, rely=0.26, anchor="w")
+        reminder_frame. place(relx=0.40, rely=0.80, anchor=tk.CENTER)
         reminder_title_label = CTkLabel(reminder_frame, text="Reminder",font=CTkFont("font/Poppins-Bold.ttf",28,"bold"))
         reminder_title_label.place(x=25, rely=0.18, anchor="w")
-        reminder_textbox = CTkTextbox(reminder_frame, width=320, height=140, font=CTkFont("font/Poppins-Bold.ttf",25))
-        reminder_textbox.place(x=20, rely=0.58, anchor="w")
-        reminder_textbox.insert("1.0","Please hover your              cursor over the <red dots> on the graph to view            budget details.") #dont edit this line of code, the spaces in between words are for the text box display purpose    
+        reminder_textbox = CTkTextbox(reminder_frame, width=380, height=100, font=CTkFont("font/Poppins-Bold.ttf",25))
+        reminder_textbox.place(x=20, rely=0.60, anchor="w")
+        reminder_textbox.insert("1.0","Please hover your cursor over      the <red dots> on the graph        to view budget details.") #dont edit this line of code, the spaces in between words are for the text box display purpose    
+
+    # # Button to update usage barchart
+    # update_button = CTkButton(usage_barchart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=lambda: (update_usage_barchart(), reminder()))
+    # update_button.place(relx=0.35, rely=0.34, anchor="w")
+    # Bind the update function to changes in the dropdowns
+    year_var.trace("w", update_usage_barchart)
+    month_var.trace("w", update_usage_barchart)
 
     # usage_barchart_window.mainloop()
