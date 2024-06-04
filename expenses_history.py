@@ -23,9 +23,12 @@ month = [
 calendar_icon = Image.open("icon/calendar_icon.png")
 search_icon = Image.open("icon/search_icon.png")
 
-def open_expenses_history_window(expenses_history_frame):
-    for widget in expenses_history_frame.winfo_children():
+def clear_frame(frame):
+    for widget in frame.winfo_children():
         widget.destroy()
+
+def open_expenses_history_window(expenses_history_frame):
+    clear_frame(expenses_history_frame)
 
     #Label for Update Expenses
     expenses_history_title_label = CTkLabel(expenses_history_frame, text="Expenses History", 

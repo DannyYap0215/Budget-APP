@@ -17,9 +17,12 @@ import database_test as db
 #     "Gift",
 # ]
 
-def open_update_expenses_window(update_expenses_frame):
-    for widget in update_expenses_frame.winfo_children():
+def clear_frame(frame):
+    for widget in frame.winfo_children():
         widget.destroy()
+
+def open_update_expenses_window(update_expenses_frame):
+    clear_frame(update_expenses_frame)
       
     categories = db.update_categories_list()  
 

@@ -72,6 +72,7 @@ def show_details(year_selected):
 
     con.close()
 
+# Mei Ting part clear frame b4 open new one
 def clear_frame(frame):
     for widget in frame.winfo_children():
         widget.destroy()
