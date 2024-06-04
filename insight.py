@@ -8,6 +8,11 @@ expenses_icon = Image.open("icon/expenses_history.png")
 income_icon = Image.open("icon/income.png")
 usage_icon = Image.open("icon/usage.png")
 
+# Mei Ting part clear frame b4 open new one
+def clear_frame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
 def open_expenses_piechart(insight_frame_two):
         expenses_piechart.open_expenses_piechart_window(insight_frame_two)
 
@@ -18,8 +23,7 @@ def open_usage_barchart(insight_frame_two):
         usage_barchart.open_usage_barchart_window(insight_frame_two)
 
 def open_insight_window(insight_frame):
-    for widget in insight_frame.winfo_children():
-        widget.destroy()
+    clear_frame(insight_frame)
 
     # def close_existing_windows():
     #     # Destroy any existing windows

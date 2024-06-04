@@ -25,6 +25,7 @@ save_icon = Image.open("icon/saved_icon.png")
 update_icon = Image.open("icon/update_icon.png")
 selected_icon = Image.open("icon/selected.png")
 
+# Mei Ting part clear frame b4 open new one
 def clear_frame(frame):
     for widget in frame.winfo_children():
         widget.destroy()
