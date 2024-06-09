@@ -221,11 +221,11 @@ def open_expenses_piechart_window(expenses_piechart_frame):
         # Create a canvas widget for displaying the pie chart
         canvasbar = FigureCanvasTkAgg(fig, master=expenses_piechart_frame)
         canvasbar.draw()
-        canvasbar.get_tk_widget().place(relx=0.33, rely=0.53, anchor=CENTER)  
+        canvasbar.get_tk_widget().place(relx=0.33, rely=0.55, anchor=CENTER)  
 
         # Create a Button widget to show more details
         details_button = CTkButton(expenses_piechart_frame, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", image= CTkImage(details_icon), command=lambda: show_details_window(selected_month, selected_year))
-        details_button.place(relx=0.33, rely=0.83, anchor="center")
+        details_button.place(relx=0.33, rely=0.85, anchor="center")
 
     # #Button to update expenses piechart
     # update_button = CTkButton(expenses_piechart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=update_expenses_piechart)
