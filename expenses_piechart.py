@@ -176,23 +176,55 @@ def open_expenses_piechart_window(expenses_piechart_frame):
     month_dropdown = CTkOptionMenu(expenses_piechart_frame, values=months, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9") 
     month_dropdown.place(relx=0.35, rely=0.26, anchor="w")
 
+    canvasbar = None
+
     def update_expenses_piechart(*args):
+        nonlocal canvasbar
         global selected_year
-        con = sqlite3.connect("database.db")
-        c = con.cursor()
         selected_month = month_var.get()  # Get the selected month
         selected_year = year_var.get()  # Get the selected year
 
+        # Ensure both a year and month are selected
+        if not selected_year or not selected_month:
+            return
+
         # Filter expenses data by the selected month
         # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
-        
-        # # Initialize a dictionary to store total expenses for each category
-        category_expenses = defaultdict(float)
-        category_colors = {}
 
+        con = sqlite3.connect("database.db")
+        c = con.cursor()
         # Calculate total expenses for each category
         c.execute("SELECT de.date, de.expenses, cd.category, cd.colour , de.note FROM daily_expenses de JOIN category_data cd ON de.cat_ID = cd.cat_ID WHERE de.months = ? AND year =?", (selected_month,year_dropdown.get()))
         rows = c.fetchall()
+
+        # Clear any existing pie chart, "Show Details" button, and reminder message
+        if canvasbar:
+            canvasbar.get_tk_widget().place_forget()
+            canvasbar.get_tk_widget().destroy()
+            canvasbar = None
+
+        for widget in expenses_piechart_frame.winfo_children():
+            if isinstance(widget, CTkButton) or (isinstance(widget, CTkLabel) and widget.cget("fg_color") == "red"):
+                widget.place_forget()
+                widget.destroy()
+
+        if not rows:  # If there are no records for the selected month
+            # Show reminder message
+            no_records_text = f"No records found for {selected_month}, {selected_year}."
+            no_records_label = CTkLabel(expenses_piechart_frame, text=no_records_text, font=CTkFont("font/Poppins-Bold.ttf", 30), fg_color="red")
+            no_records_label.place(relx=0.50, rely=0.63, anchor="center")
+            con.close()
+            return
+
+        # # If there are records for the selected month, proceed to display the pie chart and "Show Details" button
+        # # Remove any existing reminder message
+        # for widget in expenses_piechart_frame.winfo_children():
+        #     if isinstance(widget, CTkLabel) and widget.winfo_y() > 300:
+        #         widget.destroy()
+
+        # Initialize a dictionary to store total expenses for each category
+        category_expenses = defaultdict(float)
+        category_colors = {}
 
         for expense in rows:
             category = expense[2]  # Assuming category is at index 2
@@ -226,6 +258,8 @@ def open_expenses_piechart_window(expenses_piechart_frame):
         # Create a Button widget to show more details
         details_button = CTkButton(expenses_piechart_frame, text="Show Details", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", image= CTkImage(details_icon), command=lambda: show_details_window(selected_month, selected_year))
         details_button.place(relx=0.33, rely=0.85, anchor="center")
+
+        con.close()
 
     # #Button to update expenses piechart
     # update_button = CTkButton(expenses_piechart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=update_expenses_piechart)

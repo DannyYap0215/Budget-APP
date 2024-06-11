@@ -81,6 +81,8 @@ def open_usage_barchart_window(usage_barchart_frame):
     month_dropdown = CTkOptionMenu(usage_barchart_frame, values=months, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
     month_dropdown.place(relx=0.35, rely=0.26, anchor="w")
 
+    canvasbar = None
+
     def get_global_limits():
         min_value, max_value = 0, float('-inf')
         con = sqlite3.connect("database.db")
@@ -101,13 +103,38 @@ def open_usage_barchart_window(usage_barchart_frame):
     global_y_min, global_y_max = get_global_limits()
 
     def update_usage_barchart(*args):
+        nonlocal canvasbar
         selected_month = month_var.get()  # Get the selected month
         selected_year = year_var.get()  # Get the selected year
+        
+        # Ensure both a year and month are selected
+        if not selected_year or not selected_month:
+            return
+        
         con = sqlite3.connect("database.db")
         c = con.cursor()
         c.execute("SELECT cd.category, bu.months, bu.budget_allocated, bu.budget_used FROM budget_2024 bu JOIN category_data cd ON bu.cat_ID = cd.cat_ID WHERE bu.months = ? AND bu.year = ?", (selected_month, selected_year))
         rows = c.fetchall()
-        print(rows)
+        # print(rows)
+
+        # Clear any existing bar chart canvas
+        if canvasbar:
+            canvasbar.get_tk_widget().destroy()
+            canvasbar = None
+
+        # Remove any existing reminder message, frames, and text boxes
+        for widget in usage_barchart_frame.winfo_children():
+            if (isinstance(widget, CTkLabel) and widget.cget("fg_color") == "red") or isinstance(widget, CTkFrame) or isinstance(widget, CTkTextbox):
+                widget.destroy()
+
+        # If there are no records for the selected month
+        if not rows:
+            # Show reminder message
+            no_records_text = f"No records found for {selected_month}, {selected_year}."
+            no_records_label = CTkLabel(usage_barchart_frame, text=no_records_text, font=CTkFont("font/Poppins-Bold.ttf", 30), fg_color="red")
+            no_records_label.place(relx=0.50, rely=0.63, anchor="center")
+            con.close()
+            return
 
         # Initialize dictionaries to store budget and expenses for each category
         budget_dict = defaultdict(float)
@@ -167,9 +194,9 @@ def open_usage_barchart_window(usage_barchart_frame):
         ax1.legend(lines + lines2, labels + labels2, loc='upper right')
 
         # Create a canvas to display the plot
-        canvas = FigureCanvasTkAgg(fig, master=usage_barchart_frame)
-        canvas.draw()
-        canvas.get_tk_widget().place(relx=0.40, rely=0.55, anchor=tk.CENTER)
+        canvasbar = FigureCanvasTkAgg(fig, master=usage_barchart_frame)
+        canvasbar.draw()
+        canvasbar.get_tk_widget().place(relx=0.40, rely=0.55, anchor=tk.CENTER)
 
         # Add hover annotations using mplcursors
         cursor = mplcursors.cursor(markers, hover=True)
@@ -189,6 +216,8 @@ def open_usage_barchart_window(usage_barchart_frame):
         reminder_textbox = CTkTextbox(reminder_frame, width=960, height=30, font=CTkFont("font/Poppins-Bold.ttf",25))
         reminder_textbox.place(x=20, rely=0.53, anchor="w")
         reminder_textbox.insert("1.0","Please hover your cursor over the <red dots> on the graph to view budget details.") #dont edit this line of code, the spaces in between words are for the text box display purpose    
+
+        con.close()
 
     # # Button to update usage barchart
     # update_button = CTkButton(usage_barchart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=lambda: (update_usage_barchart(), reminder()))
