@@ -88,13 +88,13 @@ def open_set_income_window(set_income_frame):
         selected_month_menu = month_issued_menu.get()
         month_is_saved = True
         month_selected = CTkLabel(set_income_frame, text=f"{selected_month_menu}",font=CTkFont("font/Poppins-Bold.ttf",20),width=80, height=10)
-        month_selected.place(relx=0.15, rely=0.58, anchor="w")
+        month_selected.place(relx=0.35, rely=0.58, anchor="w")
         
     def save_year():
 
         selected_year = year_entry.get()
         year_selected = CTkLabel(set_income_frame, text=f"{selected_year}",font=CTkFont("font/Poppins-Bold.ttf",20),width=80, height=10)
-        year_selected.place(relx=0.15, rely=0.5, anchor="w")
+        year_selected.place(relx=0.35, rely=0.5, anchor="w")
         
     # set_income_window = CTkToplevel()
     # set_income_window.title("Set Income")
