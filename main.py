@@ -1,3 +1,25 @@
+import subprocess
+import sys
+import os
+
+def install_requirements(requirements_file):
+    try:
+        with open(requirements_file,mode="r",encoding="utf-8") as file:
+            packages = file.read().splitlines()
+            for package in packages:
+                try:
+                    package_name = package.split("==")[0]
+                    __import__(package_name)
+                except ImportError:
+                    print(f"installing {package_name}")
+                    subprocess.check_call([sys.executable,"-m","pip","install",package])
+    except FileNotFoundError:
+        sys.exit(1)
+    
+        
+requirements_path = os.path.join(os.path.dirname(__file__),"requirements.txt")    
+install_requirements(requirements_path)    
+        
 from customtkinter import *
 import tkinter as tk
 from PIL import Image
@@ -12,6 +34,8 @@ import insight
 import settings
 
 
+
+                
 root = CTk()
 root.title("Budget Dashboard")
 screen_width = 1920
