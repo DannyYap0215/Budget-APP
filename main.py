@@ -35,7 +35,7 @@ import settings
 
 
 
-                
+
 root = CTk()
 root.title("Budget Dashboard")
 screen_width = 1920
