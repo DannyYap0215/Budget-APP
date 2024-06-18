@@ -178,6 +178,6 @@ clock_time()
 # expenses_history_button = CTkButton(root, text="Expenses History",height= 10,width=20, command=open_expenses_history_window)
 # expenses_history_button.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 
-# root.bind("<F11>", toggle_fullscreen)
+root.bind("<F11>", toggle_fullscreen)
 
 root.mainloop()
