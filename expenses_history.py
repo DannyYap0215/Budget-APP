@@ -42,9 +42,6 @@ def open_expenses_history_window(expenses_history_frame):
     date_icon_label = CTkLabel(expenses_history_frame, text="",image= CTkImage(calendar_icon) )
     date_icon_label.place(relx=0.05, rely=0.18, anchor="w")
 
-    # month_set = set (expense[0].strftime("%B") for expense in expenses_data) #Extract month from the date entered
-    # month_list = sorted (month_set) #Sort the extracted month
-
     custom_font = CTkFont("font/Poppins-Bold.ttf", size=30)
 
     #Dropdown menu for month
@@ -90,18 +87,6 @@ def open_expenses_history_window(expenses_history_frame):
             
         for expense in rows:
             expenses_treeview.insert("", "end", values=(expense[0], expense[1], expense[2], expense[3])) 
-    
-            
-    # def update_expenses_treeview():
-    #     selected_month = month_var.get()
-        
-    #     filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
-    #     for item in expenses_treeview.get_children(): #Clear existing items in the treeview
-    #         expenses_treeview.delete(item) 
-    #     for expense in filtered_expenses: #Insert filtered expenses into the treeview
-    #         formatted_date = expense[0].strftime("%d-%m-%Y")
-    #         expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
-
 
     #Button to update expenses treeview
     update_icon = Image.open("icon/update_icon.png")
@@ -146,15 +131,5 @@ def open_expenses_history_window(expenses_history_frame):
     expenses_treeview.column("Note", width=300)
 
     expenses_treeview.place(relx=0.05, rely=0.63, anchor="w")
-
-
-    #Insert all expenses data initially
-    # for expense in expenses_data:
-    #     formatted_date = expense[0].strftime("%d-%m-%Y")
-    #     expenses_treeview.insert("", "end", values=(formatted_date,) + expense[1:])
-
-    #Update the treeview based on the initially selected month
-
-
     update_expenses_treeview()
    

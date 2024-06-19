@@ -130,12 +130,6 @@ def open_set_categories_window(set_categories_frame):
     c.execute("SELECT DISTINCT year FROM allocated_income_for_month_2024")
     years = c.fetchall()
     years = [str(year[0]) for year in years]
-        
-    # set_categories_window = CTkToplevel()
-    # set_categories_window.title("Set Categories")
-    # set_categories_window.geometry("660x470")
-    # set_categories_window.resizable(width=False,height=False)
-    # set_categories_window.wm_attributes("-topmost",True)
     
     categories_label = CTkLabel(set_categories_frame, text="Categories", font=CTkFont("font/Poppins-Bold.ttf",50,"bold"), text_color="#6965A3" )
     categories_label.place(relx=0.05, rely=0.08, anchor="w")

@@ -20,36 +20,16 @@ class Settings():
         self.dashboard_right_frame = dashboard_right_frame
         clear_frame(self.dashboard_right_frame)
 
-        # self.settings_window = CTkToplevel()
-        # self.settings_window.title("Settings")
-        # self.settings_window.geometry("620x320")
-        # self.settings_window.wm_attributes("-topmost",True)
-        # self.settings_window.resizable(width=False, height=False)
-        # self.settings_window.minsize(620, 320)  
-        # self.settings_window.maxsize(620, 320)
-
         settings_label = CTkLabel(self.dashboard_right_frame, text="Settings", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
         settings_label.place(relx=0.02, rely=0.08, anchor="w")
         
-        # self.settings_frame_two = CTkFrame(self.dashboard_right_frame, width=1160, height=1080, corner_radius=10, border_width=2, border_color="#535085", fg_color="#202124")
-        # self.settings_frame_two.place(relx=0.23, rely=0.5, anchor="w")
-
         self.settings_frame = CTkFrame(self.dashboard_right_frame,width=1500, height=1080, corner_radius=10,
                                        border_width=2, border_color="#535085", fg_color="#202124")
         self.settings_frame.place(relx=0.23, rely=0.5, anchor="w")
         self.settings_frame.grid_propagate(False)
-        # self.settings_frame.grid_propagate(False) #makes frame stays in shape
-        
-        # self.button_frame = CTkFrame(self.dashboard_right_frame,
-        #                         width=500,height= 1080)
-        # self.button_frame.grid(row=0,column=0, sticky="nsew")
-        # self.button_frame.grid_propagate(False)
 
         user_guide_button = CTkButton(self.dashboard_right_frame, text="User Guide", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
         user_guide_button.place(relx=0.02, rely=0.18, anchor="w")
-
-        # change_theme_button = CTkButton(self.dashboard_right_frame, text="Edit Change Theme", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.user_guide)
-        # change_theme_button.place(relx=0.02, rely=0.28, anchor="w")
 
         reset_data_button = CTkButton(self.dashboard_right_frame, text="Reset Data", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=self.reset_data)
         reset_data_button.place(relx=0.02, rely=0.28, anchor="w")
@@ -60,24 +40,9 @@ class Settings():
     
     #frame for user_guide
     def user_guide(self) :
-        #frame for user guide
-        # self.user_guide_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=200,corner_radius=0)
-        # self.user_guide_frame.grid(row=0,column=0, sticky="nsew")
-        # self.user_guide_frame.grid_propagate(False)
-        
         #frame for user guide buttons
         self.page = 1
         self.update_user_guide()
-        # self.user_guide_button_frame = CTkFrame(self.settings_frame, width=self.settings_frame.winfo_width(), height=60,corner_radius=0)
-        # self.user_guide_button_frame.grid(row=1,column=0, sticky="nsew")
-        # self.user_guide_button_frame.grid_propagate(False)
-        
-        
-        # back_button = CTkButton(self.settings_frame, text="BACK", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(back_icon),command=self.previous_page)
-        # back_button.place(relx=0.05, rely=0.9, anchor="w")
-        # next_button = CTkButton(self.settings_frame, text="NEXT", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", bg_color="#1f2124", hover_color="#8885B6",image= CTkImage(next_icon),command=self.next_page)
-        # next_button.place(relx=0.62, rely=0.9, anchor="w")
-    
     
     #functions for user guides
     def update_user_guide(self) :
@@ -157,11 +122,9 @@ class Settings():
             con.commit()
             self.root.wm_attributes("-topmost", False)
             messagebox.showinfo("Data Reset", "Data has been successfully reset.")
-            # self.settings_window.wm_attributes("-topmost", True)
         else:
             self.root.wm_attributes("-topmost", False)
             messagebox.showerror("Error", "You must type 'CONFIRM' to reset data.")
             self.confirm_entry.delete(0, 'end')
-            # self.settings_frame.wm_attributes("-topmost", True)
     
    

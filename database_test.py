@@ -12,8 +12,6 @@ def create_categories_table(month_choosen,year):
                     date BLOB,
                     note BLOB
                   )""")
-    # for category, color in zip(categories, colors): #python will ignore the exceeding numbers of values and match to the lower one instead
-    #     c.execute(f"INSERT INTO {table_name} (cat_ID, expenses, date, note) VALUES (?, ?, ?)", ("", "", "", ""))
         
 def create_budget_for_monthly_usage(month) :
     table_name = f"budget_for_{month.lower()}_{year}"
@@ -154,23 +152,6 @@ def insert_expenses_to_table(expenses_date,expenses_amount,expenses_categories,e
     cat_ID = c.fetchall()
     c.execute("UPDATE budget_2024 SET budget_used = ? WHERE cat_ID = ?  AND months = ? AND year = ? ",(budget_value,cat_ID[0][0],month,year))
     con.commit()
-    
-    
-# def search_history():
-#     c.execute("SELECT")
-    
-
-    
-# def get_income_piechart() :
-#     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-#     for month in months:
-#     global rows
-#     c.execute(f"SELECT months , allocated_income FROM allocated_income_for_month_2024")
-#     months_and_allocated_income = c.fetchall()
-#     rows = months_and_allocated_income
-    
-    
-
 
 #random values
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -205,26 +186,4 @@ colors = [
     "lightpurple",
     "darkpurple"
 ]
-# categories = [
-#     "Food",
-#     "Transport",
-#     "Household",
-#     "Pets",
-#     "Apparel",
-#     "Beauty",
-#     "Health",
-#     "Education",
-#     "Social Life",
-#     "Gift",
-# ]
-
-#don't run this ; the tables had already been created
-# for month in months:
-#     create_budget_for_monthly_usage(month)
-
-# create_categories_table()
-
-#create relation-database
-#create a table just for categories use cat-id (1 - food; 2- Pet)
-#then just refer to cat-id in the month table 
 

@@ -106,11 +106,6 @@ def clear_frame(frame):
 def open_expenses_piechart_window(expenses_piechart_frame):
     clear_frame(expenses_piechart_frame)
 
-    # expenses_piechart_window = CTkToplevel()
-    # expenses_piechart_window.title("Expenses Pie Chart")
-    # expenses_piechart_window.geometry("800x750")
-    # expenses_piechart_window.wm_attributes("-topmost",True)
-
     # Define the colors dictionary
     colors = {
     "red":"#FF5733",  # Red (Lighter shade)
@@ -188,9 +183,6 @@ def open_expenses_piechart_window(expenses_piechart_frame):
         if not selected_year or not selected_month:
             return
 
-        # Filter expenses data by the selected month
-        # filtered_expenses = [expense for expense in expenses_data if expense[0].strftime("%B") == selected_month]
-
         con = sqlite3.connect("database.db")
         c = con.cursor()
         # Calculate total expenses for each category
@@ -215,12 +207,6 @@ def open_expenses_piechart_window(expenses_piechart_frame):
             no_records_label.place(relx=0.50, rely=0.63, anchor="center")
             con.close()
             return
-
-        # # If there are records for the selected month, proceed to display the pie chart and "Show Details" button
-        # # Remove any existing reminder message
-        # for widget in expenses_piechart_frame.winfo_children():
-        #     if isinstance(widget, CTkLabel) and widget.winfo_y() > 300:
-        #         widget.destroy()
 
         # Initialize a dictionary to store total expenses for each category
         category_expenses = defaultdict(float)
@@ -261,9 +247,5 @@ def open_expenses_piechart_window(expenses_piechart_frame):
 
         con.close()
 
-    # #Button to update expenses piechart
-    # update_button = CTkButton(expenses_piechart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=update_expenses_piechart)
-    # update_button.place(relx=0.35, rely=0.34, anchor="w")
-    # Bind the update function to the dropdown menus
     year_var.trace('w', update_expenses_piechart)
     month_var.trace('w', update_expenses_piechart)

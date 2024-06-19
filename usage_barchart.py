@@ -73,9 +73,6 @@ def open_usage_barchart_window(usage_barchart_frame):
     month_selection_icon = CTkLabel(usage_barchart_frame, text="", image= CTkImage(selected_icon))
     month_selection_icon.place(relx=0.05, rely=0.26, anchor="w")
 
-    # month_set = set(expense[0].strftime("%B") for expense in expenses_data)  # Extract month from the date entered
-    # month_list = sorted(month_set)  # Sort the extracted month
-
     # Dropdown menu for month
     month_var = tk.StringVar()
     month_dropdown = CTkOptionMenu(usage_barchart_frame, values=months, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9")
@@ -218,12 +215,8 @@ def open_usage_barchart_window(usage_barchart_frame):
         reminder_textbox.insert("1.0","Please hover your cursor over the <red dots> on the graph to view budget details.") #dont edit this line of code, the spaces in between words are for the text box display purpose    
 
         con.close()
-
-    # # Button to update usage barchart
-    # update_button = CTkButton(usage_barchart_frame, text="Update", font=CTkFont("font/Poppins-Bold.ttf",30), fg_color="#6965A3", hover_color="#8885B6", command=lambda: (update_usage_barchart(), reminder()))
-    # update_button.place(relx=0.35, rely=0.34, anchor="w")
-    # Bind the update function to changes in the dropdowns
+        
     year_var.trace("w", update_usage_barchart)
     month_var.trace("w", update_usage_barchart)
 
-    # usage_barchart_window.mainloop()
+   

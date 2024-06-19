@@ -95,12 +95,6 @@ def open_set_income_window(set_income_frame):
         selected_year = year_entry.get()
         year_selected = CTkLabel(set_income_frame, text=f"{selected_year}",font=CTkFont("font/Poppins-Bold.ttf",20),width=120, height=10)
         year_selected.place(relx=0.35, rely=0.5, anchor="w")
-        
-    # set_income_window = CTkToplevel()
-    # set_income_window.title("Set Income")
-    # set_income_window.geometry("620x320")
-    # set_income_window.wm_attributes("-topmost",True)
-    # set_income_window.resizable(width=False, height=False)
     
     set_income_label = CTkLabel(set_income_frame, text="Set Income", font=CTkFont("font/Poppins-Bold.ttf",50,"bold") , text_color="#6965A3")
     set_income_label.place(relx=0.05, rely=0.08, anchor="w")
