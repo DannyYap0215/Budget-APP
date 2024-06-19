@@ -1,24 +1,41 @@
 import subprocess
 import sys
-import os
 
-def install_requirements(requirements_file):
-    try:
-        with open(requirements_file,mode="r",encoding="utf-8") as file:
-            packages = file.read().splitlines()
-            for package in packages:
-                try:
-                    package_name = package.split("==")[0]
-                    __import__(package_name)
-                except ImportError:
-                    print(f"installing {package_name}")
-                    subprocess.check_call([sys.executable,"-m","pip","install",package])
-    except FileNotFoundError:
-        sys.exit(1)
-    
-        
-requirements_path = os.path.join(os.path.dirname(__file__),"requirements.txt")    
-install_requirements(requirements_path)    
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    print(f"installing {package}")
+
+try:
+    import tkinter
+except ImportError:
+    install("tk")
+    import tkinter
+
+try:
+    import customtkinter
+except ImportError:
+    install("customtkinter")
+    import customtkinter
+
+try:
+    import matplotlib
+except ImportError:
+    install("matplotlib")
+    import matplotlib
+
+try:
+    import pyparsing
+except ImportError:
+    install("pyparsing")
+    import pyparsing
+
+try:
+    import tkcalendar
+except ImportError:
+    install("tkcalendar")
+    import tkcalendar
+
         
 from customtkinter import *
 import tkinter as tk
