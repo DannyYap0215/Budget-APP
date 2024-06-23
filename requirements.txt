@@ -1,3 +1,5 @@
-customtkinter==5.2.2
-matplotlib==3.8.4
-tkcalendar==1.6.1
+customtkinter
+matplotlib
+pyparsing
+tkcalendar
+tkinter
