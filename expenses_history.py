@@ -52,10 +52,6 @@ def open_expenses_history_window(expenses_history_frame):
     
     month_dropdown = CTkOptionMenu(expenses_history_frame, values=month, variable=month_var, font=custom_font, fg_color="#6965A3", button_color="#3F3D65", button_hover_color="#A7A5C9") 
     month_dropdown.place(relx=0.26, rely=0.18, anchor="w")
-    
-    import sqlite3
-
-    import sqlite3
 
     def update_expenses_treeview():
         selected_month = month_var.get()
